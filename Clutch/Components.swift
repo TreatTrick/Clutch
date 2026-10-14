@@ -5,19 +5,24 @@ struct KeyCap: View {
     let key: ModifierKey
     var isActive = false
     var size: CGFloat = 44
+    /// Show the key name under the symbol; on by default for large keycaps
+    var showsName: Bool?
 
     var body: some View {
         VStack(spacing: 1) {
             Text(key.symbol)
                 .font(.system(size: size * 0.38, weight: .medium))
-            if size >= 40 {
+            if showsName ?? (size >= 40) {
                 Text(key.name)
                     .font(.system(size: max(9, size * 0.19), weight: .medium))
                     .foregroundStyle(isActive ? Color.accentColor : .secondary)
             }
         }
         .foregroundStyle(isActive ? Color.accentColor : .primary)
-        .frame(width: size * 1.3, height: size)
+        // Grow wider for long names like "Command" on small keycaps
+        .padding(.horizontal, 6)
+        .frame(minWidth: size * 1.3)
+        .frame(height: size)
         .background {
             RoundedRectangle(cornerRadius: size * 0.2, style: .continuous)
                 .fill(isActive ? Color.accentColor.opacity(0.18) : Color(nsColor: .controlBackgroundColor))
@@ -84,7 +89,7 @@ struct ComboLabel: View {
 
     var body: some View {
         HStack(spacing: 6) {
-            KeyCap(key: modifier, size: 22)
+            KeyCap(key: modifier, size: 34, showsName: true)
             Text(verbatim: "+").foregroundStyle(.tertiary)
             MouseGlyph(trigger: trigger, size: 15)
             Text(trigger.name).lineLimit(1)
