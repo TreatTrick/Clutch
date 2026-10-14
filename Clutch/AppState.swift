@@ -5,14 +5,25 @@ import ServiceManagement
 /// User settings that are persisted
 struct UserSettings: Codable, Equatable {
     var isEnabled = true
-    var modifier: ModifierKey = .option
     var language: AppLanguage = .system
-    var bindings: [MouseBinding] = [
-        .init(trigger: .back, action: .previousSpace),
-        .init(trigger: .forward, action: .nextSpace),
-        .init(trigger: .middle, action: .missionControl),
-        .init(trigger: .scroll(.down), action: .appExpose),
-    ]
+    var bindings: [MouseBinding] = []
+}
+
+/// The shortcut being created in the recorder, one step at a time
+struct Draft: Equatable {
+    enum Step: Int, Comparable {
+        case modifier, mouse, action, done
+
+        static func < (lhs: Step, rhs: Step) -> Bool { lhs.rawValue < rhs.rawValue }
+    }
+
+    var step: Step = .modifier
+    var modifier: ModifierKey?
+    var trigger: MouseTrigger?
+    /// Existing action that already uses the pressed combo
+    var conflict: SystemAction?
+    /// Direction of the last step change, used for the slide transition
+    var movingForward = true
 }
 
 @MainActor
@@ -26,29 +37,28 @@ final class AppState {
         }
     }
 
-    /// Whether the modifier is currently held (highlights the keycap)
-    var isModifierHeld = false
-    /// The shortcut currently recording a mouse button
-    var recordingID: MouseBinding.ID?
-    /// Most recent trigger, used for in-window feedback
-    var lastFired: (binding: MouseBinding, date: Date)?
+    private(set) var draft = Draft()
+    /// Set by the recorder view so key and mouse presses are only captured while it's on screen
+    var isRecorderVisible = false
+    /// Most recent trigger, used to flash the matching row
+    private(set) var lastFired: (id: MouseBinding.ID, date: Date)?
+    /// Shortcut added most recently, highlighted in the list
+    private(set) var lastAddedID: MouseBinding.ID?
     private(set) var hasAccessibility = AXIsProcessTrusted()
     private(set) var launchAtLogin = SMAppService.mainApp.status == .enabled
 
-    /// Whether this is the first launch (decides if the settings window opens at launch)
-    let isFirstLaunch: Bool
+    /// While true, the event tap lets mouse events through so the recorder can see them
+    var isCapturingMouse: Bool { isRecorderVisible && draft.step == .mouse }
 
-    private static let defaultsKey = "settings"
+    private static let defaultsKey = "settings.v2"
     private var eventTap: EventTap?
     private var monitors: [Any] = []
+    private var doneToken = 0
 
     init() {
         let data = UserDefaults.standard.data(forKey: Self.defaultsKey)
-        isFirstLaunch = data == nil
         settings = data.flatMap { try? JSONDecoder().decode(UserSettings.self, from: $0) } ?? UserSettings()
         Localizer.apply(settings.language)
-        // Save right away so the next launch isn't treated as the first
-        if isFirstLaunch { save() }
 
         installLocalMonitors()
         eventTap = EventTap(state: self)
@@ -57,34 +67,72 @@ final class AppState {
 
     // MARK: - Shortcuts
 
-    /// The shortcut to run for a mouse trigger (the first one wins if a trigger is bound twice)
-    func binding(for trigger: MouseTrigger) -> MouseBinding? {
-        settings.bindings.first { $0.trigger == trigger }
+    /// The shortcut to run for a mouse trigger with the given modifier flags held
+    func binding(for trigger: MouseTrigger, flags: CGEventFlags) -> MouseBinding? {
+        settings.bindings.first { $0.trigger == trigger && flags.contains($0.modifier.cgFlag) }
     }
 
     func fire(_ binding: MouseBinding) {
-        lastFired = (binding, Date())
+        lastFired = (binding.id, Date())
         ActionPerformer.perform(binding.action)
-    }
-
-    func addBinding() {
-        let usedTriggers = Set(settings.bindings.map(\.trigger))
-        let usedActions = Set(settings.bindings.map(\.action))
-        let binding = MouseBinding(
-            trigger: MouseTrigger.suggestions.first { !usedTriggers.contains($0) } ?? .middle,
-            action: SystemAction.allCases.first { !usedActions.contains($0) } ?? .missionControl
-        )
-        settings.bindings.append(binding)
-        recordingID = binding.id
     }
 
     func remove(_ binding: MouseBinding) {
         settings.bindings.removeAll { $0.id == binding.id }
-        if recordingID == binding.id { recordingID = nil }
     }
 
-    func hasConflict(_ binding: MouseBinding) -> Bool {
-        settings.bindings.filter { $0.trigger == binding.trigger }.count > 1
+    // MARK: - Recorder
+
+    func recordModifier(_ modifier: ModifierKey) {
+        guard draft.step == .modifier else { return }
+        draft.modifier = modifier
+        move(to: .mouse)
+    }
+
+    func recordTrigger(_ trigger: MouseTrigger) {
+        guard draft.step == .mouse, let modifier = draft.modifier else { return }
+        if let existing = settings.bindings.first(where: { $0.modifier == modifier && $0.trigger == trigger }) {
+            draft.conflict = existing.action
+            return
+        }
+        draft.trigger = trigger
+        move(to: .action)
+    }
+
+    func chooseAction(_ action: SystemAction) {
+        guard draft.step == .action, let modifier = draft.modifier, let trigger = draft.trigger else { return }
+        let binding = MouseBinding(modifier: modifier, trigger: trigger, action: action)
+        settings.bindings.append(binding)
+        lastAddedID = binding.id
+        move(to: .done)
+
+        // Show the confirmation briefly, then get ready for the next shortcut
+        doneToken += 1
+        let token = doneToken
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) { [weak self] in
+            guard let self, doneToken == token, draft.step == .done else { return }
+            move(to: .modifier)
+        }
+    }
+
+    /// Go back one step
+    func goBack() {
+        switch draft.step {
+        case .mouse: move(to: .modifier)
+        case .action: move(to: .mouse)
+        case .modifier, .done: break
+        }
+    }
+
+    /// Jump back to an earlier step, clearing whatever was chosen from that step on
+    func move(to step: Draft.Step) {
+        var draft = self.draft
+        draft.movingForward = step > draft.step || draft.step == .done
+        draft.step = step
+        draft.conflict = nil
+        if step <= .modifier { draft.modifier = nil }
+        if step <= .mouse { draft.trigger = nil }
+        self.draft = draft
     }
 
     // MARK: - System integration
@@ -109,6 +157,16 @@ final class AppState {
         NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility")!)
     }
 
+    /// Clears a stale Accessibility entry (e.g. left by an older build with a different signature) and asks again
+    func resetAccessibility() {
+        let task = Process()
+        task.executableURL = URL(fileURLWithPath: "/usr/bin/tccutil")
+        task.arguments = ["reset", "Accessibility", Bundle.main.bundleIdentifier ?? "io.github.clutch.Clutch"]
+        try? task.run()
+        task.waitUntilExit()
+        requestAccessibility()
+    }
+
     private func save() {
         if let data = try? JSONEncoder().encode(settings) {
             UserDefaults.standard.set(data, forKey: Self.defaultsKey)
@@ -120,36 +178,49 @@ final class AppState {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] timer in
             MainActor.assumeIsolated {
                 guard let self else { return timer.invalidate() }
-                self.hasAccessibility = AXIsProcessTrusted()
-                if self.hasAccessibility, self.eventTap?.isRunning == false {
+                let trusted = AXIsProcessTrusted()
+                if trusted != self.hasAccessibility {
+                    self.hasAccessibility = trusted
+                    // Bring the user back from System Settings to the next step
+                    if trusted { NSApp.activate(ignoringOtherApps: true) }
+                }
+                if trusted, self.eventTap?.isRunning == false {
                     self.eventTap?.start()
                 }
             }
         }.fire()
     }
 
-    /// In-window events: record mouse buttons, cancel with Esc, and highlight the modifier even without permission
+    /// The menu bar panel is an NSPanel; presses there must not feed the recorder
+    private func isRecorderEvent(_ event: NSEvent) -> Bool {
+        isRecorderVisible && !(event.window is NSPanel)
+    }
+
+    /// In-window events that drive the recorder: modifier presses, mouse buttons, and Esc to go back
     private func installLocalMonitors() {
-        monitors.append(NSEvent.addLocalMonitorForEvents(matching: MouseTrigger.recordMask) { [weak self] event in
-            guard let self, let id = recordingID,
-                  let trigger = MouseTrigger(event: event),
-                  let index = settings.bindings.firstIndex(where: { $0.id == id })
+        monitors.append(NSEvent.addLocalMonitorForEvents(matching: .flagsChanged) { [weak self] event in
+            guard let self, isRecorderEvent(event), draft.step == .modifier,
+                  let key = ModifierKey(keyCode: event.keyCode),
+                  event.modifierFlags.contains(key.nsFlag)
             else { return event }
-            settings.bindings[index].trigger = trigger
-            recordingID = nil
+            recordModifier(key)
+            return event
+        } as Any)
+
+        monitors.append(NSEvent.addLocalMonitorForEvents(matching: MouseTrigger.recordMask) { [weak self] event in
+            guard let self, isRecorderEvent(event), draft.step == .mouse,
+                  let trigger = MouseTrigger(event: event)
+            else { return event }
+            recordTrigger(trigger)
             return nil
         } as Any)
 
         monitors.append(NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
-            guard event.keyCode == 53, self?.recordingID != nil else { return event }
-            self?.recordingID = nil
+            guard let self, event.keyCode == 53, isRecorderEvent(event),
+                  draft.step == .mouse || draft.step == .action
+            else { return event }
+            goBack()
             return nil
-        } as Any)
-
-        monitors.append(NSEvent.addLocalMonitorForEvents(matching: .flagsChanged) { [weak self] event in
-            guard let self else { return event }
-            isModifierHeld = event.modifierFlags.contains(settings.modifier.nsFlag)
-            return event
         } as Any)
     }
 }

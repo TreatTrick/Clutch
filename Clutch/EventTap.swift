@@ -1,6 +1,6 @@
 import AppKit
 
-/// Global mouse event tap: while the modifier is held, turns bound buttons / scrolls into system actions and swallows the original event
+/// Global mouse event tap: turns bound modifier + mouse button / scroll combos into system actions and swallows the original event
 @MainActor
 final class EventTap {
     private unowned let state: AppState
@@ -53,9 +53,7 @@ final class EventTap {
             return pass
 
         case .flagsChanged:
-            let held = event.flags.contains(settings.modifier.cgFlag)
-            if state.isModifierHeld != held { state.isModifierHeld = held }
-            if !held { scroll.reset() }
+            scroll.reset()
             return pass
 
         case .rightMouseUp, .otherMouseUp:
@@ -66,14 +64,13 @@ final class EventTap {
             break
         }
 
-        // Let the window handle events while recording; stay out of the way when disabled or the modifier isn't held
-        guard settings.isEnabled, state.recordingID == nil,
-              event.flags.contains(settings.modifier.cgFlag)
-        else { return pass }
+        // Let the window handle events while recording; stay out of the way when disabled
+        guard settings.isEnabled, !state.isCapturingMouse else { return pass }
+        let flags = event.flags
 
         if type == .rightMouseDown || type == .otherMouseDown {
             let button = event.getIntegerValueField(.mouseEventButtonNumber)
-            guard let binding = state.binding(for: .button(Int(button))) else { return pass }
+            guard let binding = state.binding(for: .button(Int(button)), flags: flags) else { return pass }
             swallowedButtons.insert(button)
             state.fire(binding)
             return nil
@@ -84,7 +81,7 @@ final class EventTap {
             if nsEvent.isDirectionInvertedFromDevice { dx = -dx; dy = -dy }
             // Only intercept bound scroll directions; others scroll normally
             guard let direction = ScrollDirection(dx: dx, dy: dy, threshold: 0),
-                  state.binding(for: .scroll(direction)) != nil
+                  state.binding(for: .scroll(direction), flags: flags) != nil
             else { return pass }
 
             // Swallow trackpad momentum scrolling without triggering
@@ -95,7 +92,7 @@ final class EventTap {
                     dy *= ScrollAccumulator.threshold
                 }
                 if let fired = scroll.feed(dx: dx, dy: dy, at: ProcessInfo.processInfo.systemUptime),
-                   let binding = state.binding(for: .scroll(fired)) {
+                   let binding = state.binding(for: .scroll(fired), flags: flags) {
                     state.fire(binding)
                 }
             }

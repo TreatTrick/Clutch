@@ -110,217 +110,30 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hold a key, click your mouse, trigger a system gesture"
+            "value": "Hold a key, press a mouse button, trigger a system gesture"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "按住键盘修饰键，再按鼠标按键，触发系统手势"
+            "value": "按住键盘按键，再按鼠标按键，触发系统手势"
           }
         }
       }
     },
-    "binding.action": {
+    "common.disabled.help": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Action"
+            "value": "Clutch is paused. Turn on to use your shortcuts."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "操作"
-          }
-        }
-      }
-    },
-    "binding.add": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Add Shortcut"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "添加快捷操作"
-          }
-        }
-      }
-    },
-    "binding.conflict": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "This mouse button is used more than once. Only the first one works."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "这个鼠标按键被重复使用，只有第一个生效"
-          }
-        }
-      }
-    },
-    "binding.delete": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delete shortcut"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "删除快捷操作"
-          }
-        }
-      }
-    },
-    "binding.empty": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No shortcuts yet. Add one below."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "还没有快捷操作，点下方按钮添加"
-          }
-        }
-      }
-    },
-    "binding.hotkeyDisabled": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The matching shortcut is turned off in System Settings › Keyboard › Keyboard Shortcuts › Mission Control."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "对应的系统快捷键已关闭，请在“系统设置 › 键盘 › 键盘快捷键 › 调度中心”中开启"
-          }
-        }
-      }
-    },
-    "binding.record.help": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Click, then press a mouse button to record"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "点击后按下鼠标按键即可录制"
-          }
-        }
-      }
-    },
-    "binding.recording": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Press a mouse button…"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "按下鼠标按键…"
-          }
-        }
-      }
-    },
-    "binding.recording.help": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Press a mouse button or scroll the wheel. Esc to cancel."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "按下鼠标按键或滚动滚轮，Esc 取消"
-          }
-        }
-      }
-    },
-    "binding.subtitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Click a mouse button on the left to re-record it"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "点击左侧的鼠标按键可重新录制"
-          }
-        }
-      }
-    },
-    "binding.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mouse Shortcuts"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "鼠标快捷操作"
-          }
-        }
-      }
-    },
-    "binding.tryIt %@": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hold %@ and use your mouse to try it"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "按住 %@ 再操作鼠标试一试"
+            "value": "Clutch 已暂停，开启后快捷键恢复生效"
           }
         }
       }
@@ -342,19 +155,70 @@
         }
       }
     },
+    "common.enabled.help": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clutch is on. Turn off to pause all shortcuts."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clutch 已开启，关闭后所有快捷键暂停"
+          }
+        }
+      }
+    },
+    "common.off": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Off"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已暂停"
+          }
+        }
+      }
+    },
+    "common.on": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "On"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已开启"
+          }
+        }
+      }
+    },
     "gesture.appExpose": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "3-finger swipe down · ⌃↓"
+            "value": "3-finger swipe down"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "三指下滑 · ⌃↓"
+            "value": "三指下滑"
           }
         }
       }
@@ -365,13 +229,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "3-finger swipe up · ⌃↑"
+            "value": "3-finger swipe up"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "三指上滑 · ⌃↑"
+            "value": "三指上滑"
           }
         }
       }
@@ -382,13 +246,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "3-finger swipe left · ⌃→"
+            "value": "3-finger swipe left"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "三指左滑 · ⌃→"
+            "value": "三指左滑"
           }
         }
       }
@@ -416,13 +280,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "3-finger swipe right · ⌃←"
+            "value": "3-finger swipe right"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "三指右滑 · ⌃←"
+            "value": "三指右滑"
           }
         }
       }
@@ -457,6 +321,91 @@
           "stringUnit": {
             "state": "translated",
             "value": "跟随系统"
+          }
+        }
+      }
+    },
+    "list.empty": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shortcuts you add will appear here"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "添加的快捷键会显示在这里"
+          }
+        }
+      }
+    },
+    "list.hotkeyDisabled": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The matching shortcut is turned off in System Settings › Keyboard › Keyboard Shortcuts › Mission Control."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "对应的系统快捷键已关闭，请在“系统设置 › 键盘 › 键盘快捷键 › 调度中心”中开启"
+          }
+        }
+      }
+    },
+    "list.remove": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove shortcut"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "移除快捷键"
+          }
+        }
+      }
+    },
+    "list.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your Shortcuts"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我的快捷键"
+          }
+        }
+      }
+    },
+    "menu.addFirst": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add your first shortcut…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "添加第一个快捷键…"
           }
         }
       }
@@ -580,53 +529,19 @@
         }
       }
     },
-    "modifier.subtitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mouse shortcuts only work while this key is held"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "按住这个键时，鼠标快捷操作才会生效"
-          }
-        }
-      }
-    },
-    "modifier.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Modifier Key"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "修饰键"
-          }
-        }
-      }
-    },
     "permission.detail": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lets Clutch detect key + mouse combos in every app"
+            "value": "Clutch needs this to notice when you hold a key and press a mouse button in any app. Turn on Clutch in the list that opens."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "用于在所有应用中识别键盘 + 鼠标组合"
+            "value": "Clutch 需要它来识别你在任意应用中按住键盘并按下鼠标按键的操作。请在打开的列表中开启 Clutch。"
           }
         }
       }
@@ -637,13 +552,81 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Grant Access"
+            "value": "Open System Settings"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "去授权"
+            "value": "打开系统设置"
+          }
+        }
+      }
+    },
+    "permission.privacy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clutch never records what you type."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clutch 不会记录你输入的任何内容"
+          }
+        }
+      }
+    },
+    "permission.reopen": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open System Settings Again"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再次打开系统设置"
+          }
+        }
+      }
+    },
+    "permission.reset": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove the old entry and try again"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清除旧的授权记录并重新授权"
+          }
+        }
+      }
+    },
+    "permission.stuck": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Already turned on but still waiting? An older copy of Clutch may be the one in the list."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已经打开了却还在等待？列表里的可能是旧版本的 Clutch。"
           }
         }
       }
@@ -654,13 +637,251 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Accessibility permission required"
+            "value": "Allow Clutch to use Accessibility"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "需要辅助功能权限"
+            "value": "允许 Clutch 使用辅助功能"
+          }
+        }
+      }
+    },
+    "permission.waiting": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Waiting for permission… Clutch continues automatically."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "等待授权中… 授权后会自动继续"
+          }
+        }
+      }
+    },
+    "recorder.action.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose what it does"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选择要触发的操作"
+          }
+        }
+      }
+    },
+    "recorder.back": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Back"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "上一步"
+          }
+        }
+      }
+    },
+    "recorder.back.help": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Go back one step (Esc)"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "返回上一步（Esc）"
+          }
+        }
+      }
+    },
+    "recorder.done.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shortcut added"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "快捷键已添加"
+          }
+        }
+      }
+    },
+    "recorder.key.detail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This is the key you'll hold with your other hand"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用时，用另一只手按住这个键"
+          }
+        }
+      }
+    },
+    "recorder.key.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Press one of these keys"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "按下其中任意一个键"
+          }
+        }
+      }
+    },
+    "recorder.mouse.conflict %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Already used for “%@”. Try another button."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这个组合已用于“%@”，换一个按键试试"
+          }
+        }
+      }
+    },
+    "recorder.mouse.detail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Side buttons, middle click, right click, or scroll the wheel"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "侧键、中键、右键，或滚动滚轮都可以"
+          }
+        }
+      }
+    },
+    "recorder.mouse.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Now press a mouse button"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "现在按下一个鼠标按键"
+          }
+        }
+      }
+    },
+    "recorder.step.action": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Action"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "操作"
+          }
+        }
+      }
+    },
+    "recorder.step.key": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Key"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "键盘按键"
+          }
+        }
+      }
+    },
+    "recorder.step.mouse": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mouse"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "鼠标按键"
+          }
+        }
+      }
+    },
+    "recorder.step.redo": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Redo from this step"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "从这一步重新开始"
           }
         }
       }

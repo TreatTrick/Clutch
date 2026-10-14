@@ -1,10 +1,22 @@
 import AppKit
 
-/// Keyboard modifier to hold. Mouse shortcuts only work while it's held.
+/// Keyboard modifier held together with a mouse button to form a shortcut
 enum ModifierKey: String, CaseIterable, Identifiable, Codable {
     case option, control, command, shift, function
 
     var id: String { rawValue }
+
+    /// Maps a flagsChanged key code (left or right variant) to a modifier
+    init?(keyCode: UInt16) {
+        switch keyCode {
+        case 58, 61: self = .option
+        case 59, 62: self = .control
+        case 55, 54: self = .command
+        case 56, 60: self = .shift
+        case 63: self = .function
+        default: return nil
+        }
+    }
 
     var symbol: String {
         switch self {
@@ -63,12 +75,6 @@ enum MouseTrigger: Hashable, Codable {
     static let middle = MouseTrigger.button(2)
     static let back = MouseTrigger.button(3)
     static let forward = MouseTrigger.button(4)
-
-    /// Default triggers tried in order when adding a shortcut
-    static let suggestions: [MouseTrigger] = [
-        .back, .forward, .middle,
-        .scroll(.up), .scroll(.down), .scroll(.left), .scroll(.right), .right,
-    ]
 
     var name: String {
         switch self {
@@ -144,6 +150,7 @@ enum SystemAction: String, CaseIterable, Identifiable, Codable {
 
 struct MouseBinding: Identifiable, Hashable, Codable {
     var id = UUID()
+    var modifier: ModifierKey
     var trigger: MouseTrigger
     var action: SystemAction
 }

@@ -7,22 +7,24 @@ struct MainView: View {
         VStack(spacing: 0) {
             HeaderView()
             Divider()
-            VStack(alignment: .leading, spacing: 22) {
-                if !state.hasAccessibility {
-                    PermissionBanner()
+            if state.hasAccessibility {
+                VStack(alignment: .leading, spacing: 20) {
+                    RecorderView()
+                        .disabled(!state.settings.isEnabled)
+                        .opacity(state.settings.isEnabled ? 1 : 0.45)
+                    BindingList()
                 }
-                ModifierSection()
-                BindingsSection()
+                .padding(20)
+                .transition(.opacity)
+                Divider()
+                FooterView()
+            } else {
+                PermissionView()
+                    .transition(.opacity)
             }
-            .padding(24)
-            .disabled(!state.settings.isEnabled)
-            .opacity(state.settings.isEnabled ? 1 : 0.45)
-            .animation(.easeOut(duration: 0.2), value: state.settings.isEnabled)
-            Divider()
-            FooterView()
         }
-        .frame(width: 560)
-        .overlay(alignment: .bottom) { FiredHUD().padding(.bottom, 64) }
+        .frame(width: 580)
+        .animation(.easeInOut(duration: 0.3), value: state.hasAccessibility)
     }
 }
 
@@ -35,227 +37,158 @@ private struct HeaderView: View {
         @Bindable var state = state
         HStack(spacing: 12) {
             Image(systemName: "hand.point.up.left.and.text.fill")
-                .font(.system(size: 22))
+                .font(.system(size: 20))
                 .foregroundStyle(Color.accentColor)
-                .frame(width: 40, height: 40)
+                .frame(width: 38, height: 38)
                 .background(RoundedRectangle(cornerRadius: 10).fill(Color.accentColor.opacity(0.12)))
                 .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: 2) {
-                Text(verbatim: "Clutch").font(.title2.weight(.semibold))
+                Text(verbatim: "Clutch").font(.title3.weight(.semibold))
                 Text(L("app.tagline"))
-                    .font(.callout)
+                    .font(.caption)
                     .foregroundStyle(.secondary)
             }
             Spacer()
-            Toggle(L("common.enable"), isOn: $state.settings.isEnabled)
-                .toggleStyle(.switch)
-                .labelsHidden()
-                .controlSize(.large)
-        }
-        .padding(.horizontal, 24)
-        .padding(.top, 30) // Leave room for the traffic lights in the hidden title bar
-        .padding(.bottom, 16)
-    }
-}
-
-// MARK: - Permission banner
-
-private struct PermissionBanner: View {
-    @Environment(AppState.self) private var state
-
-    var body: some View {
-        HStack(spacing: 10) {
-            Image(systemName: "exclamationmark.shield.fill")
-                .foregroundStyle(.orange)
-                .font(.title3)
-                .accessibilityHidden(true)
-            VStack(alignment: .leading, spacing: 2) {
-                Text(L("permission.title")).font(.callout.weight(.medium))
-                Text(L("permission.detail")).font(.caption).foregroundStyle(.secondary)
-            }
-            Spacer()
-            Button(L("permission.grant")) { state.requestAccessibility() }
-                .controlSize(.small)
-        }
-        .padding(12)
-        .background(RoundedRectangle(cornerRadius: 10).fill(Color.orange.opacity(0.1)))
-    }
-}
-
-// MARK: - Step 1: modifier key
-
-private struct ModifierSection: View {
-    @Environment(AppState.self) private var state
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            SectionTitle(step: 1, title: L("modifier.title"), subtitle: L("modifier.subtitle"))
-            HStack(spacing: 10) {
-                ForEach(ModifierKey.allCases) { key in
-                    let selected = state.settings.modifier == key
-                    Button {
-                        state.settings.modifier = key
-                    } label: {
-                        KeyCap(key: key, isHeld: selected && state.isModifierHeld, isSelected: selected)
-                    }
-                    .buttonStyle(.plain)
-                }
-                Spacer()
-            }
-        }
-    }
-}
-
-// MARK: - Step 2: mouse shortcuts
-
-private struct BindingsSection: View {
-    @Environment(AppState.self) private var state
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            SectionTitle(step: 2, title: L("binding.title"), subtitle: L("binding.subtitle"))
-
-            VStack(spacing: 0) {
-                ForEach(state.settings.bindings) { binding in
-                    BindingRow(binding: binding)
-                    if binding.id != state.settings.bindings.last?.id {
-                        Divider().padding(.leading, 12)
-                    }
-                }
-                if state.settings.bindings.isEmpty {
-                    Text(L("binding.empty"))
+            LanguageMenu()
+            // Nothing to toggle until permission is granted
+            if state.hasAccessibility {
+                Toggle(isOn: $state.settings.isEnabled) {
+                    Text(L(state.settings.isEnabled ? "common.on" : "common.off"))
                         .font(.callout)
                         .foregroundStyle(.secondary)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 24)
                 }
-            }
-            .background(RoundedRectangle(cornerRadius: 10).fill(.background))
-            .overlay(RoundedRectangle(cornerRadius: 10).strokeBorder(.separator))
-
-            HStack {
-                Button {
-                    state.addBinding()
-                } label: {
-                    Label(L("binding.add"), systemImage: "plus")
-                }
-                Spacer()
-                TryItHint()
+                .toggleStyle(.switch)
+                .help(L(state.settings.isEnabled ? "common.enabled.help" : "common.disabled.help"))
             }
         }
+        .padding(.horizontal, 20)
+        .padding(.top, 30) // Leave room for the traffic lights in the hidden title bar
+        .padding(.bottom, 14)
+    }
+}
+
+/// Globe menu for switching language; lives in the header so it's reachable on every screen
+private struct LanguageMenu: View {
+    @Environment(AppState.self) private var state
+
+    var body: some View {
+        @Bindable var state = state
+        Menu {
+            Picker(L("settings.language"), selection: $state.settings.language) {
+                ForEach(AppLanguage.allCases) { Text($0.displayName).tag($0) }
+            }
+            .pickerStyle(.inline)
+            .labelsHidden()
+        } label: {
+            // Show the current language as text so it's obvious what the button changes
+            Label(state.settings.language.displayName, systemImage: "globe")
+                .labelStyle(.titleAndIcon)
+        }
+        .menuStyle(.button)
+        .buttonStyle(.bordered)
+        .fixedSize()
+        .help(L("settings.language"))
+        .accessibilityLabel(L("settings.language"))
+    }
+}
+
+// MARK: - Shortcut list
+
+private struct BindingList: View {
+    @Environment(AppState.self) private var state
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text(L("list.title")).font(.headline)
+                if !state.settings.bindings.isEmpty {
+                    Text(verbatim: "\(state.settings.bindings.count)")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 1)
+                        .background(Capsule().fill(.quaternary))
+                }
+                Spacer()
+            }
+
+            if state.settings.bindings.isEmpty {
+                Text(L("list.empty"))
+                    .font(.callout)
+                    .foregroundStyle(.tertiary)
+                    .frame(maxWidth: .infinity, minHeight: 64)
+                    .background(RoundedRectangle(cornerRadius: 10).strokeBorder(.separator, style: StrokeStyle(dash: [4, 4])))
+            } else {
+                ScrollView {
+                    VStack(spacing: 0) {
+                        ForEach(state.settings.bindings) { binding in
+                            BindingRow(binding: binding)
+                                .transition(.asymmetric(insertion: .push(from: .top), removal: .opacity))
+                            if binding.id != state.settings.bindings.last?.id {
+                                Divider().padding(.leading, 14)
+                            }
+                        }
+                    }
+                }
+                .scrollBounceBehavior(.basedOnSize)
+                .frame(maxHeight: 220)
+                .fixedSize(horizontal: false, vertical: true)
+                .background(RoundedRectangle(cornerRadius: 10).fill(.background))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .overlay(RoundedRectangle(cornerRadius: 10).strokeBorder(.separator))
+            }
+        }
+        .animation(.spring(duration: 0.35), value: state.settings.bindings)
     }
 }
 
 private struct BindingRow: View {
     @Environment(AppState.self) private var state
     let binding: MouseBinding
-
     @State private var hovering = false
 
-    private var index: Int? { state.settings.bindings.firstIndex { $0.id == binding.id } }
-
-    private var justFired: Bool {
-        guard let fired = state.lastFired else { return false }
-        return fired.binding.id == binding.id && Date().timeIntervalSince(fired.date) < 0.8
+    private var highlight: Bool {
+        if let fired = state.lastFired, fired.id == binding.id, Date().timeIntervalSince(fired.date) < 0.8 { return true }
+        return state.lastAddedID == binding.id && state.draft.step == .done
     }
 
     var body: some View {
-        @Bindable var state = state
         HStack(spacing: 10) {
-            TriggerChip(trigger: binding.trigger,
-                        isRecording: state.recordingID == binding.id,
-                        hasConflict: state.hasConflict(binding)) {
-                state.recordingID = state.recordingID == binding.id ? nil : binding.id
-            }
-
+            ComboLabel(modifier: binding.modifier, trigger: binding.trigger)
+                .frame(width: 220, alignment: .leading)
             Image(systemName: "arrow.right")
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(.tertiary)
                 .accessibilityHidden(true)
-
-            if let index {
-                Picker(L("binding.action"), selection: $state.settings.bindings[index].action) {
-                    ForEach(SystemAction.allCases) { action in
-                        Label(action.name, systemImage: action.symbol).tag(action)
-                    }
-                }
-                .labelsHidden()
-                .frame(width: 150)
-            }
-
-            Text(binding.action.gestureHint)
-                .font(.caption)
-                .foregroundStyle(.tertiary)
+            Label(binding.action.name, systemImage: binding.action.symbol)
+                .font(.callout)
                 .lineLimit(1)
-
             Spacer(minLength: 4)
 
-            if state.hasConflict(binding) {
-                WarningIcon(L("binding.conflict"))
-            } else if !ActionPerformer.isAvailable(binding.action) {
-                WarningIcon(L("binding.hotkeyDisabled"))
+            if !ActionPerformer.isAvailable(binding.action) {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundStyle(.orange)
+                    .help(L("list.hotkeyDisabled"))
+                    .accessibilityLabel(L("list.hotkeyDisabled"))
             }
 
             Button {
                 state.remove(binding)
             } label: {
-                Image(systemName: "minus.circle.fill")
-                    .foregroundStyle(.secondary)
+                Image(systemName: "trash")
             }
-            .buttonStyle(.plain)
-            .opacity(hovering ? 1 : 0)
-            .help(L("binding.delete"))
-            .accessibilityLabel(L("binding.delete"))
+            .buttonStyle(.borderless)
+            .foregroundStyle(hovering ? .red : .secondary)
+            .opacity(hovering ? 1 : 0.35)
+            .help(L("list.remove"))
+            .accessibilityLabel(L("list.remove"))
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .background(justFired ? Color.accentColor.opacity(0.12) : .clear)
-        .animation(.easeOut(duration: 0.3), value: justFired)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 9)
+        .background(highlight ? Color.accentColor.opacity(0.12) : hovering ? Color.secondary.opacity(0.06) : .clear)
+        .animation(.easeOut(duration: 0.3), value: highlight)
         .onHover { hovering = $0 }
-    }
-}
-
-private struct WarningIcon: View {
-    let message: String
-    init(_ message: String) { self.message = message }
-
-    var body: some View {
-        Image(systemName: "exclamationmark.triangle.fill")
-            .foregroundStyle(.orange)
-            .help(message)
-            .accessibilityLabel(message)
-    }
-}
-
-private struct TryItHint: View {
-    @Environment(AppState.self) private var state
-
-    var body: some View {
-        HStack(spacing: 6) {
-            Image(systemName: "sparkles").accessibilityHidden(true)
-            Text(L("binding.tryIt %@", state.settings.modifier.symbol))
-        }
-        .font(.caption)
-        .foregroundStyle(state.isModifierHeld ? Color.accentColor : .secondary)
-    }
-}
-
-private struct SectionTitle: View {
-    let step: Int
-    let title: String
-    let subtitle: String
-
-    var body: some View {
-        HStack(alignment: .firstTextBaseline, spacing: 8) {
-            Text(verbatim: "\(step)")
-                .font(.caption.weight(.bold))
-                .foregroundStyle(.white)
-                .frame(width: 18, height: 18)
-                .background(Circle().fill(Color.accentColor))
-                .accessibilityHidden(true)
-            Text(title).font(.headline)
-            Text(subtitle).font(.caption).foregroundStyle(.secondary)
-        }
+        .accessibilityElement(children: .combine)
     }
 }
 
@@ -273,52 +206,13 @@ private struct FooterView: View {
             ))
             .toggleStyle(.checkbox)
 
-            Picker(L("settings.language"), selection: $state.settings.language) {
-                ForEach(AppLanguage.allCases) { Text($0.displayName).tag($0) }
-            }
-            .fixedSize()
-
             Spacer()
             Text(L("settings.menuBarHint"))
                 .font(.caption)
                 .foregroundStyle(.tertiary)
                 .lineLimit(1)
         }
-        .padding(.horizontal, 24)
+        .padding(.horizontal, 20)
         .padding(.vertical, 12)
-    }
-}
-
-// MARK: - Trigger feedback HUD
-
-private struct FiredHUD: View {
-    @Environment(AppState.self) private var state
-    @State private var text: String?
-    @State private var symbol = ""
-
-    var body: some View {
-        Group {
-            if let text {
-                HStack(spacing: 8) {
-                    Image(systemName: symbol).foregroundStyle(Color.accentColor)
-                    Text(text).font(.callout.weight(.medium))
-                }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 10)
-                .background(.regularMaterial, in: Capsule())
-                .shadow(color: .black.opacity(0.15), radius: 10, y: 4)
-                .transition(.scale(scale: 0.9).combined(with: .opacity))
-            }
-        }
-        .animation(.spring(duration: 0.25), value: text)
-        .onChange(of: state.lastFired?.date) { _, _ in
-            guard let binding = state.lastFired?.binding else { return }
-            let current = "\(state.settings.modifier.symbol) + \(binding.trigger.name) → \(binding.action.name)"
-            symbol = binding.action.symbol
-            text = current
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
-                if text == current { text = nil }
-            }
-        }
     }
 }
