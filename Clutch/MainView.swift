@@ -209,13 +209,39 @@ private struct FooterView: View {
             ))
             .toggleStyle(.checkbox)
 
-            Spacer()
             Text(L("settings.menuBarHint"))
                 .font(.caption)
                 .foregroundStyle(.tertiary)
                 .lineLimit(1)
+
+            Spacer()
+
+            BuyMeCoffeeButton()
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 12)
+    }
+}
+
+/// Opens the support popup straight away
+private struct BuyMeCoffeeButton: View {
+    @Environment(AppState.self) private var state
+    @State private var hovering = false
+
+    var body: some View {
+        Button {
+            state.support.show(manually: true)
+        } label: {
+            Label(L("support.button"), systemImage: "cup.and.saucer.fill")
+                .font(.callout.weight(.medium))
+                .foregroundStyle(Color(red: 0.42, green: 0.25, blue: 0.08))
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(Capsule().fill(Color(red: 1, green: 0.8, blue: 0.24).opacity(hovering ? 1 : 0.88)))
+                .contentShape(Capsule())
+        }
+        .buttonStyle(.plain)
+        .onHover { hovering = $0 }
+        .help(L("menu.support"))
     }
 }

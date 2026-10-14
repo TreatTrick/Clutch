@@ -48,6 +48,13 @@ struct MenuBarView: View {
 
             Divider()
 
+            Button {
+                state.support.show(manually: true)
+            } label: {
+                Label(L("menu.support"), systemImage: "cup.and.saucer.fill")
+            }
+            .buttonStyle(.borderless)
+
             HStack {
                 Button(L("menu.settings")) { openSettings() }
                     .keyboardShortcut(",")

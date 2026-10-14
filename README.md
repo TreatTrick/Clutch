@@ -25,6 +25,18 @@ Strings live in `Clutch/Localizable.xcstrings` (English and Simplified Chinese).
 
 The icon is drawn in code. Edit `scripts/make_icon.swift` and run `swift scripts/make_icon.swift` to regenerate `Clutch/Assets.xcassets/AppIcon.appiconset`.
 
+## Support popup
+
+After Clutch has been used on 3 different days, a small "buy me a coffee" popup appears once during the day (10:00–19:00), a few seconds after a shortcut fires. It is skipped while a full-screen app is in front, snoozed for 14 days when closed, and never shown again after 3 dismissals or after the user tips or stars. It can always be opened from the menu bar.
+
+The QR codes and links in `SupportLinks` / `PaymentMethod` are demo placeholders.
+
+The mascot comes from two videos (dejected → overjoyed, and a jump that loops). Regenerate the bundled frames with:
+
+```
+swift scripts/make_mascot.swift <videoA.mp4> <videoB.mp4>
+```
+
 ## License
 
 MIT

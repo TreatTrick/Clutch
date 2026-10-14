@@ -7,6 +7,18 @@ struct UserSettings: Codable, Equatable {
     var isEnabled = true
     var language: AppLanguage = .system
     var bindings: [MouseBinding] = []
+    var support = SupportStats()
+
+    init() {}
+
+    // Decode field by field so settings saved before a field existed still load
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        isEnabled = try c.decodeIfPresent(Bool.self, forKey: .isEnabled) ?? true
+        language = try c.decodeIfPresent(AppLanguage.self, forKey: .language) ?? .system
+        bindings = try c.decodeIfPresent([MouseBinding].self, forKey: .bindings) ?? []
+        support = try c.decodeIfPresent(SupportStats.self, forKey: .support) ?? SupportStats()
+    }
 }
 
 /// The shortcut being created in the recorder, one step at a time
@@ -52,6 +64,7 @@ final class AppState {
 
     private static let defaultsKey = "settings.v2"
     private var eventTap: EventTap?
+    let support = SupportController()
     private var monitors: [Any] = []
     private var doneToken = 0
 
@@ -62,6 +75,7 @@ final class AppState {
 
         installLocalMonitors()
         eventTap = EventTap(state: self)
+        support.state = self
         startEventTapWhenTrusted()
     }
 
@@ -75,6 +89,8 @@ final class AppState {
     func fire(_ binding: MouseBinding) {
         lastFired = (binding.id, Date())
         ActionPerformer.perform(binding.action)
+        settings.support.recordTrigger()
+        support.shortcutDidFire()
     }
 
     func remove(_ binding: MouseBinding) {
