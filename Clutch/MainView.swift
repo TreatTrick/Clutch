@@ -112,37 +112,42 @@ private struct BindingList: View {
                 Spacer()
             }
 
-            if state.settings.bindings.isEmpty {
-                Text(L("list.empty"))
-                    .font(.callout)
-                    .foregroundStyle(.tertiary)
-                    .frame(maxWidth: .infinity, minHeight: 64)
-                    .background(RoundedRectangle(cornerRadius: 10).strokeBorder(.separator, style: StrokeStyle(dash: [4, 4])))
-            } else {
-                ScrollView {
-                    VStack(spacing: 0) {
-                        ForEach(state.settings.bindings) { binding in
-                            BindingRow(binding: binding)
-                                .transition(.asymmetric(insertion: .push(from: .top), removal: .opacity))
-                            if binding.id != state.settings.bindings.last?.id {
-                                Divider().padding(.leading, 14)
+            // Fixed height so adding or removing a row never resizes the window,
+            // which made the list, scroller and trash buttons jitter during the animation
+            Group {
+                if state.settings.bindings.isEmpty {
+                    Text(L("list.empty"))
+                        .font(.callout)
+                        .foregroundStyle(.tertiary)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(RoundedRectangle(cornerRadius: 10).strokeBorder(.separator, style: StrokeStyle(dash: [4, 4])))
+                } else {
+                    ScrollView {
+                        VStack(spacing: 0) {
+                            ForEach(state.settings.bindings) { binding in
+                                BindingRow(binding: binding)
+                                    .transition(.asymmetric(insertion: .push(from: .top), removal: .opacity))
+                                if binding.id != state.settings.bindings.last?.id {
+                                    Divider().padding(.leading, 14)
+                                }
                             }
                         }
                     }
+                    .scrollBounceBehavior(.basedOnSize)
+                    .background(RoundedRectangle(cornerRadius: 10).fill(.background))
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .overlay(RoundedRectangle(cornerRadius: 10).strokeBorder(.separator))
                 }
-                .scrollBounceBehavior(.basedOnSize)
-                .frame(maxHeight: 220)
-                .fixedSize(horizontal: false, vertical: true)
-                .background(RoundedRectangle(cornerRadius: 10).fill(.background))
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .overlay(RoundedRectangle(cornerRadius: 10).strokeBorder(.separator))
             }
+            .frame(height: BindingRow.height * 4 + 3)
         }
         .animation(.spring(duration: 0.35), value: state.settings.bindings)
     }
 }
 
 private struct BindingRow: View {
+    static let height: CGFloat = 44
+
     @Environment(AppState.self) private var state
     let binding: MouseBinding
     @State private var hovering = false
@@ -184,7 +189,7 @@ private struct BindingRow: View {
             .accessibilityLabel(L("list.remove"))
         }
         .padding(.horizontal, 14)
-        .padding(.vertical, 9)
+        .frame(height: Self.height)
         .background(highlight ? Color.accentColor.opacity(0.12) : hovering ? Color.secondary.opacity(0.06) : .clear)
         .animation(.easeOut(duration: 0.3), value: highlight)
         .onHover { hovering = $0 }
