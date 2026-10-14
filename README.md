@@ -21,6 +21,10 @@ On first launch, grant Accessibility permission (System Settings › Privacy & S
 
 Strings live in `Clutch/Localizable.xcstrings` (English and Simplified Chinese). Edit `scripts/gen_strings.py` and run `python3 scripts/gen_strings.py` to regenerate it.
 
+## App icon
+
+The icon is drawn in code. Edit `scripts/make_icon.swift` and run `swift scripts/make_icon.swift` to regenerate `Clutch/Assets.xcassets/AppIcon.appiconset`.
+
 ## License
 
 MIT

@@ -62,7 +62,8 @@ private struct MenuBarIcon: View {
     @Environment(\.openWindow) private var openWindow
 
     var body: some View {
-        Image(systemName: isEnabled ? "hand.point.up.left.and.text.fill" : "hand.point.up.left.and.text")
+        // Solid when active, outline while paused
+        Image(isEnabled ? "MenuBarIcon" : "MenuBarIconOff")
             .onReceive(NotificationCenter.default.publisher(for: .openSettings)) { _ in
                 openWindow(id: "main")
                 NSApp.activate(ignoringOtherApps: true)

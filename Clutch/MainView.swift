@@ -36,11 +36,9 @@ private struct HeaderView: View {
     var body: some View {
         @Bindable var state = state
         HStack(spacing: 12) {
-            Image(systemName: "hand.point.up.left.and.text.fill")
-                .font(.system(size: 20))
-                .foregroundStyle(Color.accentColor)
-                .frame(width: 38, height: 38)
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color.accentColor.opacity(0.12)))
+            Image(nsImage: NSApp.applicationIconImage)
+                .resizable()
+                .frame(width: 44, height: 44)
                 .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: 2) {
                 Text(verbatim: "Clutch").font(.title3.weight(.semibold))
