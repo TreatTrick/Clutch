@@ -47,7 +47,7 @@ private struct HeaderView: View {
                     .foregroundStyle(.secondary)
             }
             Spacer()
-            LanguageMenu()
+            PreferencesMenu()
             // Nothing to toggle until permission is granted
             if state.hasAccessibility {
                 Toggle(isOn: $state.settings.isEnabled) {
@@ -65,28 +65,42 @@ private struct HeaderView: View {
     }
 }
 
-/// Globe menu for switching language; lives in the header so it's reachable on every screen
-private struct LanguageMenu: View {
+/// Menu for switching language and appearance; lives in the header so it's reachable on every screen
+private struct PreferencesMenu: View {
     @Environment(AppState.self) private var state
 
     var body: some View {
         @Bindable var state = state
         Menu {
-            Picker(L("settings.language"), selection: $state.settings.language) {
-                ForEach(AppLanguage.allCases) { Text($0.displayName).tag($0) }
+            Section(L("settings.appearance")) {
+                Picker(L("settings.appearance"), selection: $state.settings.appearance) {
+                    ForEach(AppAppearance.allCases) { appearance in
+                        Label(appearance.displayName, systemImage: appearance.symbol).tag(appearance)
+                    }
+                }
+                .pickerStyle(.inline)
+                .labelsHidden()
             }
-            .pickerStyle(.inline)
-            .labelsHidden()
+
+            Divider()
+
+            Section(L("settings.language")) {
+                Picker(L("settings.language"), selection: $state.settings.language) {
+                    ForEach(AppLanguage.allCases) { Text($0.displayName).tag($0) }
+                }
+                .pickerStyle(.inline)
+                .labelsHidden()
+            }
         } label: {
-            // Show the current language as text so it's obvious what the button changes
-            Label(state.settings.language.displayName, systemImage: "globe")
+            // Keep appearance and language together under one visible preferences entry.
+            Label(L("settings.preferences"), systemImage: "slider.horizontal.3")
                 .labelStyle(.titleAndIcon)
         }
         .menuStyle(.button)
         .buttonStyle(.bordered)
         .fixedSize()
-        .help(L("settings.language"))
-        .accessibilityLabel(L("settings.language"))
+        .help(L("settings.preferences.help"))
+        .accessibilityLabel(L("settings.preferences.help"))
     }
 }
 

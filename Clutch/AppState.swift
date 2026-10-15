@@ -6,6 +6,7 @@ import ServiceManagement
 struct UserSettings: Codable, Equatable {
     var isEnabled = true
     var language: AppLanguage = .system
+    var appearance: AppAppearance = .system
     var bindings: [MouseBinding] = []
     var support = SupportStats()
 
@@ -16,6 +17,7 @@ struct UserSettings: Codable, Equatable {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         isEnabled = try c.decodeIfPresent(Bool.self, forKey: .isEnabled) ?? true
         language = try c.decodeIfPresent(AppLanguage.self, forKey: .language) ?? .system
+        appearance = try c.decodeIfPresent(AppAppearance.self, forKey: .appearance) ?? .system
         bindings = try c.decodeIfPresent([MouseBinding].self, forKey: .bindings) ?? []
         support = try c.decodeIfPresent(SupportStats.self, forKey: .support) ?? SupportStats()
     }
@@ -45,6 +47,7 @@ final class AppState {
         didSet {
             guard settings != oldValue else { return }
             if settings.language != oldValue.language { Localizer.apply(settings.language) }
+            if settings.appearance != oldValue.appearance { settings.appearance.apply() }
             save()
         }
     }
@@ -72,6 +75,7 @@ final class AppState {
         let data = UserDefaults.standard.data(forKey: Self.defaultsKey)
         settings = data.flatMap { try? JSONDecoder().decode(UserSettings.self, from: $0) } ?? UserSettings()
         Localizer.apply(settings.language)
+        settings.appearance.apply()
 
         installLocalMonitors()
         eventTap = EventTap(state: self)

@@ -82,8 +82,14 @@ STRINGS = {
 
     "settings.launchAtLogin": ("Launch at login", "开机自动启动"),
     "settings.language": ("Language", "语言"),
+    "settings.appearance": ("Appearance", "外观"),
+    "settings.preferences": ("Preferences", "偏好设置"),
+    "settings.preferences.help": ("Appearance and language", "外观与语言"),
     "settings.menuBarHint": ("Keeps running in the menu bar", "关闭窗口后仍在菜单栏运行"),
     "language.system": ("System", "跟随系统"),
+    "appearance.system": ("Follow System", "跟随系统"),
+    "appearance.light": ("Light", "浅色"),
+    "appearance.dark": ("Dark", "深色"),
 
     "menu.settings": ("Settings…", "设置…"),
     "menu.support": ("Support Clutch", "支持 Clutch"),
