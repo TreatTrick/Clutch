@@ -80,6 +80,7 @@ final class AppState {
         installLocalMonitors()
         eventTap = EventTap(state: self)
         support.state = self
+        Task { await support.recognizeAppStorePurchase() }
         startEventTapWhenTrusted()
     }
 

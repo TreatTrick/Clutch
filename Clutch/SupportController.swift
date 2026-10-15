@@ -1,4 +1,6 @@
 import AppKit
+import Observation
+import StoreKit
 import SwiftUI
 
 /// Usage stats that decide when to ask for support
@@ -9,18 +11,39 @@ struct SupportStats: Codable, Equatable {
     var lastPrompt: Date?
     var dismissCount = 0
     var hasSupported = false
+    var hasPurchased = false
+
+    init() {}
+
+    // 旧的 hasSupported 也可能来自 Star，不能把它当作购买记录。
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        triggerCount = try c.decodeIfPresent(Int.self, forKey: .triggerCount) ?? 0
+        activeDays = try c.decodeIfPresent([String].self, forKey: .activeDays) ?? []
+        lastPrompt = try c.decodeIfPresent(Date.self, forKey: .lastPrompt)
+        dismissCount = try c.decodeIfPresent(Int.self, forKey: .dismissCount) ?? 0
+        hasSupported = try c.decodeIfPresent(Bool.self, forKey: .hasSupported) ?? false
+        hasPurchased = try c.decodeIfPresent(Bool.self, forKey: .hasPurchased) ?? false
+    }
 }
 
-/// Links shown in the support popup. The payment links are demo placeholders.
+/// Links shown in the support popup. Both links are demo placeholders; replace before publishing.
 enum SupportLinks {
     static let gitHub = URL(string: "https://github.com/your-name/Clutch")!
-    static let payPal = URL(string: "https://paypal.me/your-name")!
+    static let appStore = URL(string: "https://apps.apple.com/app/id0000000000")!
 }
 
 /// Decides when to show the support popup and owns its floating panel
 @MainActor
+@Observable
 final class SupportController {
     weak var state: AppState?
+    private(set) var isAppStorePurchase = false
+
+    var purchaseState: SupportModel.PurchaseState {
+        if isAppStorePurchase { return .appStore }
+        return state?.settings.support.hasPurchased == true ? .acknowledged : .notSupported
+    }
 
     static let requiredActiveDays = 3
     static let snoozeDays = 14
@@ -32,6 +55,25 @@ final class SupportController {
     /// Opened from the menu rather than by the automatic prompt; closing it then isn't a "dismissal"
     private var openedManually = false
     private var pendingCheck: DispatchWorkItem?
+
+    /// 仅识别正式商店购买；缺少收据时不请求交易，避免 GitHub 版弹出 Apple 账户登录。
+    func recognizeAppStorePurchase() async {
+        // 这里只检查发行渠道，不解析旧收据；购买状态由下面的 StoreKit 2 签名交易决定。
+        let receipt = Bundle.main.bundleURL.appending(path: "Contents/_MASReceipt/receipt")
+        guard FileManager.default.fileExists(atPath: receipt.path) else { return }
+
+        do {
+            guard case .verified(let transaction) = try await AppTransaction.shared,
+                  transaction.environment == .production,
+                  transaction.bundleID == Bundle.main.bundleIdentifier
+            else { return }
+            isAppStorePurchase = true
+            model?.updatePurchaseState(.appStore)
+        } catch {
+            // 识别失败不影响免费使用；用户仍可自行选择“我已支持”。
+            NSLog("Clutch: could not recognize the App Store purchase: \(error)")
+        }
+    }
 
     /// Called after every successful shortcut. Waits a moment so the action (e.g. a desktop switch) finishes first.
     func shortcutDidFire() {
@@ -46,6 +88,7 @@ final class SupportController {
 
     func shouldPrompt(now: Date = Date()) -> Bool {
         guard panel == nil, let stats = state?.settings.support,
+              !purchaseState.isSupported,
               !stats.hasSupported,
               stats.dismissCount < Self.maxDismissals,
               stats.activeDays.count >= Self.requiredActiveDays,
@@ -67,9 +110,11 @@ final class SupportController {
         openedManually = manually
         if !manually { state.settings.support.lastPrompt = Date() }
 
-        let model = SupportModel(triggerCount: state.settings.support.triggerCount)
+        let model = SupportModel(triggerCount: state.settings.support.triggerCount,
+                                 purchaseState: purchaseState)
         model.onClose = { [weak self] in self?.close() }
         model.onSupported = { [weak self] in self?.state?.settings.support.hasSupported = true }
+        model.onPurchaseConfirmed = { [weak self] in self?.state?.settings.support.hasPurchased = true }
         self.model = model
 
         // Default sizing options so fittingSize reports the SwiftUI content size

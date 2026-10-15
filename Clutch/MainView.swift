@@ -256,21 +256,31 @@ private struct BuyMeCoffeeButton: View {
             Button {
                 state.support.show(manually: true)
             } label: {
-                Label(L("support.button"), systemImage: "cup.and.saucer.fill")
+                Label(L(state.support.purchaseState.isSupported ? "support.already" : "support.button"),
+                      systemImage: state.support.purchaseState.isSupported ? "checkmark.seal.fill" : "cup.and.saucer.fill")
                     .font(.callout.weight(.medium))
-                    .foregroundStyle(Color(red: 0.42, green: 0.25, blue: 0.08))
+                    .foregroundStyle(state.support.purchaseState.isSupported
+                                     ? Color.primary : Color(red: 0.42, green: 0.25, blue: 0.08))
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
-                    .background(Capsule().fill(Color(red: 1, green: 0.8, blue: 0.24).opacity(hovering ? 1 : 0.88)))
+                    .background(Capsule().fill(state.support.purchaseState.isSupported
+                                              ? Color.green.opacity(hovering ? 0.2 : 0.12)
+                                              : Color(red: 1, green: 0.8, blue: 0.24).opacity(hovering ? 1 : 0.88)))
                     .contentShape(Capsule())
             }
             .buttonStyle(.plain)
             .fixedSize()
             .background(CoffeeButtonTarget(model: mascot).allowsHitTesting(false))
             .onHover { hovering = $0 }
-            .help(L("menu.support"))
+            .help(L(state.support.purchaseState.isSupported ? "support.supported.help" : "menu.support"))
         }
-        .onAppear { mascot.start() }
+        .onAppear {
+            mascot.updatePurchaseState(state.support.purchaseState)
+            mascot.start()
+        }
+        .onChange(of: state.support.purchaseState) { _, purchaseState in
+            mascot.updatePurchaseState(purchaseState)
+        }
         .onDisappear { mascot.stop() }
         .onChange(of: scenePhase) { _, phase in
             if phase == .active {

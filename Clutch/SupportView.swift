@@ -1,8 +1,9 @@
 import SwiftUI
 
-/// The "buy me a coffee" popup: the mascot on the left, ways to tip on the right
+/// The "buy me a coffee" popup: the mascot on the left, App Store support and GitHub Star on the right
 struct SupportView: View {
     @Bindable var model: SupportModel
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         HStack(alignment: .bottom, spacing: 0) {
@@ -13,18 +14,18 @@ struct SupportView: View {
             VStack(alignment: .leading, spacing: 12) {
                 Spacer().frame(height: 18)
                 header
-                if model.tipped {
-                    ThanksCard { model.reset() }
-                        .transition(.scale(scale: 0.9).combined(with: .opacity))
-                } else {
-                    TipCard(model: model)
-                        .transition(.opacity)
-                }
-                actions
+                AppStoreSupportCard(model: model)
+                gitHubAction
+                Text(model.linkMessage ?? L("support.demo"))
+                    .font(.caption2)
+                    .foregroundStyle(model.linkFailed ? Color.red : Color.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(height: 32, alignment: .topLeading)
+                    .lineLimit(3)
             }
             .padding(.trailing, 18)
             .padding(.bottom, 18)
-            .frame(width: 270)
+            .frame(width: 294)
         }
         .coordinateSpace(name: SupportView.space)
         .background(
@@ -41,8 +42,7 @@ struct SupportView: View {
                 .padding(12)
         }
         .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
-        .animation(.spring(duration: 0.4), value: model.tipped)
-        .animation(.spring(duration: 0.4), value: model.starred)
+        .animation(reduceMotion ? nil : .easeOut(duration: 0.2), value: model.isSupported)
         .onExitCommand { model.close() }
     }
 
@@ -50,11 +50,13 @@ struct SupportView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(L("support.title"))
+            Text(L(model.isSupported ? "support.thanks.title" : "support.title"))
                 .font(.title3.weight(.semibold))
-            Text(model.triggerCount > 0
-                 ? L("support.usage %lld", model.triggerCount)
-                 : L("support.subtitle"))
+            Text(model.isSupported
+                 ? L("support.thanks.detail")
+                 : model.triggerCount > 0
+                    ? L("support.usage %lld", model.triggerCount)
+                    : L("support.subtitle"))
                 .font(.callout)
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -62,30 +64,28 @@ struct SupportView: View {
         .padding(.trailing, 24) // Room for the close button
     }
 
-    /// Both buttons always stay clickable; each shows a check once done
-    private var actions: some View {
-        HStack(spacing: 8) {
-            Button {
-                NSWorkspace.shared.open(SupportLinks.gitHub)
-                model.star()
-            } label: {
-                Label(model.starred ? L("support.starred") : L("support.star"),
-                      systemImage: model.starred ? "checkmark" : "star.fill")
-                    .frame(maxWidth: .infinity)
+    /// GitHub stays clickable after support; opening the page never claims a verified Star.
+    private var gitHubAction: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Button { model.openGitHub() } label: {
+                HStack(spacing: 8) {
+                    Label(L("support.star"), systemImage: "star")
+                    Spacer(minLength: 0)
+                    Image(systemName: "arrow.up.right")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                        .accessibilityHidden(true)
+                }
+                .frame(maxWidth: .infinity)
             }
+            .buttonStyle(.bordered)
             .controlSize(.large)
+            .help(L("support.github.help"))
 
-            Button {
-                model.tip()
-            } label: {
-                Label(model.tipped ? L("support.tipped.done") : L("support.tipped"),
-                      systemImage: model.tipped ? "checkmark" : "cup.and.saucer.fill")
-                    .frame(maxWidth: .infinity)
-            }
-            .buttonStyle(.borderedProminent)
-            .tint(.accentColor)
-            .controlSize(.large)
-            .disabled(model.tipped)
+            Text(L("support.github.detail"))
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 }
@@ -116,99 +116,58 @@ struct MascotView: View {
     }
 }
 
-// MARK: - Tip card
+// MARK: - App Store support card
 
-private struct TipCard: View {
+private struct AppStoreSupportCard: View {
     @Bindable var model: SupportModel
 
     var body: some View {
-        VStack(spacing: 10) {
-            Picker(L("support.method"), selection: $model.payment) {
-                ForEach(PaymentMethod.allCases) { Text($0.name).tag($0) }
-            }
-            .pickerStyle(.segmented)
-            .labelsHidden()
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(alignment: .top, spacing: 10) {
+                Image(systemName: model.isSupported ? "checkmark.seal.fill" : "app.gift.fill")
+                    .font(.system(size: 25))
+                    .foregroundStyle(model.isSupported ? Color.green : Color.accentColor)
+                    .frame(width: 30)
+                    .accessibilityHidden(true)
 
-            HStack(spacing: 12) {
-                QRCodeView(method: model.payment)
-                    .frame(width: 112, height: 112)
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(model.payment.caption)
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(L(model.isSupported ? "support.already" : "support.store.title"))
+                        .font(.callout.weight(.semibold))
+                    Text(L(model.purchaseState == .appStore
+                           ? "support.store.purchased"
+                           : model.isSupported ? "support.confirmed.detail" : "support.store.detail"))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
-                    if model.payment == .payPal {
-                        Button(L("support.paypal.open")) {
-                            NSWorkspace.shared.open(SupportLinks.payPal)
-                        }
-                        .buttonStyle(.link)
-                        .font(.caption)
-                    }
-                    Text(L("support.demo"))
-                        .font(.caption2)
-                        .foregroundStyle(.orange)
-                        .fixedSize(horizontal: false, vertical: true)
                 }
-                Spacer(minLength: 0)
             }
-        }
-        .padding(12)
-        .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(.background.opacity(0.7)))
-    }
-}
 
-private struct QRCodeView: View {
-    let method: PaymentMethod
-
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.white)
-            if let code = method.qrCode {
-                Image(decorative: code, scale: 1)
-                    .resizable()
-                    .interpolation(.none)
-                    .antialiased(false)
-                    .padding(8)
-            }
-            // Brand badge in the middle, like real payment codes
-            Circle()
-                .fill(Color(nsColor: method.tint))
-                .frame(width: 24, height: 24)
-                .overlay(Circle().strokeBorder(.white, lineWidth: 3))
-        }
-        .id(method)
-        .transition(.opacity)
-        .accessibilityLabel(L("support.qr %@", method.name))
-    }
-}
-
-private struct ThanksCard: View {
-    let onBack: () -> Void
-
-    var body: some View {
-        VStack(spacing: 6) {
-            Image(systemName: "heart.fill")
-                .font(.system(size: 30))
-                .foregroundStyle(.pink)
-                .symbolEffect(.bounce, options: .repeat(2))
-            Text(L("support.thanks.title"))
-                .font(.headline)
-            Text(L("support.thanks.detail"))
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-        }
-        .frame(maxWidth: .infinity, minHeight: 150)
-        .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(.background.opacity(0.7)))
-        .overlay(alignment: .topLeading) {
-            // Lets you go back and look at the payment codes again
-            Button(action: onBack) {
-                Label(L("support.back"), systemImage: "chevron.left")
+            if model.isSupported {
+                Label(L("support.received"), systemImage: "heart.fill")
                     .font(.caption)
+                    .foregroundStyle(.secondary)
+            } else {
+                Button { model.openAppStore() } label: {
+                    Label(L("support.store.open"), systemImage: "arrow.up.right")
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .help(L("support.store.help"))
+
+                Button { model.confirmSupport() } label: {
+                    Text(L("support.already"))
+                        .font(.caption)
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderless)
+                .help(L("support.confirm.help"))
             }
-            .buttonStyle(.borderless)
-            .padding(10)
         }
+        // 已支持后保留卡片高度，感谢动画和 Star 入口不会上下跳动。
+        .frame(maxWidth: .infinity, minHeight: 104, alignment: .topLeading)
+        .padding(12)
+        .background(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(.background.opacity(0.7)))
     }
 }
 

@@ -51,9 +51,11 @@ struct MenuBarView: View {
             Button {
                 state.support.show(manually: true)
             } label: {
-                Label(L("menu.support"), systemImage: "cup.and.saucer.fill")
+                Label(L(state.support.purchaseState.isSupported ? "support.already" : "menu.support"),
+                      systemImage: state.support.purchaseState.isSupported ? "checkmark.seal.fill" : "cup.and.saucer.fill")
             }
             .buttonStyle(.borderless)
+            .help(L(state.support.purchaseState.isSupported ? "support.supported.help" : "menu.support"))
 
             HStack {
                 Button(L("menu.settings")) { openSettings() }

@@ -1,5 +1,5 @@
 import AppKit
-import CoreImage
+import ImageIO
 import Observation
 
 /// A bundled frame sequence (multi-image HEIC), decoded on demand
@@ -31,6 +31,14 @@ final class MascotFrames {
 @MainActor
 @Observable
 final class SupportModel {
+    enum PurchaseState {
+        case notSupported
+        case acknowledged
+        case appStore
+
+        var isSupported: Bool { self != .notSupported }
+    }
+
     enum Interaction {
         case supportPopup
         case coffeeButton
@@ -39,7 +47,7 @@ final class SupportModel {
     enum Phase {
         /// Mood follows mouse direction near the close button or toward the footer's coffee button
         case followingMouse
-        /// After a tip or star: finish clip A at its original speed to its happiest frame
+        /// After support or a GitHub visit: finish clip A at its original speed to its happiest frame
         case cheeringUp
         /// Loop the jumping-for-joy clip
         case celebrating
@@ -47,17 +55,20 @@ final class SupportModel {
 
     let triggerCount: Int
     /// Tracked separately so either button stays usable after the other was clicked
-    private(set) var starred = false
-    private(set) var tipped = false
-    var hasSupported: Bool { starred || tipped }
+    private(set) var hasOpenedGitHub = false
+    private(set) var purchaseState: PurchaseState
+    var isSupported: Bool { purchaseState.isSupported }
+    var hasSupported: Bool { hasOpenedGitHub || isSupported }
+    private(set) var linkMessage: String?
+    private(set) var linkFailed = false
     private(set) var phase = Phase.followingMouse
     private(set) var image: CGImage?
     /// -1...1, drives a gentle breathing scale while idle
     private(set) var breath: Double = 0
-    var payment: PaymentMethod
 
     @ObservationIgnored var onClose: () -> Void = {}
     @ObservationIgnored var onSupported: () -> Void = {}
+    @ObservationIgnored var onPurchaseConfirmed: () -> Void = {}
     @ObservationIgnored weak var window: NSWindow?
     /// Reported by the view, in the window's top-left-origin coordinates
     @ObservationIgnored var closeRect = CGRect.null
@@ -80,16 +91,19 @@ final class SupportModel {
     private static let videoRate = 24.0
     private static let directionThreshold = 3.0 // pt; filter hand tremor while allowing slow motion to accumulate
 
-    /// Always starts in the "before" state so the whole interaction can be seen again;
-    /// whether the user already supported only affects automatic prompting.
-    init(triggerCount: Int, interaction: Interaction = .supportPopup) {
+    /// 已支持用户重新打开时保留感谢状态，不再要求重复购买。
+    init(triggerCount: Int, purchaseState: PurchaseState = .notSupported,
+         interaction: Interaction = .supportPopup) {
         self.triggerCount = triggerCount
+        self.purchaseState = purchaseState
         self.interaction = interaction
         if case .coffeeButton = interaction { direction = -1 }
-        // Chinese users are most likely to pay with WeChat; everyone else with PayPal
-        let isChinese = Localizer.locale.language.languageCode?.identifier == "zh"
-        payment = isChinese ? .wechat : .payPal
-        show(clip: 0, index: 0)
+        if purchaseState.isSupported {
+            phase = .celebrating
+            show(clip: 1, index: 0)
+        } else {
+            show(clip: 0, index: 0)
+        }
     }
 
     func start() {
@@ -112,25 +126,42 @@ final class SupportModel {
 
     func close() { onClose() }
 
-    func star() {
-        starred = true
+    func openGitHub() {
+        guard open(SupportLinks.gitHub) else { return }
+        // 打开项目页不等于已经 Star；只记录访问，不显示未经验证的“已 Star”。
+        hasOpenedGitHub = true
+        linkMessage = L("support.github.opened")
         celebrate()
     }
 
-    func tip() {
-        tipped = true
+    func openAppStore() {
+        guard !isSupported, open(SupportLinks.appStore) else { return }
+        // 跳转成功不代表购买成功，回到应用后可自行确认。
+        linkMessage = L("support.store.opened")
+    }
+
+    func confirmSupport() {
+        guard !isSupported else { return }
+        purchaseState = .acknowledged
+        linkMessage = nil
+        linkFailed = false
+        onPurchaseConfirmed()
         celebrate()
     }
 
-    /// Back to how the popup looked before any button was clicked
-    func reset() {
-        starred = false
-        tipped = false
-        phase = .followingMouse
-        cursor = 0
-        direction = 1
-        directionAnchor = nil
-        show(clip: 0, index: 0)
+    /// 商店交易异步验证完成后，同步已打开的弹窗和主窗口入口。
+    func updatePurchaseState(_ state: PurchaseState) {
+        guard state.isSupported, purchaseState != state else { return }
+        purchaseState = state
+        linkMessage = nil
+        linkFailed = false
+        if phase == .followingMouse { phase = .cheeringUp }
+    }
+
+    private func open(_ url: URL) -> Bool {
+        linkFailed = !NSWorkspace.shared.open(url)
+        linkMessage = linkFailed ? L("support.link.failed") : nil
+        return !linkFailed
     }
 
     /// Cheer up all the way, then jump for joy
@@ -147,6 +178,17 @@ final class SupportModel {
         lastTickTime = now
         time += elapsed
         guard let clipA, let clipB else { return }
+        if reduceMotion {
+            // 减少动态效果时仍表达感谢，使用开心静帧代替往返和循环播放。
+            breath = 0
+            if phase == .followingMouse {
+                show(clip: 0, index: clipA.count - 1)
+            } else {
+                phase = .celebrating
+                show(clip: 1, index: 0)
+            }
+            return
+        }
         let frameStep = Self.videoRate * elapsed
 
         switch phase {
@@ -193,7 +235,7 @@ final class SupportModel {
                                  y: content.bounds.maxY - content.bounds.height / 4,
                                  width: content.bounds.width / 4, height: content.bounds.height / 4)
         guard window.convertToScreen(sadnessArea).contains(point) else {
-            // Star, tipping, and every position outside the close area always play toward happiness.
+            // Star, App Store support, and every position outside the close area always play toward happiness.
             direction = 1
             directionAnchor = point
             return
@@ -237,48 +279,5 @@ final class SupportModel {
         guard shownFrame != (clip, index) else { return }
         shownFrame = (clip, index)
         image = (clip == 0 ? clipA : clipB)?.frame(index)
-    }
-}
-
-/// Ways to tip. The QR payloads are demo placeholders.
-enum PaymentMethod: String, CaseIterable, Identifiable {
-    case payPal, wechat, alipay
-
-    var id: String { rawValue }
-
-    var name: String {
-        switch self {
-        case .payPal: "PayPal"
-        case .wechat: L("payment.wechat")
-        case .alipay: L("payment.alipay")
-        }
-    }
-
-    var caption: String { L("payment.\(rawValue).caption") }
-
-    var tint: NSColor {
-        switch self {
-        case .payPal: NSColor(srgbRed: 0, green: 0.19, blue: 0.53, alpha: 1)
-        case .wechat: NSColor(srgbRed: 0.03, green: 0.76, blue: 0.38, alpha: 1)
-        case .alipay: NSColor(srgbRed: 0.09, green: 0.47, blue: 1, alpha: 1)
-        }
-    }
-
-    var payload: String {
-        switch self {
-        case .payPal: SupportLinks.payPal.absoluteString
-        case .wechat: "wxp://f2f0-clutch-demo-code"
-        case .alipay: "https://qr.alipay.com/clutch-demo-code"
-        }
-    }
-
-    /// Crisp QR code image; draw it with interpolation turned off
-    var qrCode: CGImage? {
-        let filter = CIFilter(name: "CIQRCodeGenerator")!
-        filter.setValue(Data(payload.utf8), forKey: "inputMessage")
-        filter.setValue("M", forKey: "inputCorrectionLevel")
-        // The generator outputs one pixel per module; scale up so it stays sharp when drawn
-        guard let output = filter.outputImage?.transformed(by: CGAffineTransform(scaleX: 8, y: 8)) else { return nil }
-        return CIContext().createCGImage(output, from: output.extent)
     }
 }
