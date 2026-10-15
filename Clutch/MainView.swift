@@ -208,40 +208,77 @@ private struct FooterView: View {
                 set: { state.setLaunchAtLogin($0) }
             ))
             .toggleStyle(.checkbox)
+            .fixedSize()
 
             Text(L("settings.menuBarHint"))
                 .font(.caption)
                 .foregroundStyle(.tertiary)
                 .lineLimit(1)
+                .layoutPriority(-1)
 
             Spacer()
 
             BuyMeCoffeeButton()
         }
         .padding(.horizontal, 20)
-        .padding(.vertical, 12)
+        // Double the original 52 pt footer, with room for the mascot beside the coffee button.
+        .frame(height: 104)
     }
 }
 
 /// Opens the support popup straight away
 private struct BuyMeCoffeeButton: View {
     @Environment(AppState.self) private var state
+    @Environment(\.scenePhase) private var scenePhase
     @State private var hovering = false
+    @State private var mascot = SupportModel(triggerCount: 0, interaction: .coffeeButton)
 
     var body: some View {
-        Button {
-            state.support.show(manually: true)
-        } label: {
-            Label(L("support.button"), systemImage: "cup.and.saucer.fill")
-                .font(.callout.weight(.medium))
-                .foregroundStyle(Color(red: 0.42, green: 0.25, blue: 0.08))
-                .padding(.horizontal, 12)
-                .padding(.vertical, 6)
-                .background(Capsule().fill(Color(red: 1, green: 0.8, blue: 0.24).opacity(hovering ? 1 : 0.88)))
-                .contentShape(Capsule())
+        HStack(spacing: 12) {
+            MascotView(model: mascot)
+                .frame(width: 48, height: 96)
+                .allowsHitTesting(false)
+
+            Button {
+                state.support.show(manually: true)
+            } label: {
+                Label(L("support.button"), systemImage: "cup.and.saucer.fill")
+                    .font(.callout.weight(.medium))
+                    .foregroundStyle(Color(red: 0.42, green: 0.25, blue: 0.08))
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(Capsule().fill(Color(red: 1, green: 0.8, blue: 0.24).opacity(hovering ? 1 : 0.88)))
+                    .contentShape(Capsule())
+            }
+            .buttonStyle(.plain)
+            .fixedSize()
+            .background(CoffeeButtonTarget(model: mascot).allowsHitTesting(false))
+            .onHover { hovering = $0 }
+            .help(L("menu.support"))
         }
-        .buttonStyle(.plain)
-        .onHover { hovering = $0 }
-        .help(L("menu.support"))
+        .onAppear { mascot.start() }
+        .onDisappear { mascot.stop() }
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active {
+                mascot.start()
+            } else {
+                mascot.stop()
+            }
+        }
+    }
+}
+
+/// Resolves the real button bounds after layout, including title-bar insets and window moves.
+private struct CoffeeButtonTarget: NSViewRepresentable {
+    let model: SupportModel
+
+    func makeNSView(context: Context) -> NSView {
+        let view = NSView(frame: .zero)
+        model.coffeeButtonView = view
+        return view
+    }
+
+    func updateNSView(_ view: NSView, context: Context) {
+        model.coffeeButtonView = view
     }
 }

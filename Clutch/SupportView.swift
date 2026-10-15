@@ -18,7 +18,6 @@ struct SupportView: View {
                         .transition(.scale(scale: 0.9).combined(with: .opacity))
                 } else {
                     TipCard(model: model)
-                        .reportFrame(into: { model.tipRect = $0 })
                         .transition(.opacity)
                 }
                 actions
@@ -93,7 +92,7 @@ struct SupportView: View {
 
 // MARK: - Mascot
 
-private struct MascotView: View {
+struct MascotView: View {
     let model: SupportModel
 
     var body: some View {

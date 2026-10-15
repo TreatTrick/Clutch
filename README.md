@@ -31,10 +31,14 @@ After Clutch has been used on 3 different days, a small "buy me a coffee" popup 
 
 The QR codes and links in `SupportLinks` / `PaymentMethod` are demo placeholders.
 
-The mascot comes from `sadtohappy2.mp4` (dejected → overjoyed, scrubbed by the mouse) and `happyJump2.mp4` (a looping jump after a star or tip). They are bundled as `MascotA.heic` and `MascotB.heic`, respectively. Regenerate the bundled frames with the mouse-interaction clip first, then the celebration clip:
+The settings footer is 104 pt high, with a small mascot to the left of the coffee button. It uses the same mood clip at 24 fps: moving toward the coffee button cheers her up, moving away makes her sad, and hovering over the button keeps her happy. Small jitters are ignored; playback continues toward its endpoint when the mouse rests and pauses when the settings scene becomes inactive.
+
+The mascot comes from `sad2Happy3.mp4` (dejected → overjoyed) and `happyJump2.mp4` (a looping jump after a star or tip). They are bundled as `MascotA.heic` and `MascotB.heic`, respectively. Only within the intersection of the popup's rightmost quarter and topmost quarter (the upper-right 1/16) does approaching the close button play the mood clip backward; hovering over the close button also plays backward. Moving away plays forward, and every position outside that area always plays toward happiness. Mouse movement only selects the direction: playback stays at the video's original 24 fps, continues toward the endpoint when the mouse rests, and ignores small jitters. A star or tip finishes the mood clip from its current frame at the same speed before the celebration begins.
+
+Regenerate the bundled frames with the mouse-interaction clip first, then the celebration clip:
 
 ```
-swift scripts/make_mascot.swift <path-to-sadtohappy2.mp4> <path-to-happyJump2.mp4>
+swift scripts/make_mascot.swift <path-to-sad2Happy3.mp4> <path-to-happyJump2.mp4>
 ```
 
 ## License

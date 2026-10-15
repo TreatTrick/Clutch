@@ -14,7 +14,7 @@ final class MascotFrames {
         else { return nil }
         self.source = source
         count = CGImageSourceGetCount(source)
-        // Decoded frames are ~0.75 MB each; keep enough for smooth back-and-forth scrubbing
+        // Decoded frames are ~0.75 MB each; keep enough for smooth back-and-forth playback
         cache.countLimit = 40
     }
 
@@ -27,15 +27,20 @@ final class MascotFrames {
     }
 }
 
-/// Drives the support popup: tracks the mouse and picks which mascot frame to show
+/// Drives the support popup and footer: tracks the mouse and picks which mascot frame to show
 @MainActor
 @Observable
 final class SupportModel {
+    enum Interaction {
+        case supportPopup
+        case coffeeButton
+    }
+
     enum Phase {
-        /// Mood follows the mouse: near the close button she's sad, near the tip area she lights up
-        case scrubbing
-        /// After a tip or star: play clip A quickly to its happiest frame
-        case rushing
+        /// Mood follows mouse direction near the close button or toward the footer's coffee button
+        case followingMouse
+        /// After a tip or star: finish clip A at its original speed to its happiest frame
+        case cheeringUp
         /// Loop the jumping-for-joy clip
         case celebrating
     }
@@ -45,7 +50,7 @@ final class SupportModel {
     private(set) var starred = false
     private(set) var tipped = false
     var hasSupported: Bool { starred || tipped }
-    private(set) var phase = Phase.scrubbing
+    private(set) var phase = Phase.followingMouse
     private(set) var image: CGImage?
     /// -1...1, drives a gentle breathing scale while idle
     private(set) var breath: Double = 0
@@ -56,24 +61,31 @@ final class SupportModel {
     @ObservationIgnored weak var window: NSWindow?
     /// Reported by the view, in the window's top-left-origin coordinates
     @ObservationIgnored var closeRect = CGRect.null
-    @ObservationIgnored var tipRect = CGRect.null
+    /// Native view behind the footer button, used to resolve its current screen coordinates
+    @ObservationIgnored weak var coffeeButtonView: NSView?
 
+    @ObservationIgnored private let interaction: Interaction
     @ObservationIgnored private let clipA = MascotFrames(named: "MascotA")
     @ObservationIgnored private let clipB = MascotFrames(named: "MascotB")
     @ObservationIgnored private var timer: Timer?
-    @ObservationIgnored private var mood = 0.0
+    @ObservationIgnored private var direction = 1.0
+    @ObservationIgnored private var directionAnchor: CGPoint?
     @ObservationIgnored private var cursor = 0.0
     @ObservationIgnored private var time = 0.0
+    @ObservationIgnored private var lastTickTime: TimeInterval?
     @ObservationIgnored private var shownFrame = (clip: -1, index: -1)
     @ObservationIgnored private let reduceMotion = NSWorkspace.shared.accessibilityDisplayShouldReduceMotion
 
-    private static let tickRate = 30.0
+    private static let tickRate = 60.0
     private static let videoRate = 24.0
+    private static let directionThreshold = 3.0 // pt; filter hand tremor while allowing slow motion to accumulate
 
     /// Always starts in the "before" state so the whole interaction can be seen again;
     /// whether the user already supported only affects automatic prompting.
-    init(triggerCount: Int) {
+    init(triggerCount: Int, interaction: Interaction = .supportPopup) {
         self.triggerCount = triggerCount
+        self.interaction = interaction
+        if case .coffeeButton = interaction { direction = -1 }
         // Chinese users are most likely to pay with WeChat; everyone else with PayPal
         let isChinese = Localizer.locale.language.languageCode?.identifier == "zh"
         payment = isChinese ? .wechat : .payPal
@@ -82,6 +94,8 @@ final class SupportModel {
 
     func start() {
         timer?.invalidate()
+        lastTickTime = ProcessInfo.processInfo.systemUptime
+        directionAnchor = nil
         let timer = Timer(timeInterval: 1 / Self.tickRate, repeats: true) { [weak self] _ in
             MainActor.assumeIsolated { self?.tick() }
         }
@@ -92,6 +106,8 @@ final class SupportModel {
     func stop() {
         timer?.invalidate()
         timer = nil
+        lastTickTime = nil
+        directionAnchor = nil
     }
 
     func close() { onClose() }
@@ -110,56 +126,105 @@ final class SupportModel {
     func reset() {
         starred = false
         tipped = false
-        phase = .scrubbing
+        phase = .followingMouse
         cursor = 0
+        direction = 1
+        directionAnchor = nil
+        show(clip: 0, index: 0)
     }
 
     /// Cheer up all the way, then jump for joy
     private func celebrate() {
         onSupported()
-        guard phase == .scrubbing else { return }
-        cursor = mood * Double((clipA?.count ?? 1) - 1)
-        phase = .rushing
+        guard phase == .followingMouse else { return }
+        phase = .cheeringUp
     }
 
     private func tick() {
-        time += 1 / Self.tickRate
+        let now = ProcessInfo.processInfo.systemUptime
+        // Use elapsed time for video speed; avoid jumping ahead after a long run-loop stall.
+        let elapsed = min(max(now - (lastTickTime ?? now), 0), 0.1)
+        lastTickTime = now
+        time += elapsed
         guard let clipA, let clipB else { return }
+        let frameStep = Self.videoRate * elapsed
 
         switch phase {
-        case .scrubbing:
-            // Ease toward the target so small mouse jitters don't make her flicker
-            mood += (targetMood() - mood) * 0.12
-            var index = mood * Double(clipA.count - 1)
-            // Sway a couple of frames around the current mood so she never freezes
-            if !reduceMotion { index += sin(time * 2.4) * 2.5 }
-            show(clip: 0, index: Int(index.rounded()))
+        case .followingMouse:
+            // Filter small mouse jitters so they don't make her flicker between playback directions.
+            updateDirection()
+            cursor = min(max(cursor + direction * frameStep, 0), Double(clipA.count - 1))
+            show(clip: 0, index: Int(cursor))
+            // Keep idle motion in the subtle breathing scale so video frames never sway back and forth.
             breath = reduceMotion ? 0 : sin(time * 2.2)
 
-        case .rushing:
-            cursor += 2.5
+        case .cheeringUp:
+            cursor += frameStep
             if cursor >= Double(clipA.count - 1) {
                 phase = .celebrating
                 cursor = 0
+                show(clip: 1, index: 0)
+            } else {
+                show(clip: 0, index: Int(cursor))
             }
-            show(clip: 0, index: Int(cursor))
             breath = 0
 
         case .celebrating:
             // Clip B starts and ends on the same pose, so it loops seamlessly
-            cursor = (cursor + Self.videoRate / Self.tickRate).truncatingRemainder(dividingBy: Double(clipB.count))
+            cursor = (cursor + frameStep).truncatingRemainder(dividingBy: Double(clipB.count))
             show(clip: 1, index: Int(cursor))
         }
     }
 
-    /// 0 = right on the close button, 1 = on the tip area
-    private func targetMood() -> Double {
-        guard let window, let content = window.contentView, !closeRect.isNull, !tipRect.isNull else { return 0.4 }
-        let local = window.convertPoint(fromScreen: NSEvent.mouseLocation)
-        let point = CGPoint(x: local.x, y: content.bounds.height - local.y)
-        let toClose = distance(from: point, to: closeRect)
-        let toTip = distance(from: point, to: tipRect)
-        return toClose / max(toClose + toTip, 1)
+    /// The footer cheers up toward coffee; only the popup's upper-right sixteenth can trigger sadness there.
+    private func updateDirection() {
+        if case .coffeeButton = interaction {
+            guard let target = coffeeButtonView, let window = target.window else { return }
+            let buttonOnScreen = window.convertToScreen(target.convert(target.bounds, to: nil))
+            guard !buttonOnScreen.isEmpty else { return }
+            updateDirection(relativeTo: buttonOnScreen, happyWhenApproaching: true)
+            return
+        }
+
+        guard let window, let content = window.contentView, !closeRect.isNull, !closeRect.isEmpty else { return }
+        let point = NSEvent.mouseLocation
+        // AppKit coordinates start at the bottom-left: the rightmost and topmost quarter form one sixteenth.
+        let sadnessArea = CGRect(x: content.bounds.maxX - content.bounds.width / 4,
+                                 y: content.bounds.maxY - content.bounds.height / 4,
+                                 width: content.bounds.width / 4, height: content.bounds.height / 4)
+        guard window.convertToScreen(sadnessArea).contains(point) else {
+            // Star, tipping, and every position outside the close area always play toward happiness.
+            direction = 1
+            directionAnchor = point
+            return
+        }
+
+        let buttonInWindow = CGRect(x: closeRect.minX, y: content.bounds.height - closeRect.maxY,
+                                    width: closeRect.width, height: closeRect.height)
+        let buttonOnScreen = window.convertToScreen(buttonInWindow)
+        updateDirection(relativeTo: buttonOnScreen, happyWhenApproaching: false)
+    }
+
+    /// The same direction filter serves both targets; only the meaning of approaching changes.
+    private func updateDirection(relativeTo target: CGRect, happyWhenApproaching: Bool) {
+        let point = NSEvent.mouseLocation
+        if target.contains(point) {
+            direction = happyWhenApproaching ? 1 : -1
+            directionAnchor = point
+            return
+        }
+        guard let anchor = directionAnchor else {
+            directionAnchor = point
+            return
+        }
+        // Compare both mouse positions against the same button geometry, so moving the panel alone
+        // cannot change direction. Keep the anchor until motion adds up, even with a very slow mouse.
+        let change = distance(from: point, to: target) - distance(from: anchor, to: target)
+        guard abs(change) >= Self.directionThreshold else { return }
+        let approaching = change < 0
+        direction = approaching == happyWhenApproaching ? 1 : -1
+        directionAnchor = point
+        // Keep this direction while the mouse rests; leaving the popup's close area always cheers her up.
     }
 
     private func distance(from point: CGPoint, to rect: CGRect) -> Double {
