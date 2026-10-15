@@ -13,7 +13,7 @@ All the trackpad gestures, without a trackpad and without letting go of your mou
 [![Swift](https://img.shields.io/badge/Swift-5-F05138?logo=swift&logoColor=white)](https://swift.org)
 [![SwiftUI](https://img.shields.io/badge/UI-SwiftUI-0A84FF?logo=swift&logoColor=white)](https://developer.apple.com/xcode/swiftui/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-34C759)](#-license)
-[![Languages](https://img.shields.io/badge/i18n-English%20%7C%20%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-FF9F0A)](#-localization)
+[![Languages](https://img.shields.io/badge/i18n-English%20%7C%20%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%20%7C%20%E6%97%A5%E6%9C%AC%E8%AA%9E-FF9F0A)](#-localization)
 [![GitHub stars](https://img.shields.io/github/stars/your-name/Clutch?style=social)](https://github.com/your-name/Clutch)
 
 [Download](#-install) · [How it works](#-three-steps-to-your-first-shortcut) · [Meet the maid](#-meet-the-maid) · [Under the hood](#-under-the-hood)
@@ -151,7 +151,7 @@ She also lives in the settings window footer, next to the coffee button, and wat
 
 🌗 **Light, dark or system.** Pick an appearance from Preferences. It applies instantly and is remembered.
 
-🌐 **English and 简体中文.** Switch language inside the app, no restart needed.
+🌐 **English, 简体中文 and 日本語.** Switch language inside the app, no restart needed.
 
 </td>
 <td width="50%" valign="top">
@@ -240,7 +240,7 @@ Clutch/
 ├── SupportView.swift        # The support popup UI
 ├── Mascot.swift             # HEIC frame decoder + cursor-driven mood playback
 ├── Mascot/                  # MascotA.heic (mood) · MascotB.heic (celebration)
-├── Localizable.xcstrings    # English + 简体中文
+├── Localizable.xcstrings    # English + 简体中文 + 日本語
 └── Assets.xcassets          # App icon + menu bar template icons
 scripts/
 ├── make_icon.swift          # Draws the app & menu bar icons with CoreGraphics
@@ -260,7 +260,7 @@ python3 scripts/gen_strings.py                                  # strings
 
 ## 🌐 Localization
 
-Clutch ships in **English** and **简体中文**, and you can switch languages from *Preferences* at any time. To add a language, add a column to `scripts/gen_strings.py`, regenerate, and add the region to the Xcode project. Pull requests are welcome.
+Clutch ships in **English**, **简体中文** and **日本語**, and you can switch languages from *Preferences* at any time, or follow your system language. To add a language, add a column to `scripts/gen_strings.py`, regenerate, add an option to `AppLanguage` in `Clutch/Localization.swift`, and add the region to the Xcode project. Pull requests are welcome.
 
 ## 🤝 Contributing
 

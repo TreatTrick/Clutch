@@ -16,6 +16,12 @@
             "state": "translated",
             "value": "应用窗口"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アプリのウインドウ"
+          }
         }
       }
     },
@@ -32,6 +38,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "调度中心"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mission Control"
           }
         }
       }
@@ -50,6 +62,12 @@
             "state": "translated",
             "value": "下一个桌面"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "次のデスクトップ"
+          }
         }
       }
     },
@@ -66,6 +84,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "通知中心"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通知センター"
           }
         }
       }
@@ -84,6 +108,12 @@
             "state": "translated",
             "value": "上一个桌面"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "前のデスクトップ"
+          }
         }
       }
     },
@@ -100,6 +130,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "显示桌面"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "デスクトップを表示"
           }
         }
       }
@@ -118,6 +154,12 @@
             "state": "translated",
             "value": "按住键盘按键，再按鼠标按键，触发系统手势"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "キーを押しながらマウス操作でジェスチャを実行"
+          }
         }
       }
     },
@@ -134,6 +176,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "深色"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ダーク"
           }
         }
       }
@@ -152,6 +200,12 @@
             "state": "translated",
             "value": "浅色"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ライト"
+          }
         }
       }
     },
@@ -168,6 +222,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "跟随系统"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "システムに従う"
           }
         }
       }
@@ -186,6 +246,12 @@
             "state": "translated",
             "value": "Clutch 已暂停，开启后快捷键恢复生效"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clutch は一時停止中です。オンにするとショートカットを使えます。"
+          }
         }
       }
     },
@@ -202,6 +268,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "启用"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "有効にする"
           }
         }
       }
@@ -220,6 +292,12 @@
             "state": "translated",
             "value": "Clutch 已开启，关闭后所有快捷键暂停"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clutch は有効です。オフにするとすべてのショートカットを一時停止します。"
+          }
         }
       }
     },
@@ -236,6 +314,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "已暂停"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一時停止中"
           }
         }
       }
@@ -254,6 +338,12 @@
             "state": "translated",
             "value": "已开启"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "オン"
+          }
         }
       }
     },
@@ -270,6 +360,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "三指下滑"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3本指で下にスワイプ"
           }
         }
       }
@@ -288,6 +384,12 @@
             "state": "translated",
             "value": "三指上滑"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3本指で上にスワイプ"
+          }
         }
       }
     },
@@ -304,6 +406,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "三指左滑"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3本指で左にスワイプ"
           }
         }
       }
@@ -322,6 +430,12 @@
             "state": "translated",
             "value": "两指从右边缘左滑"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "右端から2本指で左にスワイプ"
+          }
         }
       }
     },
@@ -338,6 +452,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "三指右滑"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3本指で右にスワイプ"
           }
         }
       }
@@ -356,6 +476,12 @@
             "state": "translated",
             "value": "拇指与三指张开"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "親指と3本の指を広げる"
+          }
         }
       }
     },
@@ -372,6 +498,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "跟随系统"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "システムに従う"
           }
         }
       }
@@ -390,6 +522,12 @@
             "state": "translated",
             "value": "添加的快捷键会显示在这里"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "追加したショートカットがここに表示されます"
+          }
         }
       }
     },
@@ -406,6 +544,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "对应的系统快捷键已关闭，请在“系统设置 › 键盘 › 键盘快捷键 › 调度中心”中开启"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "対応するショートカットが無効です。「システム設定 › キーボード › キーボードショートカット › Mission Control」で有効にしてください。"
           }
         }
       }
@@ -424,6 +568,12 @@
             "state": "translated",
             "value": "移除快捷键"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ショートカットを削除"
+          }
         }
       }
     },
@@ -440,6 +590,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "我的快捷键"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ショートカット"
           }
         }
       }
@@ -458,6 +614,12 @@
             "state": "translated",
             "value": "添加第一个快捷键…"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最初のショートカットを追加…"
+          }
         }
       }
     },
@@ -474,6 +636,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "退出 Clutch"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clutch を終了"
           }
         }
       }
@@ -492,6 +660,12 @@
             "state": "translated",
             "value": "设置…"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定…"
+          }
         }
       }
     },
@@ -509,6 +683,12 @@
             "state": "translated",
             "value": "支持 Clutch"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clutch を応援"
+          }
         }
       }
     },
@@ -522,6 +702,12 @@
           }
         },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Command"
+          }
+        },
+        "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "Command"
@@ -543,6 +729,12 @@
             "state": "translated",
             "value": "Control"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Control"
+          }
         }
       }
     },
@@ -556,6 +748,12 @@
           }
         },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fn"
+          }
+        },
+        "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "Fn"
@@ -577,6 +775,12 @@
             "state": "translated",
             "value": "Option"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Option"
+          }
         }
       }
     },
@@ -590,6 +794,12 @@
           }
         },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shift"
+          }
+        },
+        "ja": {
           "stringUnit": {
             "state": "translated",
             "value": "Shift"
@@ -611,6 +821,12 @@
             "state": "translated",
             "value": "Clutch 需要它来识别你在任意应用中按住键盘并按下鼠标按键的操作。请在打开的列表中开启 Clutch。"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "どのアプリでもキーとマウスボタンの同時操作を検出するために必要です。表示される一覧で Clutch をオンにしてください。"
+          }
         }
       }
     },
@@ -627,6 +843,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "打开系统设置"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "システム設定を開く"
           }
         }
       }
@@ -645,6 +867,12 @@
             "state": "translated",
             "value": "Clutch 不会记录你输入的任何内容"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clutch は入力内容を記録しません。"
+          }
         }
       }
     },
@@ -661,6 +889,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "再次打开系统设置"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "システム設定をもう一度開く"
           }
         }
       }
@@ -679,6 +913,12 @@
             "state": "translated",
             "value": "清除旧的授权记录并重新授权"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "古い登録を削除して再試行"
+          }
         }
       }
     },
@@ -695,6 +935,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "已经打开了却还在等待？列表里的可能是旧版本的 Clutch。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "オンにしても進まない場合、一覧に登録されているのが古い Clutch かもしれません。"
           }
         }
       }
@@ -713,6 +959,12 @@
             "state": "translated",
             "value": "允许 Clutch 使用辅助功能"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clutch のアクセシビリティを許可"
+          }
         }
       }
     },
@@ -729,6 +981,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "等待授权中… 授权后会自动继续"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "許可を待っています… 許可後に自動で続行します。"
           }
         }
       }
@@ -747,6 +1005,12 @@
             "state": "translated",
             "value": "选择要触发的操作"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アクションを選択"
+          }
         }
       }
     },
@@ -763,6 +1027,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "上一步"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "戻る"
           }
         }
       }
@@ -781,6 +1051,12 @@
             "state": "translated",
             "value": "返回上一步（Esc）"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "前のステップに戻る（Esc）"
+          }
         }
       }
     },
@@ -797,6 +1073,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "快捷键已添加"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ショートカットを追加しました"
           }
         }
       }
@@ -815,6 +1097,12 @@
             "state": "translated",
             "value": "使用时，用另一只手按住这个键"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用時に、もう片方の手で押し続けるキーです"
+          }
         }
       }
     },
@@ -831,6 +1119,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "按下其中任意一个键"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "いずれかのキーを押してください"
           }
         }
       }
@@ -849,6 +1143,12 @@
             "state": "translated",
             "value": "这个组合已用于“%@”，换一个按键试试"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「%@」に使用済みです。別のボタンを試してください。"
+          }
         }
       }
     },
@@ -865,6 +1165,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "侧键、中键、右键，或滚动滚轮都可以"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "サイドボタン、中央ボタン、右ボタン、またはホイール操作"
           }
         }
       }
@@ -883,6 +1189,12 @@
             "state": "translated",
             "value": "现在按下一个鼠标按键"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "次にマウスボタンを押してください"
+          }
         }
       }
     },
@@ -899,6 +1211,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "操作"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アクション"
           }
         }
       }
@@ -917,6 +1235,12 @@
             "state": "translated",
             "value": "键盘按键"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "キー"
+          }
         }
       }
     },
@@ -933,6 +1257,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "鼠标按键"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "マウス"
           }
         }
       }
@@ -951,6 +1281,12 @@
             "state": "translated",
             "value": "从这一步重新开始"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このステップからやり直す"
+          }
         }
       }
     },
@@ -967,6 +1303,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "外观"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "外観"
           }
         }
       }
@@ -985,6 +1327,12 @@
             "state": "translated",
             "value": "语言"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "言語"
+          }
         }
       }
     },
@@ -1001,6 +1349,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "开机自动启动"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ログイン時に起動"
           }
         }
       }
@@ -1019,6 +1373,12 @@
             "state": "translated",
             "value": "关闭窗口后仍在菜单栏运行"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "閉じてもメニューバーで動作します"
+          }
         }
       }
     },
@@ -1035,6 +1395,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "偏好设置"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "環境設定"
           }
         }
       }
@@ -1053,6 +1419,12 @@
             "state": "translated",
             "value": "外观与语言"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "外観と言語"
+          }
         }
       }
     },
@@ -1069,6 +1441,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "我已支持"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "応援済み"
           }
         }
       }
@@ -1087,6 +1465,12 @@
             "state": "translated",
             "value": "请我喝杯咖啡"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "コーヒーで応援"
+          }
         }
       }
     },
@@ -1103,6 +1487,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "关闭"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "閉じる"
           }
         }
       }
@@ -1121,6 +1511,12 @@
             "state": "translated",
             "value": "记住我的支持，不再提醒购买。"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "応援済みとして記録し、購入の案内を停止します。"
+          }
         }
       }
     },
@@ -1137,6 +1533,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "已记下你的支持，不再提醒购买。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "応援を記録しました。購入の案内はもう表示しません。"
           }
         }
       }
@@ -1155,6 +1557,12 @@
             "state": "translated",
             "value": "调试：按住 Option 点击，重置本地支持状态和提醒记录。"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "デバッグ：Option キーを押しながらクリックすると、ローカルの応援状態と案内履歴をリセットします。"
+          }
         }
       }
     },
@@ -1171,6 +1579,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "当前为演示链接，正式发布前替换。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "デモ用リンクです。公開前に差し替えてください。"
           }
         }
       }
@@ -1189,6 +1603,12 @@
             "state": "translated",
             "value": "免费点一颗 Star，也能让更多人发现 Clutch。"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無料の Star で、もっと多くの人に Clutch を知ってもらえます。"
+          }
         }
       }
     },
@@ -1205,6 +1625,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "打开 Clutch 的 GitHub 项目页，点 Star 完全自愿。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clutch の GitHub ページを開きます。Star は任意です。"
           }
         }
       }
@@ -1223,6 +1649,12 @@
             "state": "translated",
             "value": "已打开 GitHub，喜欢的话可以在那里点一颗 Star！"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub を開きました。よければ Clutch に Star をお願いします！"
+          }
         }
       }
     },
@@ -1239,6 +1671,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "暂时无法打开链接，请重试。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "リンクを開けませんでした。もう一度お試しください。"
           }
         }
       }
@@ -1257,6 +1695,12 @@
             "state": "translated",
             "value": "咖啡收到啦，谢谢你！"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "コーヒーをありがとう！"
+          }
         }
       }
     },
@@ -1273,6 +1717,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "去 GitHub 点 Star"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub で Star を付ける"
           }
         }
       }
@@ -1291,6 +1741,12 @@
             "state": "translated",
             "value": "一次购买，支持 Clutch 后续开发。"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一度の購入が Clutch の開発を支えます。"
+          }
         }
       }
     },
@@ -1307,6 +1763,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "打开 App Store 购买 Clutch，GitHub 版仍可免费使用。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App Store を開いて Clutch を購入します。GitHub 版は引き続き無料で使えます。"
           }
         }
       }
@@ -1325,6 +1787,12 @@
             "state": "translated",
             "value": "在 App Store 购买支持"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App Store で購入して応援"
+          }
         }
       }
     },
@@ -1341,6 +1809,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "购买后，点击“我已支持”即可停止购买提醒。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "購入後に「応援済み」を選ぶと、購入の案内が表示されなくなります。"
           }
         }
       }
@@ -1359,6 +1833,12 @@
             "state": "translated",
             "value": "你已通过 App Store 购买，感谢支持！"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App Store でのご購入、ありがとうございます！"
+          }
         }
       }
     },
@@ -1375,6 +1855,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "通过 App Store 支持"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App Store で応援"
           }
         }
       }
@@ -1393,6 +1879,12 @@
             "state": "translated",
             "value": "Clutch 免费开源，购买 App Store 版支持，可让 Clutch 走得更远。"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clutch は無料でオープンソースです。App Store 版の購入で、開発を応援できます。"
+          }
         }
       }
     },
@@ -1409,6 +1901,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "感谢支持！仍可打开 GitHub 为 Clutch 点 Star。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "応援ありがとうございます！GitHub で Clutch に Star を付けることもできます。"
           }
         }
       }
@@ -1427,6 +1925,12 @@
             "state": "translated",
             "value": "你的支持让 Clutch 走得更远，龙女仆也开心得跳起来了。"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "応援が Clutch の開発を支えます。ドラゴンメイドも大喜びです。"
+          }
         }
       }
     },
@@ -1443,6 +1947,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "谢谢你的咖啡！"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "コーヒーをありがとう！"
           }
         }
       }
@@ -1461,6 +1971,12 @@
             "state": "translated",
             "value": "请我喝杯咖啡吧？"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "コーヒーで応援しませんか？"
+          }
         }
       }
     },
@@ -1477,6 +1993,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "你已经使用 Clutch 的快捷键 %lld 次。\n如果 Clutch 帮到了你，可以前往 App Store 购买支持，让 Clutch 走得更远。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ショートカットを %lld 回使いました。\nClutch が役立ったら、App Store 版の購入で開発を応援しませんか？"
           }
         }
       }
@@ -1495,6 +2017,12 @@
             "state": "translated",
             "value": "侧键 · 后退"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "サイドボタン · 戻る"
+          }
         }
       }
     },
@@ -1511,6 +2039,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "按键 %lld"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ボタン %lld"
           }
         }
       }
@@ -1529,6 +2063,12 @@
             "state": "translated",
             "value": "侧键 · 前进"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "サイドボタン · 進む"
+          }
         }
       }
     },
@@ -1545,6 +2085,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "中键"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "中央ボタン"
           }
         }
       }
@@ -1563,6 +2109,12 @@
             "state": "translated",
             "value": "右键"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "右ボタン"
+          }
         }
       }
     },
@@ -1579,6 +2131,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "滚轮向下"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下にスクロール"
           }
         }
       }
@@ -1597,6 +2155,12 @@
             "state": "translated",
             "value": "滚轮向左"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "左にスクロール"
+          }
         }
       }
     },
@@ -1614,6 +2178,12 @@
             "state": "translated",
             "value": "滚轮向右"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "右にスクロール"
+          }
         }
       }
     },
@@ -1630,6 +2200,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "滚轮向上"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "上にスクロール"
           }
         }
       }
