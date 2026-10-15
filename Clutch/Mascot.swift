@@ -151,11 +151,22 @@ final class SupportModel {
 
     /// 商店交易异步验证完成后，同步已打开的弹窗和主窗口入口。
     func updatePurchaseState(_ state: PurchaseState) {
-        guard state.isSupported, purchaseState != state else { return }
+        guard purchaseState != state else { return }
         purchaseState = state
         linkMessage = nil
         linkFailed = false
-        if phase == .followingMouse { phase = .cheeringUp }
+        if state.isSupported {
+            if phase == .followingMouse { phase = .cheeringUp }
+        } else {
+            // 调试重置后恢复跟随鼠标，避免按钮已回退但角色仍在庆祝。
+            hasOpenedGitHub = false
+            phase = .followingMouse
+            cursor = 0
+            direction = interaction == .coffeeButton ? -1 : 1
+            directionAnchor = nil
+            breath = 0
+            show(clip: 0, index: 0)
+        }
     }
 
     private func open(_ url: URL) -> Bool {

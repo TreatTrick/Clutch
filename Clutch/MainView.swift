@@ -254,7 +254,7 @@ private struct BuyMeCoffeeButton: View {
                 .allowsHitTesting(false)
 
             Button {
-                state.support.show(manually: true)
+                state.support.showManually()
             } label: {
                 Label(L(state.support.purchaseState.isSupported ? "support.already" : "support.button"),
                       systemImage: state.support.purchaseState.isSupported ? "checkmark.seal.fill" : "cup.and.saucer.fill")
@@ -272,7 +272,7 @@ private struct BuyMeCoffeeButton: View {
             .fixedSize()
             .background(CoffeeButtonTarget(model: mascot).allowsHitTesting(false))
             .onHover { hovering = $0 }
-            .help(L(state.support.purchaseState.isSupported ? "support.supported.help" : "menu.support"))
+            .help(state.support.entryHelp)
         }
         .onAppear {
             mascot.updatePurchaseState(state.support.purchaseState)

@@ -5,13 +5,22 @@ import SwiftUI
 
 /// Usage stats that decide when to ask for support
 struct SupportStats: Codable, Equatable {
+    static let reminderActiveDays = [3, 7]
+
     var triggerCount = 0
     /// Distinct local days ("yyyy-MM-dd") on which a shortcut actually fired, most recent last
     var activeDays: [String] = []
     var lastPrompt: Date?
+    /// 仅保留以兼容旧设置；新规则在弹出时记录节点，不再按关闭次数计算。
     var dismissCount = 0
+    /// 已提醒过的最后一个使用天数节点；跳过的较早节点也不再补弹。
+    var lastPromptMilestone = 0
     var hasSupported = false
     var hasPurchased = false
+
+    var nextPromptMilestone: Int? {
+        Self.reminderActiveDays.last { $0 <= activeDays.count && $0 > lastPromptMilestone }
+    }
 
     init() {}
 
@@ -24,6 +33,14 @@ struct SupportStats: Codable, Equatable {
         dismissCount = try c.decodeIfPresent(Int.self, forKey: .dismissCount) ?? 0
         hasSupported = try c.decodeIfPresent(Bool.self, forKey: .hasSupported) ?? false
         hasPurchased = try c.decodeIfPresent(Bool.self, forKey: .hasPurchased) ?? false
+        if let milestone = try c.decodeIfPresent(Int.self, forKey: .lastPromptMilestone) {
+            lastPromptMilestone = milestone
+        } else if dismissCount >= Self.reminderActiveDays.count {
+            // 旧版已提醒至少两次的用户，不因升级再次受到打扰。
+            lastPromptMilestone = Self.reminderActiveDays.last ?? 0
+        } else if lastPrompt != nil || dismissCount > 0 {
+            lastPromptMilestone = Self.reminderActiveDays.first ?? 0
+        }
     }
 }
 
@@ -45,15 +62,19 @@ final class SupportController {
         return state?.settings.support.hasPurchased == true ? .acknowledged : .notSupported
     }
 
-    static let requiredActiveDays = 3
-    static let snoozeDays = 14
-    static let maxDismissals = 3
+    var entryHelp: String {
+        let help = L(purchaseState.isSupported ? "support.supported.help" : "menu.support")
+        #if DEBUG
+        return help + "\n" + L("support.debug.reset.help")
+        #else
+        return help
+        #endif
+    }
+
     static let daytimeHours = 10..<19
 
     private var panel: NSPanel?
     private var model: SupportModel?
-    /// Opened from the menu rather than by the automatic prompt; closing it then isn't a "dismissal"
-    private var openedManually = false
     private var pendingCheck: DispatchWorkItem?
 
     /// 仅识别正式商店购买；缺少收据时不请求交易，避免 GitHub 版弹出 Apple 账户登录。
@@ -90,16 +111,46 @@ final class SupportController {
         guard panel == nil, let stats = state?.settings.support,
               !purchaseState.isSupported,
               !stats.hasSupported,
-              stats.dismissCount < Self.maxDismissals,
-              stats.activeDays.count >= Self.requiredActiveDays,
+              stats.nextPromptMilestone != nil,
               Self.daytimeHours.contains(Calendar.current.component(.hour, from: now))
         else { return false }
-        if let last = stats.lastPrompt,
-           now.timeIntervalSince(last) < TimeInterval(Self.snoozeDays * 24 * 3600) {
+        if let last = stats.lastPrompt, Calendar.current.isDate(last, inSameDayAs: now) {
             return false
         }
         return !Self.frontmostAppIsFullScreen()
     }
+
+    /// 两个手动入口共用隐藏操作，正式发布版本保持正常打开行为。
+    func showManually() {
+        #if DEBUG
+        if NSEvent.modifierFlags.contains(.option) {
+            resetSupportForDebugging()
+        }
+        #endif
+        show(manually: true)
+    }
+
+    #if DEBUG
+    /// 只重置本地支持声明和提醒进度，保留快捷键、使用次数和实际使用天数。
+    private func resetSupportForDebugging() {
+        guard let state else { return }
+        pendingCheck?.cancel()
+        pendingCheck = nil
+        model?.stop()
+        panel?.orderOut(nil)
+        model = nil
+        panel = nil
+
+        var stats = state.settings.support
+        stats.hasSupported = false
+        stats.hasPurchased = false
+        stats.lastPrompt = nil
+        stats.lastPromptMilestone = 0
+        stats.dismissCount = 0
+        state.settings.support = stats
+        // 正式商店交易识别结果不覆盖；此操作只用于调试本地未支持状态。
+    }
+    #endif
 
     func show(manually: Bool) {
         if let panel {
@@ -107,8 +158,14 @@ final class SupportController {
             return
         }
         guard let state else { return }
-        openedManually = manually
-        if !manually { state.settings.support.lastPrompt = Date() }
+        // 手动打开不消耗提醒节点；自动弹出即保存，避免关闭或重启后重复提醒。
+        if !manually {
+            guard shouldPrompt(), let milestone = state.settings.support.nextPromptMilestone else { return }
+            var stats = state.settings.support
+            stats.lastPrompt = Date()
+            stats.lastPromptMilestone = milestone
+            state.settings.support = stats
+        }
 
         let model = SupportModel(triggerCount: state.settings.support.triggerCount,
                                  purchaseState: purchaseState)
@@ -154,9 +211,6 @@ final class SupportController {
 
     func close() {
         guard let panel, let model else { return }
-        if !openedManually, !model.hasSupported {
-            state?.settings.support.dismissCount += 1
-        }
         model.stop()
         self.panel = nil
         self.model = nil

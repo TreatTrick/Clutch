@@ -1141,6 +1141,23 @@
         }
       }
     },
+    "support.debug.reset.help": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debug: Option-click to reset local support and reminder records."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "调试：按住 Option 点击，重置本地支持状态和提醒记录。"
+          }
+        }
+      }
+    },
     "support.demo": {
       "extractionState": "manual",
       "localizations": {
@@ -1453,13 +1470,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch has helped you trigger %lld gestures. Thanks for using it!"
+            "value": "You've used Clutch's shortcuts %lld times.\nIf Clutch has helped you, buying the App Store edition helps Clutch go further."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch 已为你触发 %lld 次手势，感谢使用！"
+            "value": "你已经使用 Clutch 的快捷键 %lld 次。\n如果 Clutch 帮到了你，可以前往 App Store 购买支持，让 Clutch 走得更远。"
           }
         }
       }
