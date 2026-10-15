@@ -31,10 +31,10 @@ After Clutch has been used on 3 different days, a small "buy me a coffee" popup 
 
 The QR codes and links in `SupportLinks` / `PaymentMethod` are demo placeholders.
 
-The mascot comes from two videos (dejected → overjoyed, and a jump that loops). Regenerate the bundled frames with:
+The mascot comes from `sadtohappy2.mp4` (dejected → overjoyed, scrubbed by the mouse) and `happyJump2.mp4` (a looping jump after a star or tip). They are bundled as `MascotA.heic` and `MascotB.heic`, respectively. Regenerate the bundled frames with the mouse-interaction clip first, then the celebration clip:
 
 ```
-swift scripts/make_mascot.swift <videoA.mp4> <videoB.mp4>
+swift scripts/make_mascot.swift <path-to-sadtohappy2.mp4> <path-to-happyJump2.mp4>
 ```
 
 ## License
