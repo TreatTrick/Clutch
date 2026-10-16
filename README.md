@@ -202,62 +202,6 @@ On first launch, click **Open System Settings** and enable Clutch under *Privacy
 > [!TIP]
 > Desktop switching uses the system shortcuts in *System Settings › Keyboard › Keyboard Shortcuts › Mission Control* ("Move left/right a space"). Keep them enabled; their key combination doesn't matter.
 
-## 🛠 Under the hood
-
-```
- mouse / wheel ──▶ CGEventTap ──▶ modifier held + bound trigger? ──no──▶ passes through
-                                          │ yes
-                                          ▼
-                              swallow event (and its mouse-up)
-                                          │
-              ┌───────────────────────────┼─────────────────────────────┐
-              ▼                           ▼                             ▼
-     symbolic hot keys 79 / 81    CoreDockSendNotification     AX press on the menu bar clock
-     (previous / next desktop)    (Mission Control, App         (Notification Center)
-                                   Windows, Show Desktop)
-```
-
-- **Event tap.** A session-level `CGEventTap` sees mouse buttons and scrolling before apps do. A matched event is swallowed, along with its mouse-up, so the app underneath never sees a stray click.
-- **Scroll gestures.** Wheel ticks are accumulated up to a threshold and then fire once, with a short cooldown. Trackpad momentum is ignored, so a single flick doesn't turn into five desktop switches.
-- **Desktops.** Clutch reads the user's own "Move left/right a space" shortcut from `com.apple.symbolichotkeys` and posts it, so it works whatever keys you've assigned.
-- **Mission Control, App Windows, Show Desktop.** These are sent straight to the Dock, with `Mission Control.app` as a fallback.
-- **Notification Center.** Clutch presses the Control Center clock item through the Accessibility API.
-
-## 🗂 Project layout
-
-```
-Clutch/
-├── ClutchApp.swift          # App entry: settings window + MenuBarExtra
-├── AppState.swift           # Settings, guided recorder state, permission handling
-├── EventTap.swift           # Global CGEventTap + scroll accumulator
-├── ActionPerformer.swift    # The six system actions
-├── Models.swift             # Modifiers, mouse triggers, actions, bindings
-├── MainView.swift           # Settings window: header, recorder, list, footer
-├── RecorderView.swift       # The 3-step guided recorder
-├── PermissionView.swift     # Accessibility onboarding
-├── MenuBarView.swift        # Menu bar popover
-├── SupportController.swift  # When to show the support popup, App Store detection
-├── SupportView.swift        # The support popup UI
-├── Mascot.swift             # HEIC frame decoder + cursor-driven mood playback
-├── Mascot/                  # MascotA.heic (mood) · MascotB.heic (celebration)
-├── Localizable.xcstrings    # English + 简体中文 + 日本語
-└── Assets.xcassets          # App icon + menu bar template icons
-scripts/
-├── make_icon.swift          # Draws the app & menu bar icons with CoreGraphics
-├── make_mascot.swift        # Video → background removal → aligned HEIC frames
-└── gen_strings.py           # Regenerates Localizable.xcstrings
-```
-
-**Regenerate assets:**
-
-```bash
-swift scripts/make_icon.swift                                   # icons
-swift scripts/make_mascot.swift sad2Happy3.mp4 happyJump2.mp4   # mascot frames (mood clip first)
-python3 scripts/gen_strings.py                                  # strings
-```
-
-`make_mascot.swift` cuts the maid out of each video frame with Vision's foreground instance mask, aligns the two clips onto one canvas and packs them into multi-image HEIC files. Clutch decodes those frames lazily at runtime.
-
 ## 🌐 Localization
 
 Clutch ships in **English**, **简体中文** and **日本語**, and you can switch languages from *Preferences* at any time, or follow your system language. To add a language, add a column to `scripts/gen_strings.py`, regenerate, add an option to `AppLanguage` in `Clutch/Localization.swift`, and add the region to the Xcode project. Pull requests are welcome.
