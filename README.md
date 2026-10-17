@@ -18,7 +18,7 @@ Hold a key. Click the mouse. Trigger a gesture.
 [![Languages](https://img.shields.io/badge/i18n-English%20%7C%20%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%20%7C%20%E6%97%A5%E6%9C%AC%E8%AA%9E-FF9F0A)](#-localization)
 [![GitHub stars](https://img.shields.io/github/stars/TreatTrick/Clutch?style=social)](https://github.com/TreatTrick/Clutch)
 
-[Download](#-install) · [How it works](#-three-steps-to-your-first-shortcut) · [Meet the maid](#-meet-the-maid) · [Under the hood](#-under-the-hood)
+[Download v1.0.0](https://github.com/TreatTrick/Clutch/releases/download/v1.0.0/Clutch-v1.0.0-universal.zip) · [Install](#-install) · [How it works](#-three-steps-to-your-first-shortcut) · [Meet the maid](#-meet-the-maid) · [Under the hood](#-under-the-hood)
 
 <br>
 
@@ -160,11 +160,17 @@ Clutch needs **Accessibility** permission so it can see mouse events in every ap
 
 ## 📦 Install
 
-<!-- TODO: link to the GitHub Releases page once it exists -->
+<!-- TODO: keep the versioned download links in sync with future GitHub Releases -->
 
-Requirements: macOS 15 Sequoia or later.
+**[Download Clutch v1.0.0 — Universal ZIP](https://github.com/TreatTrick/Clutch/releases/download/v1.0.0/Clutch-v1.0.0-universal.zip)** · [All releases](https://github.com/TreatTrick/Clutch/releases)
 
-On first launch, click **Open System Settings** and enable Clutch under *Privacy & Security › Accessibility*. Clutch picks up the change by itself.
+Requirements: macOS 15 Sequoia or later, on **Apple Silicon or Intel**.
+
+1. Download and unzip the archive, then move **Clutch.app** to **Applications**.
+2. Open Clutch. On first launch, click **Open System Settings** and enable Clutch under *Privacy & Security › Accessibility*. Clutch picks up the change by itself.
+
+> [!NOTE]
+> This release uses an ad hoc signature and is not notarized by Apple. If macOS blocks it because the developer cannot be verified, follow [Apple's instructions](https://support.apple.com/en-us/102445) to use **System Settings › Privacy & Security › Open Anyway**, after confirming that you trust the download.
 
 > [!TIP]
 > Desktop switching uses the system shortcuts in *System Settings › Keyboard › Keyboard Shortcuts › Mission Control* ("Move left/right a space"). Keep them enabled; their key combination doesn't matter.

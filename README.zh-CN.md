@@ -18,7 +18,7 @@
 [![语言](https://img.shields.io/badge/i18n-English%20%7C%20%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%20%7C%20%E6%97%A5%E6%9C%AC%E8%AA%9E-FF9F0A)](#-多语言)
 [![GitHub stars](https://img.shields.io/github/stars/TreatTrick/Clutch?style=social)](https://github.com/TreatTrick/Clutch)
 
-[安装](#-安装) · [三步添加快捷键](#-三步添加快捷键) · [认识龙女仆](#-认识龙女仆)
+[下载 v1.0.0](https://github.com/TreatTrick/Clutch/releases/download/v1.0.0/Clutch-v1.0.0-universal.zip) · [安装说明](#-安装) · [三步添加快捷键](#-三步添加快捷键) · [认识龙女仆](#-认识龙女仆)
 
 <br>
 
@@ -160,11 +160,17 @@ Clutch 需要**辅助功能权限**，用于监听组合操作并触发相应的
 
 ## 📦 安装
 
-<!-- TODO: link to the GitHub Releases page once it exists -->
+<!-- TODO: keep the versioned download links in sync with future GitHub Releases -->
 
-系统要求：macOS 15 Sequoia 或更高版本。
+**[下载 Clutch v1.0.0 — Universal ZIP](https://github.com/TreatTrick/Clutch/releases/download/v1.0.0/Clutch-v1.0.0-universal.zip)** · [所有版本](https://github.com/TreatTrick/Clutch/releases)
 
-首次启动时，点击“打开系统设置”，前往“隐私与安全性 → 辅助功能”，开启 Clutch 的权限。Clutch 会自动识别授权变化。
+系统要求：macOS 15 Sequoia 或更高版本，支持 **Apple Silicon 和 Intel** 芯片。
+
+1. 下载并解压，将 **Clutch.app** 移到“应用程序”文件夹。
+2. 打开 Clutch。首次启动时，点击“打开系统设置”，前往“隐私与安全性 → 辅助功能”，开启 Clutch 的权限。Clutch 会自动识别授权变化。
+
+> [!NOTE]
+> 此版本使用 ad hoc 签名，未经 Apple 公证。如果 macOS 因无法验证开发者而阻止打开，请在确认下载来源可信后，按照 [Apple 官方说明](https://support.apple.com/zh-cn/102445)，前往“系统设置 → 隐私与安全性”，点击“仍要打开”。
 
 > [!TIP]
 > 切换桌面依赖“系统设置 → 键盘 → 键盘快捷键 → 调度中心”里的“向左移动一个空间”和“向右移动一个空间”。请保持这两项开启，具体绑定哪组按键不影响 Clutch 使用。
