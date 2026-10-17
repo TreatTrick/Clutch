@@ -1,13 +1,15 @@
 <div align="center">
 
-<!-- TODO: app icon, 128×128 PNG exported from Clutch/Assets.xcassets/AppIcon.appiconset -->
+<!-- TODO: keep docs/assets/icon.png in sync with AppIcon (256×256 PNG displayed at 128 px) -->
 <img src="docs/assets/icon.png" width="128" alt="Clutch app icon">
 
 # Clutch
 
-### Hold a key. Click the mouse. Trigger a gesture.
+### All the Trackpad Gestures. None of the Trackpad.
 
-All the trackpad gestures, without a trackpad and without letting go of your mouse.
+Hold a key. Click the mouse. Trigger a gesture.
+
+**English** · [简体中文](README.zh-CN.md)
 
 [![macOS 15+](https://img.shields.io/badge/macOS-15%2B-000000?logo=apple&logoColor=white)](#-install)
 [![Swift](https://img.shields.io/badge/Swift-5-F05138?logo=swift&logoColor=white)](https://swift.org)
@@ -20,11 +22,13 @@ All the trackpad gestures, without a trackpad and without letting go of your mou
 
 <br>
 
-<!-- TODO: hero.gif (about 1200×700, under 10 MB)
-     Hand on the mouse, Option held: click the back side button → desktop slides left,
+<!-- TODO: expand desktop-switching-demo.gif with Mission Control and Show Desktop (aim for about 1200×700, under 10 MB)
+     Hand on the mouse, Control held: click the forward side button → desktop slides left;
+     click the back side button → desktop slides right.
      ⌥ + middle click → Mission Control opens, ⌥ + scroll down → Show Desktop.
-     A keystroke overlay (e.g. KeyCastr) in the corner helps viewers follow along. -->
-<img src="docs/assets/hero.gif" width="860" alt="Clutch in action: switching desktops and opening Mission Control with a modifier key and the mouse">
+     A keystroke overlay (e.g. KeyCastr) in the corner helps viewers follow along.
+     The current desktop-switching-demo.gif is converted from a recording; the editable illustration remains in desktop-switching-demo.svg. -->
+<img src="docs/assets/desktop-switching-demo.gif" width="860" alt="Clutch demo: Control + the forward mouse button slides the desktop left; Control + the back mouse button slides it right">
 
 </div>
 
@@ -74,42 +78,17 @@ Bind any of six system features to any combination of a modifier and a mouse tri
 
 No preference panes or dropdowns. Clutch asks for one thing at a time and records what you actually press.
 
-<table>
-<tr>
-<td align="center" width="33%">
-
 <!-- TODO: step1.png, the recorder on step 1 showing the five large keycaps -->
-<img src="docs/assets/step1-key.png" alt="Step 1: press a modifier key">
-
-**1 · Press a key**<br>
-<sub>Hold ⌥, ⌃, ⌘, ⇧ or fn. Clutch picks it up straight away.</sub>
-
-</td>
-<td align="center" width="33%">
-
 <!-- TODO: step2.png, step 2 with the chosen keycap, "+" and the bouncing dashed mouse -->
-<img src="docs/assets/step2-mouse.png" alt="Step 2: press a mouse button">
-
-**2 · Press a mouse button**<br>
-<sub>Click, side-click or scroll. If that combo is already taken, Clutch warns you before you continue.</sub>
-
-</td>
-<td align="center" width="33%">
-
 <!-- TODO: step3.png, step 3 with the 3×2 grid of action tiles -->
-<img src="docs/assets/step3-action.png" alt="Step 3: choose an action">
+<!-- TODO: refresh shortcut-setup-steps.gif when the recorder flow changes, from step 1 to the green ✓ "Shortcut added" screen -->
+<p align="center"><img src="docs/assets/shortcut-setup-steps.gif" width="600" alt="Three steps to add a shortcut, with synchronized STEP 1, STEP 2, and STEP 3 captions: press a key, press a mouse button, then pick an action"></p>
 
-**3 · Pick an action**<br>
-<sub>Each tile shows the trackpad gesture it replaces.</sub>
-
-</td>
-</tr>
-</table>
+1. **Press a key.** Hold ⌥, ⌃, ⌘, ⇧ or fn. Clutch picks it up straight away.
+2. **Press a mouse button.** Click, side-click or scroll. If that combo is already taken, Clutch warns you before you continue.
+3. **Pick an action.** Each tile shows the trackpad gesture it replaces.
 
 Changed your mind? Use **Back**, press <kbd>Esc</kbd>, or click any completed step to redo it. Saved shortcuts appear in a plain list, and you remove one with the trash button.
-
-<!-- TODO: recorder.gif (about 600×400), the full record flow from step 1 to the green ✓ "Shortcut added" screen -->
-<p align="center"><img src="docs/assets/recorder.gif" width="600" alt="The full recording flow"></p>
 
 ## 🐉 Meet the maid
 
@@ -121,14 +100,12 @@ Clutch is free and open source. After you've used it for a while, a small dragon
 
 <div align="center">
 
-<!-- TODO: mascot video. Drag docs/assets/mascot.mp4 into the GitHub README editor and replace this
+<!-- TODO: optional mascot video version. Drag docs/assets/mascot.mp4 into the GitHub README editor and replace this
      block with the generated https://github.com/user-attachments/assets/… URL on its own line,
      which GitHub renders as an inline player. Source clips: sad2Happy3.mp4 (mood) and happyJump2.mp4 (celebration). -->
-<video src="docs/assets/mascot.mp4" width="420" autoplay loop muted playsinline></video>
-
-<!-- TODO: popup.gif, the support popup sliding in at the bottom right while the cursor moves
+<!-- TODO: refresh mascot-interaction-demo.gif when the support popup changes, including how it slides in while the cursor moves
      toward the close button (she gets sad) and then back to the support button (she cheers up) -->
-<img src="docs/assets/support-popup.gif" width="560" alt="The support popup: the mascot reacts to the cursor">
+<img src="docs/assets/mascot-interaction-demo.gif" width="560" alt="The dragon maid and support popup: the mascot reacts to the cursor">
 
 </div>
 
@@ -166,7 +143,7 @@ She also lives in the settings window footer, next to the coffee button, and wat
 </tr>
 </table>
 
-<!-- TODO: settings.png (light) and settings-dark.png (dark), the main window with a few saved shortcuts.
+<!-- TODO: keep settings.png (light) and settings-dark.png (dark) in sync with the shortcut recorder UI.
      Optionally swap in a <picture> element with prefers-color-scheme to match the reader's theme. -->
 <p align="center">
   <img src="docs/assets/settings.png" width="49%" alt="Settings window, light appearance">
@@ -184,14 +161,6 @@ Clutch needs **Accessibility** permission so it can see mouse events in every ap
 ## 📦 Install
 
 <!-- TODO: link to the GitHub Releases page once it exists -->
-
-**Build from source:**
-
-```bash
-git clone https://github.com/TreatTrick/Clutch.git
-cd Clutch
-open Clutch.xcodeproj   # Xcode 16+, then press ⌘R
-```
 
 Requirements: macOS 15 Sequoia or later.
 
@@ -226,7 +195,7 @@ The app includes payment QR codes for PayPal, WeChat, and Alipay. You can also o
 
 <div align="center">
 
-<!-- TODO: mascot-jump.gif, a short loop of the celebration clip (MascotB) with a transparent or white background -->
+<!-- TODO: keep mascot-jump.gif in sync with the celebration clip (MascotB), preserving its transparent background -->
 <img src="docs/assets/mascot-jump.gif" width="180" alt="The dragon maid jumping for joy">
 
 <sub>Thank you. She means it.</sub>
