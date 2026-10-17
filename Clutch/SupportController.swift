@@ -51,9 +51,9 @@ struct SupportStats: Codable, Equatable {
     }
 }
 
-/// Links shown in the support popup. The payment and repository links are demo placeholders; replace before publishing.
+/// Links shown in the support popup. The payment link is a demo placeholder; replace before publishing.
 enum SupportLinks {
-    static let gitHub = URL(string: "https://github.com/your-name/Clutch")!
+    static let gitHub = URL(string: "https://github.com/TreatTrick/Clutch")!
     static let payPal = URL(string: "https://paypal.me/your-name")!
 }
 

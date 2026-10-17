@@ -14,7 +14,7 @@ All the trackpad gestures, without a trackpad and without letting go of your mou
 [![SwiftUI](https://img.shields.io/badge/UI-SwiftUI-0A84FF?logo=swift&logoColor=white)](https://developer.apple.com/xcode/swiftui/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-34C759)](#-license)
 [![Languages](https://img.shields.io/badge/i18n-English%20%7C%20%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%20%7C%20%E6%97%A5%E6%9C%AC%E8%AA%9E-FF9F0A)](#-localization)
-[![GitHub stars](https://img.shields.io/github/stars/your-name/Clutch?style=social)](https://github.com/your-name/Clutch)
+[![GitHub stars](https://img.shields.io/github/stars/TreatTrick/Clutch?style=social)](https://github.com/TreatTrick/Clutch)
 
 [Download](#-install) · [How it works](#-three-steps-to-your-first-shortcut) · [Meet the maid](#-meet-the-maid) · [Under the hood](#-under-the-hood)
 
@@ -188,7 +188,7 @@ Clutch needs **Accessibility** permission so it can see mouse events in every ap
 **Build from source:**
 
 ```bash
-git clone https://github.com/your-name/Clutch.git
+git clone https://github.com/TreatTrick/Clutch.git
 cd Clutch
 open Clutch.xcodeproj   # Xcode 16+, then press ⌘R
 ```
