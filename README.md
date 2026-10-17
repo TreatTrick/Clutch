@@ -18,7 +18,7 @@ Hold a key. Click the mouse. Trigger a gesture.
 [![Languages](https://img.shields.io/badge/i18n-English%20%7C%20%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%20%7C%20%E6%97%A5%E6%9C%AC%E8%AA%9E-FF9F0A)](#-localization)
 [![GitHub stars](https://img.shields.io/github/stars/TreatTrick/Clutch?style=social)](https://github.com/TreatTrick/Clutch)
 
-[Download v1.0.0](https://github.com/TreatTrick/Clutch/releases/download/v1.0.0/Clutch-v1.0.0-universal.zip) · [Install](#-install) · [How it works](#-three-steps-to-your-first-shortcut) · [Meet the maid](#-meet-the-maid) · [Under the hood](#-under-the-hood)
+[Download v1.0.0](https://github.com/TreatTrick/Clutch/releases/download/v1.0.0/Clutch-v1.0.0-universal.dmg) · [Install](#-install) · [How it works](#-three-steps-to-your-first-shortcut) · [Meet the maid](#-meet-the-maid) · [Under the hood](#-under-the-hood)
 
 <br>
 
@@ -162,15 +162,26 @@ Clutch needs **Accessibility** permission so it can see mouse events in every ap
 
 <!-- TODO: keep the versioned download links in sync with future GitHub Releases -->
 
-**[Download Clutch v1.0.0 — Universal ZIP](https://github.com/TreatTrick/Clutch/releases/download/v1.0.0/Clutch-v1.0.0-universal.zip)** · [All releases](https://github.com/TreatTrick/Clutch/releases)
+**[Download Clutch v1.0.0 — Universal DMG](https://github.com/TreatTrick/Clutch/releases/download/v1.0.0/Clutch-v1.0.0-universal.dmg)** · [All releases](https://github.com/TreatTrick/Clutch/releases)
 
 Requirements: macOS 15 Sequoia or later, on **Apple Silicon or Intel**.
 
-1. Download and unzip the archive, then move **Clutch.app** to **Applications**.
-2. Open Clutch. On first launch, click **Open System Settings** and enable Clutch under *Privacy & Security › Accessibility*. Clutch picks up the change by itself.
-
 > [!NOTE]
-> This release uses an ad hoc signature and is not notarized by Apple. If macOS blocks it because the developer cannot be verified, follow [Apple's instructions](https://support.apple.com/en-us/102445) to use **System Settings › Privacy & Security › Open Anyway**, after confirming that you trust the download.
+> This release uses an ad hoc signature and is not notarized by Apple. The steps below follow [Apple's instructions](https://support.apple.com/en-us/102445) for opening an app you trust.
+
+1. Open the downloaded **DMG**, then drag **Clutch** onto the **Applications** shortcut in the installer window. You can also double-click **INSTALL.html** in that window to read this guide and its screenshots offline, with buttons to switch between English and Simplified Chinese.
+2. Open Clutch from **Applications**. If macOS shows **“Clutch” Not Opened**, click **Done** to dismiss the alert and keep the app.
+
+   <img src="docs/assets/macos-not-opened.png" width="360" alt="macOS blocks Clutch on first launch; click Done to dismiss the alert">
+
+3. Open **System Settings › Privacy & Security**, scroll to **Security**, and click **Open Anyway** beside the message about Clutch.
+
+   <img src="docs/assets/macos-open-anyway.png" width="700" alt="Privacy & Security settings showing the Open Anyway button for Clutch">
+
+4. Confirm that you want to open Clutch; enter your Mac password or use Touch ID if prompted.
+5. In Clutch, click **Open System Settings** and enable Clutch under **Privacy & Security › Accessibility**. Clutch picks up the change by itself.
+
+To add your first shortcut, hold a modifier key in the recorder, press a mouse button or scroll, then choose an action. See [the three-step guide](#-three-steps-to-your-first-shortcut). Clutch keeps running in the menu bar when you close its window. After copying the app, you can eject the installer disk.
 
 > [!TIP]
 > Desktop switching uses the system shortcuts in *System Settings › Keyboard › Keyboard Shortcuts › Mission Control* ("Move left/right a space"). Keep them enabled; their key combination doesn't matter.
