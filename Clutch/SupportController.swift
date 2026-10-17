@@ -51,10 +51,10 @@ struct SupportStats: Codable, Equatable {
     }
 }
 
-/// Links shown in the support popup. The payment link is a demo placeholder; replace before publishing.
+/// Links shown in the support popup. Keep the payment link in sync with the bundled PayPal QR code.
 enum SupportLinks {
     static let gitHub = URL(string: "https://github.com/TreatTrick/Clutch")!
-    static let payPal = URL(string: "https://paypal.me/your-name")!
+    static let payPal = URL(string: "https://www.paypal.com/ncp/payment/GVHHQGRMT9YYJ")!
 }
 
 /// Decides when to show the support popup and owns its floating panel

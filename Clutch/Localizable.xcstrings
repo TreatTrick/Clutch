@@ -1704,29 +1704,6 @@
         }
       }
     },
-    "support.demo": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Demo payment codes and links. Replace them before publishing."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "当前为演示收款码和链接，正式发布前替换。"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "支援用 QR コードとリンクはデモです。公開前に差し替えてください。"
-          }
-        }
-      }
-    },
     "support.github.detail": {
       "extractionState": "manual",
       "localizations": {

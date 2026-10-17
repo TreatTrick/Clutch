@@ -1,5 +1,4 @@
 import AppKit
-import CoreImage
 import ImageIO
 import Observation
 
@@ -293,7 +292,7 @@ final class SupportModel {
     }
 }
 
-/// Ways to tip. The QR payloads are demo placeholders; replace before publishing.
+/// Ways to tip using the original payment QR images bundled with the app.
 enum PaymentMethod: String, CaseIterable, Identifiable {
     case payPal, wechat, alipay
 
@@ -309,23 +308,14 @@ enum PaymentMethod: String, CaseIterable, Identifiable {
 
     var caption: String { L("payment.\(rawValue).caption") }
 
-    var payload: String {
-        switch self {
-        case .payPal: SupportLinks.payPal.absoluteString
-        case .wechat: "wxp://f2f0-clutch-demo-code"
-        case .alipay: "https://qr.alipay.com/clutch-demo-code"
-        }
-    }
-
-    /// Crisp QR code image; draw it with interpolation turned off
+    /// Original QR code image; draw it with interpolation turned off to keep the code sharp.
     var qrCode: CGImage? {
-        guard let filter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
-        filter.setValue(Data(payload.utf8), forKey: "inputMessage")
-        filter.setValue("M", forKey: "inputCorrectionLevel")
-        // The generator outputs one pixel per module; scale up so it stays sharp when drawn
-        guard let output = filter.outputImage?.transformed(by: CGAffineTransform(scaleX: 8, y: 8)) else { return nil }
-        return Self.context.createCGImage(output, from: output.extent)
+        let imageName: NSImage.Name = switch self {
+        case .payPal: "PayPalQRCode"
+        case .wechat: "WeChatQRCode"
+        case .alipay: "AlipayQRCode"
+        }
+        // Load the bundled originals so the avatars and payment destinations stay intact.
+        return NSImage(named: imageName)?.cgImage(forProposedRect: nil, context: nil, hints: nil)
     }
-
-    private static let context = CIContext()
 }

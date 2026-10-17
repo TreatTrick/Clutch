@@ -16,20 +16,13 @@ struct SupportView: View {
                 header
                 TipSupportCard(model: model)
                 gitHubAction
-                VStack(alignment: .leading, spacing: 4) {
-                    if let message = model.linkMessage {
-                        Text(message)
-                            .foregroundStyle(model.linkFailed ? Color.red : Color.secondary)
-                            .lineLimit(2)
-                    }
-                    // 演示提示始终保留，打开链接后的反馈不能把它遮掉。
-                    Text(L("support.demo"))
-                        .foregroundStyle(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                .font(.caption2)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .frame(height: 50, alignment: .topLeading)
+                // 链接反馈预留固定高度，避免打开浏览器后弹窗布局跳动。
+                Text(model.linkMessage ?? "")
+                    .font(.caption2)
+                    .foregroundStyle(model.linkFailed ? Color.red : Color.secondary)
+                    .lineLimit(2)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(height: 32, alignment: .topLeading)
             }
             .padding(.trailing, 18)
             .padding(.bottom, 18)

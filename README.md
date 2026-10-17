@@ -221,8 +221,8 @@ If Clutch saves your mouse hand a trip to the keyboard:
 - ⭐ **Star this repo.** It helps other people find Clutch, and the maid gets very happy.
 - ☕ **Tip with PayPal, WeChat, or Alipay.** Open the coffee button in Clutch to choose a payment method. After tipping, choose **I've Supported** to turn off automatic reminders.
 
-<!-- TODO: replace the demo PayPal link and payment QR payloads before publishing -->
-The payment codes and links currently included in the app are demo placeholders.
+<!-- TODO: keep the PayPal link in sync when replacing the bundled payment QR images -->
+The app includes payment QR codes for PayPal, WeChat, and Alipay. You can also open PayPal directly in your browser.
 
 <div align="center">
 
