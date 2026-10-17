@@ -51,8 +51,8 @@ struct MenuBarView: View {
             Button {
                 state.support.showManually()
             } label: {
-                Label(L(state.support.purchaseState.isSupported ? "support.already" : "menu.support"),
-                      systemImage: state.support.purchaseState.isSupported ? "checkmark.seal.fill" : "cup.and.saucer.fill")
+                Label(L(state.support.isSupported ? "support.already" : "menu.support"),
+                      systemImage: state.support.isSupported ? "checkmark.seal.fill" : "cup.and.saucer.fill")
             }
             .buttonStyle(.borderless)
             .help(state.support.entryHelp)

@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// The "buy me a coffee" popup: the mascot on the left, App Store support and GitHub Star on the right
+/// The "buy me a coffee" popup: the mascot on the left, ways to tip and GitHub Star on the right
 struct SupportView: View {
     @Bindable var model: SupportModel
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -14,14 +14,22 @@ struct SupportView: View {
             VStack(alignment: .leading, spacing: 12) {
                 Spacer().frame(height: 18)
                 header
-                AppStoreSupportCard(model: model)
+                TipSupportCard(model: model)
                 gitHubAction
-                Text(model.linkMessage ?? L("support.demo"))
-                    .font(.caption2)
-                    .foregroundStyle(model.linkFailed ? Color.red : Color.secondary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .frame(height: 32, alignment: .topLeading)
-                    .lineLimit(3)
+                VStack(alignment: .leading, spacing: 4) {
+                    if let message = model.linkMessage {
+                        Text(message)
+                            .foregroundStyle(model.linkFailed ? Color.red : Color.secondary)
+                            .lineLimit(2)
+                    }
+                    // 演示提示始终保留，打开链接后的反馈不能把它遮掉。
+                    Text(L("support.demo"))
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .font(.caption2)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(height: 50, alignment: .topLeading)
             }
             .padding(.trailing, 18)
             .padding(.bottom, 18)
@@ -52,11 +60,12 @@ struct SupportView: View {
         VStack(alignment: .leading, spacing: 4) {
             Text(L(model.isSupported ? "support.thanks.title" : "support.title"))
                 .font(.title3.weight(.semibold))
-            Text(model.isSupported
-                 ? L("support.thanks.detail")
-                 : model.triggerCount > 0
-                    ? L("support.usage %lld", model.triggerCount)
-                    : L("support.subtitle"))
+            // 手动和自动打开都显示累计次数，包括尚未触发快捷键的 0 次。
+            Text(L("support.usage %lld", model.triggerCount))
+                .font(.callout)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+            Text(L(model.isSupported ? "support.confirmed.detail" : "support.subtitle"))
                 .font(.callout)
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -116,58 +125,102 @@ struct MascotView: View {
     }
 }
 
-// MARK: - App Store support card
+// MARK: - Tip card
 
-private struct AppStoreSupportCard: View {
+private struct TipSupportCard: View {
     @Bindable var model: SupportModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            HStack(alignment: .top, spacing: 10) {
-                Image(systemName: model.isSupported ? "checkmark.seal.fill" : "app.gift.fill")
-                    .font(.system(size: 25))
-                    .foregroundStyle(model.isSupported ? Color.green : Color.accentColor)
-                    .frame(width: 30)
-                    .accessibilityHidden(true)
-
-                VStack(alignment: .leading, spacing: 3) {
-                    Text(L(model.isSupported ? "support.already" : "support.store.title"))
-                        .font(.callout.weight(.semibold))
-                    Text(L(model.purchaseState == .appStore
-                           ? "support.store.purchased"
-                           : model.isSupported ? "support.confirmed.detail" : "support.store.detail"))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
+            if model.showsPaymentOptions {
+                Picker(L("support.method"), selection: $model.payment) {
+                    ForEach(PaymentMethod.allCases) { method in
+                        Text(method.name).tag(method)
+                    }
                 }
-            }
+                .pickerStyle(.segmented)
+                .labelsHidden()
 
-            if model.isSupported {
+                HStack(spacing: 12) {
+                    QRCodeView(method: model.payment)
+                        .frame(width: 112, height: 112)
+
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(model.payment.caption)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                        if model.payment == .payPal {
+                            Button(L("support.paypal.open")) { model.openPayPal() }
+                                .buttonStyle(.link)
+                                .font(.caption)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+
+                if model.isSupported {
+                    Button { model.showsPaymentOptions = false } label: {
+                        Label(L("support.back"), systemImage: "chevron.left")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.large)
+                } else {
+                    Button { model.confirmSupport() } label: {
+                        Label(L("support.already"), systemImage: "checkmark")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
+                    .help(L("support.confirm.help"))
+                }
+            } else {
                 Label(L("support.received"), systemImage: "heart.fill")
+                    .font(.callout.weight(.semibold))
+                    .foregroundStyle(.pink)
+                Text(L("support.thanks.detail"))
                     .font(.caption)
                     .foregroundStyle(.secondary)
-            } else {
-                Button { model.openAppStore() } label: {
-                    Label(L("support.store.open"), systemImage: "arrow.up.right")
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.borderedProminent)
-                .controlSize(.large)
-                .help(L("support.store.help"))
-
-                Button { model.confirmSupport() } label: {
-                    Text(L("support.already"))
+                    .fixedSize(horizontal: false, vertical: true)
+                Spacer(minLength: 0)
+                // Lets you go back and look at the payment codes again without clearing support.
+                Button { model.showsPaymentOptions = true } label: {
+                    Text(L("support.payment.show"))
                         .font(.caption)
                         .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.borderless)
-                .help(L("support.confirm.help"))
+                .buttonStyle(.bordered)
+                .controlSize(.large)
             }
         }
         // 已支持后保留卡片高度，感谢动画和 Star 入口不会上下跳动。
-        .frame(maxWidth: .infinity, minHeight: 104, alignment: .topLeading)
+        .frame(maxWidth: .infinity, minHeight: 186, alignment: .topLeading)
         .padding(12)
         .background(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(.background.opacity(0.7)))
+    }
+}
+
+private struct QRCodeView: View {
+    let method: PaymentMethod
+
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.white)
+            if let code = method.qrCode {
+                Image(decorative: code, scale: 1)
+                    .resizable()
+                    .interpolation(.none)
+                    .antialiased(false)
+                    .aspectRatio(contentMode: .fit)
+                    .padding(8)
+            } else {
+                Image(systemName: "qrcode")
+                    .font(.largeTitle)
+                    .foregroundStyle(.black)
+            }
+        }
+        .accessibilityLabel(L("support.qr %@", method.name))
     }
 }
 

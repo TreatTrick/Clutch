@@ -183,9 +183,7 @@ Clutch needs **Accessibility** permission so it can see mouse events in every ap
 
 ## 📦 Install
 
-<!-- TODO: link to the GitHub Releases page and the App Store listing once they exist -->
-
-**App Store:** *coming soon.* Buying it there is the easiest way to support development.
+<!-- TODO: link to the GitHub Releases page once it exists -->
 
 **Build from source:**
 
@@ -221,7 +219,10 @@ Please keep code comments in English, and run the app through the recorder flow 
 If Clutch saves your mouse hand a trip to the keyboard:
 
 - ⭐ **Star this repo.** It helps other people find Clutch, and the maid gets very happy.
-- 🛒 **Get it on the App Store** <!-- TODO: App Store link -->. Same app, and it keeps development going.
+- ☕ **Tip with PayPal, WeChat, or Alipay.** Open the coffee button in Clutch to choose a payment method. After tipping, choose **I've Supported** to turn off automatic reminders.
+
+<!-- TODO: replace the demo PayPal link and payment QR payloads before publishing -->
+The payment codes and links currently included in the app are demo placeholders.
 
 <div align="center">
 

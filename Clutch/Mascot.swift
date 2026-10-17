@@ -1,4 +1,5 @@
 import AppKit
+import CoreImage
 import ImageIO
 import Observation
 
@@ -31,14 +32,6 @@ final class MascotFrames {
 @MainActor
 @Observable
 final class SupportModel {
-    enum PurchaseState {
-        case notSupported
-        case acknowledged
-        case appStore
-
-        var isSupported: Bool { self != .notSupported }
-    }
-
     enum Interaction {
         case supportPopup
         case coffeeButton
@@ -56,9 +49,10 @@ final class SupportModel {
     let triggerCount: Int
     /// Tracked separately so either button stays usable after the other was clicked
     private(set) var hasOpenedGitHub = false
-    private(set) var purchaseState: PurchaseState
-    var isSupported: Bool { purchaseState.isSupported }
+    private(set) var isSupported: Bool
     var hasSupported: Bool { hasOpenedGitHub || isSupported }
+    var payment: PaymentMethod
+    var showsPaymentOptions: Bool
     private(set) var linkMessage: String?
     private(set) var linkFailed = false
     private(set) var phase = Phase.followingMouse
@@ -68,7 +62,7 @@ final class SupportModel {
 
     @ObservationIgnored var onClose: () -> Void = {}
     @ObservationIgnored var onSupported: () -> Void = {}
-    @ObservationIgnored var onPurchaseConfirmed: () -> Void = {}
+    @ObservationIgnored var onTipConfirmed: () -> Void = {}
     @ObservationIgnored weak var window: NSWindow?
     /// Reported by the view, in the window's top-left-origin coordinates
     @ObservationIgnored var closeRect = CGRect.null
@@ -91,14 +85,18 @@ final class SupportModel {
     private static let videoRate = 24.0
     private static let directionThreshold = 3.0 // pt; filter hand tremor while allowing slow motion to accumulate
 
-    /// 已支持用户重新打开时保留感谢状态，不再要求重复购买。
-    init(triggerCount: Int, purchaseState: PurchaseState = .notSupported,
+    /// 已支持用户重新打开时保留感谢状态，仍可主动查看收款码。
+    init(triggerCount: Int, isSupported: Bool = false,
          interaction: Interaction = .supportPopup) {
         self.triggerCount = triggerCount
-        self.purchaseState = purchaseState
+        self.isSupported = isSupported
+        showsPaymentOptions = !isSupported
+        // Chinese users are most likely to pay with WeChat; everyone else with PayPal
+        let isChinese = Localizer.locale.language.languageCode?.identifier == "zh"
+        payment = isChinese ? .wechat : .payPal
         self.interaction = interaction
         if case .coffeeButton = interaction { direction = -1 }
-        if purchaseState.isSupported {
+        if isSupported {
             phase = .celebrating
             show(clip: 1, index: 0)
         } else {
@@ -134,28 +132,30 @@ final class SupportModel {
         celebrate()
     }
 
-    func openAppStore() {
-        guard !isSupported, open(SupportLinks.appStore) else { return }
-        // 跳转成功不代表购买成功，回到应用后可自行确认。
-        linkMessage = L("support.store.opened")
+    func openPayPal() {
+        guard open(SupportLinks.payPal) else { return }
+        // 跳转成功不代表打赏成功，回到应用后可自行确认。
+        linkMessage = L("support.paypal.opened")
     }
 
     func confirmSupport() {
         guard !isSupported else { return }
-        purchaseState = .acknowledged
+        isSupported = true
+        showsPaymentOptions = false
         linkMessage = nil
         linkFailed = false
-        onPurchaseConfirmed()
+        onTipConfirmed()
         celebrate()
     }
 
-    /// 商店交易异步验证完成后，同步已打开的弹窗和主窗口入口。
-    func updatePurchaseState(_ state: PurchaseState) {
-        guard purchaseState != state else { return }
-        purchaseState = state
+    /// 本地支持声明或调试重置后，同步主窗口入口和角色状态。
+    func updateSupportState(_ supported: Bool) {
+        guard isSupported != supported else { return }
+        isSupported = supported
+        showsPaymentOptions = !supported
         linkMessage = nil
         linkFailed = false
-        if state.isSupported {
+        if supported {
             if phase == .followingMouse { phase = .cheeringUp }
         } else {
             // 调试重置后恢复跟随鼠标，避免按钮已回退但角色仍在庆祝。
@@ -246,7 +246,7 @@ final class SupportModel {
                                  y: content.bounds.maxY - content.bounds.height / 4,
                                  width: content.bounds.width / 4, height: content.bounds.height / 4)
         guard window.convertToScreen(sadnessArea).contains(point) else {
-            // Star, App Store support, and every position outside the close area always play toward happiness.
+            // Star, tipping, and every position outside the close area always play toward happiness.
             direction = 1
             directionAnchor = point
             return
@@ -291,4 +291,41 @@ final class SupportModel {
         shownFrame = (clip, index)
         image = (clip == 0 ? clipA : clipB)?.frame(index)
     }
+}
+
+/// Ways to tip. The QR payloads are demo placeholders; replace before publishing.
+enum PaymentMethod: String, CaseIterable, Identifiable {
+    case payPal, wechat, alipay
+
+    var id: String { rawValue }
+
+    var name: String {
+        switch self {
+        case .payPal: "PayPal"
+        case .wechat: L("payment.wechat")
+        case .alipay: L("payment.alipay")
+        }
+    }
+
+    var caption: String { L("payment.\(rawValue).caption") }
+
+    var payload: String {
+        switch self {
+        case .payPal: SupportLinks.payPal.absoluteString
+        case .wechat: "wxp://f2f0-clutch-demo-code"
+        case .alipay: "https://qr.alipay.com/clutch-demo-code"
+        }
+    }
+
+    /// Crisp QR code image; draw it with interpolation turned off
+    var qrCode: CGImage? {
+        guard let filter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
+        filter.setValue(Data(payload.utf8), forKey: "inputMessage")
+        filter.setValue("M", forKey: "inputCorrectionLevel")
+        // The generator outputs one pixel per module; scale up so it stays sharp when drawn
+        guard let output = filter.outputImage?.transformed(by: CGAffineTransform(scaleX: 8, y: 8)) else { return nil }
+        return Self.context.createCGImage(output, from: output.extent)
+    }
+
+    private static let context = CIContext()
 }

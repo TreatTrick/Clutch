@@ -1,6 +1,5 @@
 import AppKit
 import Observation
-import StoreKit
 import SwiftUI
 
 /// Usage stats that decide when to ask for support
@@ -16,7 +15,11 @@ struct SupportStats: Codable, Equatable {
     /// 已提醒过的最后一个使用天数节点；跳过的较早节点也不再补弹。
     var lastPromptMilestone = 0
     var hasSupported = false
-    var hasPurchased = false
+    var hasTipped = false
+
+    private enum LegacyCodingKeys: String, CodingKey {
+        case hasPurchased
+    }
 
     var nextPromptMilestone: Int? {
         Self.reminderActiveDays.last { $0 <= activeDays.count && $0 > lastPromptMilestone }
@@ -24,7 +27,7 @@ struct SupportStats: Codable, Equatable {
 
     init() {}
 
-    // 旧的 hasSupported 也可能来自 Star，不能把它当作购买记录。
+    // 旧的 hasSupported 也可能来自 Star，不能把它当作打赏记录。
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         triggerCount = try c.decodeIfPresent(Int.self, forKey: .triggerCount) ?? 0
@@ -32,7 +35,11 @@ struct SupportStats: Codable, Equatable {
         lastPrompt = try c.decodeIfPresent(Date.self, forKey: .lastPrompt)
         dismissCount = try c.decodeIfPresent(Int.self, forKey: .dismissCount) ?? 0
         hasSupported = try c.decodeIfPresent(Bool.self, forKey: .hasSupported) ?? false
-        hasPurchased = try c.decodeIfPresent(Bool.self, forKey: .hasPurchased) ?? false
+        // 沿用旧版手动确认的支持声明，不让升级清空用户的支持状态。
+        let legacy = try decoder.container(keyedBy: LegacyCodingKeys.self)
+        hasTipped = try c.decodeIfPresent(Bool.self, forKey: .hasTipped)
+            ?? legacy.decodeIfPresent(Bool.self, forKey: .hasPurchased)
+            ?? false
         if let milestone = try c.decodeIfPresent(Int.self, forKey: .lastPromptMilestone) {
             lastPromptMilestone = milestone
         } else if dismissCount >= Self.reminderActiveDays.count {
@@ -44,10 +51,10 @@ struct SupportStats: Codable, Equatable {
     }
 }
 
-/// Links shown in the support popup. Both links are demo placeholders; replace before publishing.
+/// Links shown in the support popup. The payment and repository links are demo placeholders; replace before publishing.
 enum SupportLinks {
     static let gitHub = URL(string: "https://github.com/your-name/Clutch")!
-    static let appStore = URL(string: "https://apps.apple.com/app/id0000000000")!
+    static let payPal = URL(string: "https://paypal.me/your-name")!
 }
 
 /// Decides when to show the support popup and owns its floating panel
@@ -55,15 +62,10 @@ enum SupportLinks {
 @Observable
 final class SupportController {
     weak var state: AppState?
-    private(set) var isAppStorePurchase = false
-
-    var purchaseState: SupportModel.PurchaseState {
-        if isAppStorePurchase { return .appStore }
-        return state?.settings.support.hasPurchased == true ? .acknowledged : .notSupported
-    }
+    var isSupported: Bool { state?.settings.support.hasTipped == true }
 
     var entryHelp: String {
-        let help = L(purchaseState.isSupported ? "support.supported.help" : "menu.support")
+        let help = L(isSupported ? "support.supported.help" : "menu.support")
         #if DEBUG
         return help + "\n" + L("support.debug.reset.help")
         #else
@@ -76,25 +78,6 @@ final class SupportController {
     private var panel: NSPanel?
     private var model: SupportModel?
     private var pendingCheck: DispatchWorkItem?
-
-    /// 仅识别正式商店购买；缺少收据时不请求交易，避免 GitHub 版弹出 Apple 账户登录。
-    func recognizeAppStorePurchase() async {
-        // 这里只检查发行渠道，不解析旧收据；购买状态由下面的 StoreKit 2 签名交易决定。
-        let receipt = Bundle.main.bundleURL.appending(path: "Contents/_MASReceipt/receipt")
-        guard FileManager.default.fileExists(atPath: receipt.path) else { return }
-
-        do {
-            guard case .verified(let transaction) = try await AppTransaction.shared,
-                  transaction.environment == .production,
-                  transaction.bundleID == Bundle.main.bundleIdentifier
-            else { return }
-            isAppStorePurchase = true
-            model?.updatePurchaseState(.appStore)
-        } catch {
-            // 识别失败不影响免费使用；用户仍可自行选择“我已支持”。
-            NSLog("Clutch: could not recognize the App Store purchase: \(error)")
-        }
-    }
 
     /// Called after every successful shortcut. Waits a moment so the action (e.g. a desktop switch) finishes first.
     func shortcutDidFire() {
@@ -109,7 +92,7 @@ final class SupportController {
 
     func shouldPrompt(now: Date = Date()) -> Bool {
         guard panel == nil, let stats = state?.settings.support,
-              !purchaseState.isSupported,
+              !isSupported,
               !stats.hasSupported,
               stats.nextPromptMilestone != nil,
               Self.daytimeHours.contains(Calendar.current.component(.hour, from: now))
@@ -143,12 +126,11 @@ final class SupportController {
 
         var stats = state.settings.support
         stats.hasSupported = false
-        stats.hasPurchased = false
+        stats.hasTipped = false
         stats.lastPrompt = nil
         stats.lastPromptMilestone = 0
         stats.dismissCount = 0
         state.settings.support = stats
-        // 正式商店交易识别结果不覆盖；此操作只用于调试本地未支持状态。
     }
     #endif
 
@@ -168,10 +150,10 @@ final class SupportController {
         }
 
         let model = SupportModel(triggerCount: state.settings.support.triggerCount,
-                                 purchaseState: purchaseState)
+                                 isSupported: isSupported)
         model.onClose = { [weak self] in self?.close() }
         model.onSupported = { [weak self] in self?.state?.settings.support.hasSupported = true }
-        model.onPurchaseConfirmed = { [weak self] in self?.state?.settings.support.hasPurchased = true }
+        model.onTipConfirmed = { [weak self] in self?.state?.settings.support.hasTipped = true }
         self.model = model
 
         // Default sizing options so fittingSize reports the SwiftUI content size

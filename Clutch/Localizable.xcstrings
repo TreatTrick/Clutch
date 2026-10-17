@@ -807,6 +807,121 @@
         }
       }
     },
+    "payment.alipay": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alipay"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "支付宝"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alipay"
+          }
+        }
+      }
+    },
+    "payment.alipay.caption": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scan with Alipay to tip any amount."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用支付宝扫一扫，金额随意。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alipay で読み取って、好きな金額で応援できます。"
+          }
+        }
+      }
+    },
+    "payment.payPal.caption": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scan with your phone, or open PayPal in the browser."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用手机扫码，或在浏览器中打开 PayPal。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "スマートフォンで読み取るか、ブラウザで PayPal を開いてください。"
+          }
+        }
+      }
+    },
+    "payment.wechat": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "WeChat"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "微信"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "WeChat"
+          }
+        }
+      }
+    },
+    "payment.wechat.caption": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scan with WeChat to tip any amount."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用微信扫一扫，金额随意。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "WeChat で読み取って、好きな金額で応援できます。"
+          }
+        }
+      }
+    },
     "permission.detail": {
       "extractionState": "manual",
       "localizations": {
@@ -1451,6 +1566,29 @@
         }
       }
     },
+    "support.back": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Back"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "返回"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "戻る"
+          }
+        }
+      }
+    },
     "support.button": {
       "extractionState": "manual",
       "localizations": {
@@ -1503,19 +1641,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Remember my support and stop purchase reminders."
+            "value": "Remember my support and stop automatic support reminders."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "记住我的支持，不再提醒购买。"
+            "value": "记住我的支持，不再自动提醒打赏。"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "応援済みとして記録し、購入の案内を停止します。"
+            "value": "応援済みとして記録し、自動の支援案内を停止します。"
           }
         }
       }
@@ -1526,19 +1664,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your support is remembered. No more purchase reminders."
+            "value": "Your support is remembered. No more automatic reminders."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "已记下你的支持，不再提醒购买。"
+            "value": "已记下你的支持，不再自动提醒打赏。"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "応援を記録しました。購入の案内はもう表示しません。"
+            "value": "応援を記録しました。自動の支援案内はもう表示しません。"
           }
         }
       }
@@ -1572,19 +1710,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Demo links. Replace them before publishing."
+            "value": "Demo payment codes and links. Replace them before publishing."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "当前为演示链接，正式发布前替换。"
+            "value": "当前为演示收款码和链接，正式发布前替换。"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "デモ用リンクです。公開前に差し替えてください。"
+            "value": "支援用 QR コードとリンクはデモです。公開前に差し替えてください。"
           }
         }
       }
@@ -1681,6 +1819,121 @@
         }
       }
     },
+    "support.method": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Payment method"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "支付方式"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "支払い方法"
+          }
+        }
+      }
+    },
+    "support.payment.show": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "View payment codes"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看收款码"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "支援用 QR コードを見る"
+          }
+        }
+      }
+    },
+    "support.paypal.open": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open PayPal"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打开 PayPal"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PayPal を開く"
+          }
+        }
+      }
+    },
+    "support.paypal.opened": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PayPal is open. After tipping, choose “I've Supported”."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已打开 PayPal，打赏后可点击“我已支持”。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PayPal を開きました。支援後に「応援済み」を選んでください。"
+          }
+        }
+      }
+    },
+    "support.qr %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ QR code"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 收款二维码"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ の支援用 QR コード"
+          }
+        }
+      }
+    },
     "support.received": {
       "extractionState": "manual",
       "localizations": {
@@ -1727,163 +1980,25 @@
         }
       }
     },
-    "support.store.detail": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A one-time purchase supports Clutch's development."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "一次购买，支持 Clutch 后续开发。"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "一度の購入が Clutch の開発を支えます。"
-          }
-        }
-      }
-    },
-    "support.store.help": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Open the App Store to buy Clutch. The GitHub edition stays free."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "打开 App Store 购买 Clutch，GitHub 版仍可免费使用。"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "App Store を開いて Clutch を購入します。GitHub 版は引き続き無料で使えます。"
-          }
-        }
-      }
-    },
-    "support.store.open": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Support on the App Store"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "在 App Store 购买支持"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "App Store で購入して応援"
-          }
-        }
-      }
-    },
-    "support.store.opened": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "After buying, choose “I've Supported” to stop purchase reminders."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "购买后，点击“我已支持”即可停止购买提醒。"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "購入後に「応援済み」を選ぶと、購入の案内が表示されなくなります。"
-          }
-        }
-      }
-    },
-    "support.store.purchased": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You purchased Clutch on the App Store. Thank you!"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "你已通过 App Store 购买，感谢支持！"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "App Store でのご購入、ありがとうございます！"
-          }
-        }
-      }
-    },
-    "support.store.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Support with the App Store"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "通过 App Store 支持"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "App Store で応援"
-          }
-        }
-      }
-    },
     "support.subtitle": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch is free and open source. Buying the App Store edition helps Clutch go further."
+            "value": "Clutch is free and open source. A small tip helps it go further."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch 免费开源，购买 App Store 版支持，可让 Clutch 走得更远。"
+            "value": "Clutch 免费开源，一点小小的打赏，就能让它走得更远。"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch は無料でオープンソースです。App Store 版の購入で、開発を応援できます。"
+            "value": "Clutch は無料でオープンソースです。少しの支援が、これからの開発を支えます。"
           }
         }
       }
@@ -1986,19 +2101,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "You've used Clutch's shortcuts %lld times.\nIf Clutch has helped you, buying the App Store edition helps Clutch go further."
+            "value": "You've used Clutch's shortcuts %lld times."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "你已经使用 Clutch 的快捷键 %lld 次。\n如果 Clutch 帮到了你，可以前往 App Store 购买支持，让 Clutch 走得更远。"
+            "value": "你已经使用 Clutch 的快捷键 %lld 次。"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "ショートカットを %lld 回使いました。\nClutch が役立ったら、App Store 版の購入で開発を応援しませんか？"
+            "value": "Clutch のショートカットを %lld 回使いました。"
           }
         }
       }

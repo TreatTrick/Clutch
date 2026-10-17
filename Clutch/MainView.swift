@@ -256,14 +256,14 @@ private struct BuyMeCoffeeButton: View {
             Button {
                 state.support.showManually()
             } label: {
-                Label(L(state.support.purchaseState.isSupported ? "support.already" : "support.button"),
-                      systemImage: state.support.purchaseState.isSupported ? "checkmark.seal.fill" : "cup.and.saucer.fill")
+                Label(L(state.support.isSupported ? "support.already" : "support.button"),
+                      systemImage: state.support.isSupported ? "checkmark.seal.fill" : "cup.and.saucer.fill")
                     .font(.callout.weight(.medium))
-                    .foregroundStyle(state.support.purchaseState.isSupported
+                    .foregroundStyle(state.support.isSupported
                                      ? Color.primary : Color(red: 0.42, green: 0.25, blue: 0.08))
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
-                    .background(Capsule().fill(state.support.purchaseState.isSupported
+                    .background(Capsule().fill(state.support.isSupported
                                               ? Color.green.opacity(hovering ? 0.2 : 0.12)
                                               : Color(red: 1, green: 0.8, blue: 0.24).opacity(hovering ? 1 : 0.88)))
                     .contentShape(Capsule())
@@ -275,11 +275,11 @@ private struct BuyMeCoffeeButton: View {
             .help(state.support.entryHelp)
         }
         .onAppear {
-            mascot.updatePurchaseState(state.support.purchaseState)
+            mascot.updateSupportState(state.support.isSupported)
             mascot.start()
         }
-        .onChange(of: state.support.purchaseState) { _, purchaseState in
-            mascot.updatePurchaseState(purchaseState)
+        .onChange(of: state.support.isSupported) { _, supported in
+            mascot.updateSupportState(supported)
         }
         .onDisappear { mascot.stop() }
         .onChange(of: scenePhase) { _, phase in
