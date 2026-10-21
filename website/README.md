@@ -55,3 +55,9 @@ The generator preserves the shared canvas, frame order, transparency, and origin
 `.github/workflows/website.yml` checks and builds on relevant pull requests. Pushes to `main`, or a manual workflow run, also publish `website/build/` to GitHub Pages. Select **GitHub Actions** as the Pages source in repository settings. No long-lived deployment secret is needed.
 
 Public pages: `/Clutch/`, `/Clutch/zh/`, `/Clutch/ja/`. Submit `https://treattrick.github.io/Clutch/sitemap.xml` to Search Console after verifying site ownership. A project-level `robots.txt` does not control the host root; the sitemap and page metadata do not themselves guarantee indexing.
+
+## Search Console
+
+Use the URL-prefix property `https://treattrick.github.io/Clutch/` to cover all three languages. The Google ownership verification meta tag lives in `src/app.html` and is included in every prerendered page. Keep this tag after verification so ownership remains valid; it is a public verification token, not a secret.
+
+Submit `sitemap.xml` in the property's Sitemaps report. The Performance report shows search queries, pages, impressions, clicks, CTR, and average position. New data can take several days to appear. Search Console does not measure download-button clicks or attribute them to search traffic; that requires separate website analytics.
