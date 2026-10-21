@@ -34,6 +34,22 @@ The deployable files are in `website/build/`. Restart the preview server after r
 
 The first appearance follows the operating system. System/light/dark selection is stored locally; if storage is unavailable the current page still works. The demonstration starts paused for reduced-motion users and always has a pause/play control. Native language links and download links work without JavaScript.
 
+## Dragon maid
+
+The bottom-right companion reuses the app's transparent `Clutch/Mascot/MascotA.heic` and `MascotB.heic` frames. Drag horizontally with mouse/touch or use the arrow keys, Home, and End when focused. Her normalized horizontal position persists across language changes and viewport sizes.
+
+Within the page's top quarter (capped at 200 px), moving the mouse upward plays toward sadness and moving downward plays toward happiness. Everywhere below that zone she cheers up. Leaving through the top also plays toward sadness. This approximates exit intent; a webpage cannot detect the browser's actual tab-close button.
+
+Either download link immediately plays one jumping clip without intercepting the download. Animation stops at idle endpoints and pauses in hidden tabs. Reduced motion uses still poses. If animation loading fails, a separate transparent still remains visible.
+
+Generated assets are committed in `static/mascot/`; normal `pnpm build` needs no Python. To regenerate after changing the app's HEIC resources, install `pillow-heif==1.8.1` and `Pillow==13.0.0` in a Python environment and run:
+
+```sh
+python scripts/extract-mascot.py
+```
+
+The generator preserves the shared canvas, frame order, transparency, and original 24 fps, and updates `src/lib/mascotFrames.ts` alongside the atlases.
+
 ## Deployment
 
 `.github/workflows/website.yml` checks and builds on relevant pull requests. Pushes to `main`, or a manual workflow run, also publish `website/build/` to GitHub Pages. Select **GitHub Actions** as the Pages source in repository settings. No long-lived deployment secret is needed.

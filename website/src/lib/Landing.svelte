@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { asset, resolve } from '$app/paths';
   import { COPY, LANGUAGES, SITE_URL, REPOSITORY_URL, DOWNLOAD_URL, type Locale } from './content.js';
+  import Mascot from './Mascot.svelte';
 
   let { locale }: { locale: Locale } = $props();
   const copy = $derived(COPY[locale]);
@@ -10,6 +11,7 @@
   let theme = $state('system');
   let ready = $state(false);
   let playing = $state(false);
+  let downloadCount = $state(0);
   const localeHref = (code: string) => code === 'zh' ? resolve('/zh') : code === 'ja' ? resolve('/ja') : resolve('/');
 
   const schema = $derived(JSON.stringify({
@@ -106,7 +108,7 @@
     <h1 id="hero-heading">{copy.headline[0]}<br /><span>{copy.headline[1]}</span></h1>
     <p class="hero-intro">{copy.intro}</p>
     <div class="hero-actions">
-      <a class="button primary" href={DOWNLOAD_URL}>{@render downloadIcon()}{copy.download}</a>
+      <a class="button primary" href={DOWNLOAD_URL} onclick={() => { downloadCount += 1; }}>{@render downloadIcon()}{copy.download}</a>
       <a class="text-link" href={REPOSITORY_URL}>{copy.source}<span aria-hidden="true">↗</span></a>
     </div>
     <p class="release-meta">{copy.requirements}<span aria-hidden="true">·</span>{copy.free}</p>
@@ -149,7 +151,7 @@
   </section>
 
   <section class="install wrap section" id="install" aria-labelledby="install-heading">
-    <div class="install-top"><div><img src={asset('media/icon.png')} alt="" width="56" height="56" loading="lazy" /><h2 id="install-heading">{copy.installHeading}</h2><p>{copy.installIntro}</p></div><div class="install-cta"><a class="button primary" href={DOWNLOAD_URL}>{@render downloadIcon()}{copy.download}</a><p class="release-meta">{copy.requirements}</p></div></div>
+    <div class="install-top"><div><img src={asset('media/icon.png')} alt="" width="56" height="56" loading="lazy" /><h2 id="install-heading">{copy.installHeading}</h2><p>{copy.installIntro}</p></div><div class="install-cta"><a class="button primary" href={DOWNLOAD_URL} onclick={() => { downloadCount += 1; }}>{@render downloadIcon()}{copy.download}</a><p class="release-meta">{copy.requirements}</p></div></div>
     <p class="install-note">{copy.installNote}</p>
     <details class="installation-details">
       <summary>{copy.installDetails}<span aria-hidden="true">+</span></summary>
@@ -161,3 +163,5 @@
 </main>
 
 <footer class="site-footer wrap"><div><a class="brand" href={localeHref(locale)}>Clutch</a><p>{copy.footer}</p></div><nav aria-label="Clutch"><a href={REPOSITORY_URL}>GitHub ↗</a><a href={`${REPOSITORY_URL}/releases`}>{copy.releases}</a><a href={`${REPOSITORY_URL}/blob/main/LICENSE`}>MIT</a></nav></footer>
+
+<Mascot {locale} celebration={downloadCount} />
