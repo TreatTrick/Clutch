@@ -15,8 +15,8 @@ export const advanceMascotFrame = (state: MascotPlayback, direction: number, ste
     return { ...state, cursor: Math.max(0, state.cursor - step), loopDirection: 1 };
   }
 
-  // 只循环最后一秒的开心摇尾巴，避免回放前面的情绪过渡。
-  const start = MASCOT_FRAMES.mood - MASCOT_FRAMES.fps;
+  // 只循环最后两秒的开心摇尾巴，避免回放前面的情绪过渡。
+  const start = MASCOT_FRAMES.mood - MASCOT_FRAMES.fps * 2;
   const span = MASCOT_FRAMES.mood - 1 - start;
   const distance = state.cursor - start;
   const travel = (state.loopDirection > 0 ? distance : 2 * span - distance) + step;

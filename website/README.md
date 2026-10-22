@@ -41,7 +41,7 @@ The bottom-right companion reuses the app's transparent `Clutch/Mascot/MascotA.h
 
 Within the page's top quarter (capped at 200 px), moving the mouse upward plays toward sadness and moving downward plays toward happiness. Everywhere below that zone she cheers up. Leaving through the top also plays toward sadness. This approximates exit intent; a webpage cannot detect the browser's actual tab-close button.
 
-When happy, she continuously plays the final second of happy tail-wagging frames back and forth at the original 24 fps. Either download link immediately starts a continuously looping jump clip for the current page session without intercepting the download. Sad playback still stops at its endpoint, and all animation pauses in hidden tabs. Reduced motion uses still poses and resumes the current animation when motion is enabled again. If animation loading fails, a separate transparent still remains visible.
+When happy, she continuously plays the final two seconds (48 frames) of happy tail-wagging frames back and forth at the original 24 fps. Either download link immediately starts a continuously looping jump clip for the current page session without intercepting the download. Sad playback still stops at its endpoint, and all animation pauses in hidden tabs. Reduced motion uses still poses and resumes the current animation when motion is enabled again. If animation loading fails, a separate transparent still remains visible.
 
 Generated assets are committed in `static/mascot/`; normal `pnpm build` needs no Python. To regenerate after changing the app's HEIC resources, install `pillow-heif==1.8.1` and `Pillow==13.0.0` in a Python environment and run:
 

@@ -25,3 +25,11 @@ Create `website/src/lib/mascotPlayback.ts` with the small frame-advance function
 ## Task 3: Verify and publish
 
 Run `pnpm test`, `pnpm check`, `pnpm build`, and `git diff --check` in the isolated worktree. Review the final diff, commit only this change, and fast-forward remote `main` using a normal push. Confirm the matching GitHub Actions build and deploy jobs succeed and all three public routes respond successfully. The previous approved mascot plan records the user's preference to verify interactions on Pages, so do not start another browser QA session.
+
+## Follow-up: extend the happy loop
+
+The user requested twice as many idle happy frames, extending the range earlier while retaining the end pose and playback speed. Expand the loop from the final 24 frames (97–120) to the final 48 frames (73–120), still playing back and forth at 24 fps.
+
+1. Update the existing playback assertions to require the expanded range and verify the old implementation fails those assertions.
+2. Double the frame window in `website/src/lib/mascotPlayback.ts` and update the website README. Keep sizing, jumping, sadness, and pointer handling unchanged.
+3. Run the existing tests, Svelte/TypeScript checks, production build, and diff check. Commit only this follow-up, preserve unrelated analytics drafts, and verify the matching GitHub Pages deployment and public routes.

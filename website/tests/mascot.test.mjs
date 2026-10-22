@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { MASCOT_FRAMES } from '../src/lib/mascotFrames.ts';
 import { advanceMascotFrame } from '../src/lib/mascotPlayback.ts';
 
-const happyStart = MASCOT_FRAMES.mood - MASCOT_FRAMES.fps;
+const happyStart = MASCOT_FRAMES.mood - MASCOT_FRAMES.fps * 2;
 const happyEnd = MASCOT_FRAMES.mood - 1;
 const mood = (cursor, loopDirection = 1) => ({ clip: 'mood', cursor, loopDirection });
 
@@ -29,7 +29,7 @@ test('happy tail playback keeps moving and remains in the happy frames over many
     assert.equal(state.clip, 'mood');
     seen.add(state.cursor);
   }
-  assert.equal(seen.size, MASCOT_FRAMES.fps);
+  assert.equal(seen.size, MASCOT_FRAMES.fps * 2);
 });
 
 test('exit intent leaves the happy loop and stops at the sad pose', () => {
