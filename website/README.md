@@ -18,6 +18,7 @@ The website is served under `/Clutch/`, matching the GitHub Pages base path.
 
 ```sh
 pnpm check
+pnpm test
 pnpm build
 pnpm preview
 ```
@@ -36,11 +37,11 @@ The first appearance follows the operating system. System/light/dark selection i
 
 ## Dragon maid
 
-The bottom-right companion reuses the app's transparent `Clutch/Mascot/MascotA.heic` and `MascotB.heic` frames. Drag horizontally with mouse/touch or use the arrow keys, Home, and End when focused. Her normalized horizontal position persists across language changes and viewport sizes.
+The bottom-right companion reuses the app's transparent `Clutch/Mascot/MascotA.heic` and `MascotB.heic` frames, displayed at twice the original website height on desktop and mobile. Drag horizontally with mouse/touch or use the arrow keys, Home, and End when focused. Her normalized horizontal position persists across language changes and viewport sizes.
 
 Within the page's top quarter (capped at 200 px), moving the mouse upward plays toward sadness and moving downward plays toward happiness. Everywhere below that zone she cheers up. Leaving through the top also plays toward sadness. This approximates exit intent; a webpage cannot detect the browser's actual tab-close button.
 
-Either download link immediately plays one jumping clip without intercepting the download. Animation stops at idle endpoints and pauses in hidden tabs. Reduced motion uses still poses. If animation loading fails, a separate transparent still remains visible.
+When happy, she continuously plays the final second of happy tail-wagging frames back and forth at the original 24 fps. Either download link immediately starts a continuously looping jump clip for the current page session without intercepting the download. Sad playback still stops at its endpoint, and all animation pauses in hidden tabs. Reduced motion uses still poses and resumes the current animation when motion is enabled again. If animation loading fails, a separate transparent still remains visible.
 
 Generated assets are committed in `static/mascot/`; normal `pnpm build` needs no Python. To regenerate after changing the app's HEIC resources, install `pillow-heif==1.8.1` and `Pillow==13.0.0` in a Python environment and run:
 

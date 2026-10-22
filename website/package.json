@@ -9,6 +9,7 @@
 		"dev": "node scripts/prepare-assets.mjs && vite dev",
 		"build": "node scripts/prepare-assets.mjs && vite build",
 		"preview": "vite preview",
+		"test": "node --experimental-strip-types --test tests/*.test.mjs",
 		"prepare": "svelte-kit sync",
 		"check": "node scripts/prepare-assets.mjs && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"

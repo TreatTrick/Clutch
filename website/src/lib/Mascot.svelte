@@ -3,6 +3,7 @@
   import { asset } from '$app/paths';
   import type { Locale } from './content.js';
   import { MASCOT_FRAMES } from './mascotFrames.js';
+  import { advanceMascotFrame, type MascotPlayback } from './mascotPlayback.js';
 
   let { locale, celebration = 0 }: { locale: Locale; celebration?: number } = $props();
   let canvas = $state<HTMLCanvasElement>();
@@ -97,8 +98,7 @@
 
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const images = { mood: new Image(), jump: new Image() };
-    let clip: 'mood' | 'jump' = 'mood';
-    let cursor = MASCOT_FRAMES.mood - 1;
+    let playback: MascotPlayback = { clip: 'mood', cursor: MASCOT_FRAMES.mood - 1, loopDirection: 1 };
     let direction = 1;
     let anchorY: number | undefined;
     let frameRequest = 0;
@@ -109,6 +109,7 @@
     let lastDrawn = '';
 
     const paint = () => {
+      const { clip, cursor } = playback;
       const index = Math.min(MASCOT_FRAMES[clip] - 1, Math.max(0, Math.floor(cursor)));
       const key = `${clip}:${index}`;
       if (!assetsReady || lastDrawn === key) return;
@@ -119,7 +120,7 @@
       lastDrawn = key;
     };
 
-    const canAdvance = () => clip === 'jump' || (direction < 0 ? cursor > 0 : cursor < MASCOT_FRAMES.mood - 1);
+    const canAdvance = () => playback.clip === 'jump' || direction > 0 || playback.cursor > 0;
 
     const tick = (time: number) => {
       frameRequest = 0;
@@ -128,15 +129,7 @@
       const elapsed = lastTime ? Math.min((time - lastTime) / 1000, 0.1) : 0;
       lastTime = time;
       const step = elapsed * MASCOT_FRAMES.fps;
-      if (clip === 'jump') {
-        cursor += step;
-        if (cursor >= MASCOT_FRAMES.jump) {
-          clip = 'mood';
-          cursor = MASCOT_FRAMES.mood - 1;
-        }
-      } else {
-        cursor = Math.max(0, Math.min(MASCOT_FRAMES.mood - 1, cursor + direction * step));
-      }
+      playback = advanceMascotFrame(playback, direction, step);
       paint();
       if (canAdvance()) frameRequest = requestAnimationFrame(tick);
       else lastTime = 0;
@@ -151,8 +144,7 @@
     const follow = (nextDirection: number) => {
       direction = nextDirection;
       if (motion.matches) {
-        clip = 'mood';
-        cursor = direction < 0 ? 0 : MASCOT_FRAMES.mood - 1;
+        if (playback.clip === 'mood') playback.cursor = direction < 0 ? 0 : MASCOT_FRAMES.mood - 1;
         paint();
       } else wake();
     };
@@ -183,8 +175,7 @@
       pendingCelebration = true;
       if (disposed || !assetsReady || document.hidden) return;
       pendingCelebration = false;
-      clip = 'jump';
-      cursor = 0;
+      playback = { clip: 'jump', cursor: 0, loopDirection: 1 };
       paint();
       // 减少动态效果时保留开心的感谢姿态，不播放跳跃。
       if (!motion.matches) wake();
@@ -204,9 +195,10 @@
       cancelAnimationFrame(frameRequest);
       frameRequest = 0;
       lastTime = 0;
-      clip = 'mood';
-      cursor = direction < 0 ? 0 : MASCOT_FRAMES.mood - 1;
+      playback.cursor = playback.clip === 'jump' ? 0 : direction < 0 ? 0 : MASCOT_FRAMES.mood - 1;
+      playback.loopDirection = 1;
       paint();
+      wake();
     };
 
     images.mood.src = asset('mascot/mood.webp');
@@ -272,7 +264,7 @@
 
 <style>
   .mascot-dock {
-    --mascot-height: clamp(150px, 23vh, 210px);
+    --mascot-height: clamp(300px, 46vh, 420px);
     position: fixed;
     inset-inline: 16px;
     bottom: max(16px, env(safe-area-inset-bottom));
@@ -305,6 +297,6 @@
   .mascot:hover .drag-handle, .mascot:focus-visible .drag-handle { opacity: 0.7; }
 
   @media (max-width: 640px) {
-    .mascot-dock { --mascot-height: clamp(115px, 19vh, 145px); }
+    .mascot-dock { --mascot-height: clamp(230px, 38vh, 290px); }
   }
 </style>
