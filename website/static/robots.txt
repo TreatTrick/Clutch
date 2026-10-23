@@ -1,3 +1,5 @@
-# allow crawling everything by default
+# MouseSpell is a public static site; allow search crawlers to discover every locale.
 User-agent: *
 Disallow:
+
+Sitemap: https://treattrick.github.io/MouseSpell/sitemap.xml

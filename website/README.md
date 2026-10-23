@@ -61,4 +61,10 @@ Public pages: `/MouseSpell/`, `/MouseSpell/zh/`, `/MouseSpell/ja/`. Submit `http
 
 Use the URL-prefix property `https://treattrick.github.io/MouseSpell/` to cover all three languages. The Google ownership verification meta tag lives in `src/app.html` and is included in every prerendered page. Keep this tag after verification so ownership remains valid; it is a public verification token, not a secret.
 
-Submit `sitemap.xml` in the property's Sitemaps report. The Performance report shows search queries, pages, impressions, clicks, CTR, and average position. New data can take several days to appear. Search Console does not measure download-button clicks or attribute them to search traffic; that requires separate website analytics.
+After each release that changes the public pages:
+
+1. Open the property in [Google Search Console](https://search.google.com/search-console).
+2. Open **Sitemaps**, enter `sitemap.xml`, and submit it. The deployed `robots.txt` also declares the same sitemap URL for crawlers that discover the site directly.
+3. Use **URL inspection** for `/MouseSpell/`, `/MouseSpell/zh/`, and `/MouseSpell/ja/`, then choose **Request indexing** when the page content or release link changed.
+
+The pages expose localized titles and descriptions, canonical URLs, `hreflang` links, Open Graph/Twitter previews, and `SoftwareApplication` structured data for MouseSpell, its macOS requirements, features, free download, source repository, and signed release. Search Console reports queries, impressions, clicks, CTR, and average position after Google recrawls the site; new data can take several days to appear. Search Console does not measure download-button clicks or attribute them to search traffic; that requires separate website analytics.

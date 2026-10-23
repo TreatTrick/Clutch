@@ -10,8 +10,9 @@ export const LANGUAGES = [
 
 export const COPY = {
   en: {
-    title: 'MouseSpell — Switch Mac Desktops with Mouse Buttons',
-    description: 'Switch Mac desktops, open Mission Control, and show your desktop with modifier keys and mouse buttons. Free, open source, and built for macOS 15+.',
+    title: 'MouseSpell — macOS Mouse Shortcuts for Desktop Switching',
+    description: 'MouseSpell is a free, open-source macOS mouse shortcut app. Use keyboard modifiers with mouse buttons to switch desktops, open Mission Control, show the desktop, and control other system gestures on macOS 15+.',
+    keywords: ['MouseSpell', 'macOS mouse shortcuts', 'Mac mouse buttons', 'switch desktops with mouse', 'Mission Control mouse shortcut', 'macOS 15 utility'],
     skip: 'Skip to content', features: 'What it does', setup: 'How it works', source: 'Source code',
     language: 'Language', appearance: 'Appearance', system: 'System', light: 'Light', dark: 'Dark',
     badge: 'A little more Mac. From your mouse.',
@@ -53,8 +54,9 @@ export const COPY = {
     releases: 'All releases', footer: 'A small shortcut to a smoother Mac.'
   },
   zh: {
-    title: 'MouseSpell — 用鼠标侧键切换 Mac 桌面，触发系统手势',
-    description: '按住修饰键，点击鼠标，即可切换 Mac 桌面、打开调度中心或显示桌面。MouseSpell 是免费开源的 macOS 鼠标快捷键工具，支持 macOS 15 及以上版本。',
+    title: 'MouseSpell — macOS 鼠标快捷键：切换桌面与 Mission Control',
+    description: 'MouseSpell 是一款免费开源的 macOS 鼠标快捷键工具。按住 Option、Control、Command 或其他修饰键，点击鼠标侧键或滚轮，即可切换桌面、打开调度中心、显示桌面，支持 macOS 15 及以上版本。',
+    keywords: ['MouseSpell', 'macOS 鼠标快捷键', 'Mac 鼠标侧键切换桌面', '调度中心快捷键', 'macOS 15 鼠标工具'],
     skip: '跳至正文', features: '支持的操作', setup: '使用方式', source: '源代码',
     language: '语言', appearance: '外观', system: '跟随系统', light: '浅色', dark: '深色',
     badge: '让手边的鼠标，多一点 Mac 的默契。',
@@ -96,8 +98,9 @@ export const COPY = {
     releases: '所有版本', footer: '一个小小的快捷键，让 Mac 更顺手。'
   },
   ja: {
-    title: 'MouseSpell — マウスボタンで Mac のデスクトップを切り替え',
-    description: '修飾キーとマウスボタンで、Mac のデスクトップ切り替えや Mission Control を操作。MouseSpell は macOS 15 以降に対応した、無料のオープンソースアプリです。',
+    title: 'MouseSpell — macOS マウスショートカットでデスクトップ切り替え',
+    description: 'MouseSpell は無料でオープンソースの macOS マウスショートカットアプリです。修飾キーとマウスボタンでデスクトップ切り替え、Mission Control、デスクトップ表示などの操作を実行できます。macOS 15 以降に対応。',
+    keywords: ['MouseSpell', 'macOS マウスショートカット', 'Mac デスクトップ切り替え', 'Mission Control マウス', 'macOS 15 アプリ'],
     skip: '本文へ移動', features: 'できること', setup: '使い方', source: 'ソースコード',
     language: '言語', appearance: '外観', system: 'システム', light: 'ライト', dark: 'ダーク',
     badge: 'いつものマウスで、Mac をもっと自在に。',

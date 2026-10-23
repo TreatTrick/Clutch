@@ -13,14 +13,30 @@
   let playing = $state(false);
   let downloadCount = $state(0);
   const localeHref = (code: string) => code === 'zh' ? resolve('/zh') : code === 'ja' ? resolve('/ja') : resolve('/');
+  const openGraphLocale = (code: string) => code === 'zh' ? 'zh_CN' : code === 'ja' ? 'ja_JP' : 'en_US';
+  const ogLocale = $derived(openGraphLocale(locale));
 
   const schema = $derived(JSON.stringify({
-    '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'MouseSpell',
+    '@context': 'https://schema.org', '@type': 'SoftwareApplication',
+    '@id': `${canonical}#software`, name: 'MouseSpell',
     operatingSystem: 'macOS 15 or later', applicationCategory: 'UtilitiesApplication',
+    applicationSubCategory: 'macOS mouse shortcut utility',
     softwareVersion: '1.0.1', description: copy.description, url: canonical,
-    image: `${SITE_URL}/media/icon.png`, downloadUrl: DOWNLOAD_URL,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+    image: `${SITE_URL}/media/icon.png`, screenshot: `${SITE_URL}/media/settings.png`,
+    downloadUrl: DOWNLOAD_URL, installUrl: `${REPOSITORY_URL}/releases/tag/v1.0.1`,
+    identifier: { '@type': 'PropertyValue', propertyID: 'CFBundleIdentifier', value: 'io.github.clutch.Clutch' },
+    keywords: copy.keywords.join(', '), featureList: copy.actions.map(action => action[1]),
     license: `${REPOSITORY_URL}/blob/main/LICENSE`, inLanguage: language.html,
-    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
+    isAccessibleForFree: true,
+    author: { '@type': 'Organization', name: 'TreatTrick', url: REPOSITORY_URL },
+    publisher: { '@type': 'Organization', name: 'TreatTrick', url: REPOSITORY_URL },
+    brand: { '@type': 'Brand', name: 'MouseSpell', logo: `${SITE_URL}/media/icon.png` },
+    sameAs: [REPOSITORY_URL],
+    offers: {
+      '@type': 'Offer', price: '0', priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock', url: DOWNLOAD_URL
+    }
   }).replaceAll('<', '\\u003c'));
 
   onMount(() => {
@@ -47,22 +63,38 @@
 <svelte:head>
   <title>{copy.title}</title>
   <meta name="description" content={copy.description} />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="application-name" content="MouseSpell" />
+  <meta name="apple-mobile-web-app-title" content="MouseSpell" />
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#13151b" media="(prefers-color-scheme: dark)" />
   <link rel="canonical" href={canonical} />
   <link rel="icon" href={asset('media/icon.png')} type="image/png" />
+  <link rel="sitemap" type="application/xml" href={`${SITE_URL}/sitemap.xml`} />
   {#each LANGUAGES as alternate}
     <link rel="alternate" hreflang={alternate.html} href={`${SITE_URL}${alternate.path}`} />
   {/each}
   <link rel="alternate" hreflang="x-default" href={`${SITE_URL}/`} />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="MouseSpell" />
+  <meta property="og:locale" content={ogLocale} />
+  {#each LANGUAGES.filter(alternate => alternate.code !== locale) as alternate}
+    <meta property="og:locale:alternate" content={openGraphLocale(alternate.code)} />
+  {/each}
   <meta property="og:title" content={copy.title} />
   <meta property="og:description" content={copy.description} />
   <meta property="og:url" content={canonical} />
   <meta property="og:image" content={`${SITE_URL}/media/settings.png`} />
   <meta property="og:image:alt" content={copy.screenshotAlt} />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1164" />
+  <meta property="og:image:height" content="900" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={copy.title} />
+  <meta name="twitter:description" content={copy.description} />
+  <meta name="twitter:image" content={`${SITE_URL}/media/settings.png`} />
+  <meta name="twitter:image:alt" content={copy.screenshotAlt} />
   {@html `<script type="application/ld+json">${schema}</script>`}
 </svelte:head>
 
