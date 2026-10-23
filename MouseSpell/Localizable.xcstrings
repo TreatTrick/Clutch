@@ -238,19 +238,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch is paused. Turn on to use your shortcuts."
+            "value": "MouseSpell is paused. Turn on to use your shortcuts."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch 已暂停，开启后快捷键恢复生效"
+            "value": "MouseSpell 已暂停，开启后快捷键恢复生效"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch は一時停止中です。オンにするとショートカットを使えます。"
+            "value": "MouseSpell は一時停止中です。オンにするとショートカットを使えます。"
           }
         }
       }
@@ -284,19 +284,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch is on. Turn off to pause all shortcuts."
+            "value": "MouseSpell is on. Turn off to pause all shortcuts."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch 已开启，关闭后所有快捷键暂停"
+            "value": "MouseSpell 已开启，关闭后所有快捷键暂停"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch は有効です。オフにするとすべてのショートカットを一時停止します。"
+            "value": "MouseSpell は有効です。オフにするとすべてのショートカットを一時停止します。"
           }
         }
       }
@@ -629,19 +629,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Quit Clutch"
+            "value": "Quit MouseSpell"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "退出 Clutch"
+            "value": "退出 MouseSpell"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch を終了"
+            "value": "MouseSpell を終了"
           }
         }
       }
@@ -675,19 +675,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Support Clutch"
+            "value": "Support MouseSpell"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "支持 Clutch"
+            "value": "支持 MouseSpell"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch を応援"
+            "value": "MouseSpell を応援"
           }
         }
       }
@@ -928,19 +928,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch needs this to notice when you hold a key and press a mouse button in any app. Turn on Clutch in the list that opens."
+            "value": "MouseSpell needs this to notice when you hold a key and press a mouse button in any app. Turn on MouseSpell in the list that opens."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch 需要它来识别你在任意应用中按住键盘并按下鼠标按键的操作。请在打开的列表中开启 Clutch。"
+            "value": "MouseSpell 需要它来识别你在任意应用中按住键盘并按下鼠标按键的操作。请在打开的列表中开启 MouseSpell。"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "どのアプリでもキーとマウスボタンの同時操作を検出するために必要です。表示される一覧で Clutch をオンにしてください。"
+            "value": "どのアプリでもキーとマウスボタンの同時操作を検出するために必要です。表示される一覧で MouseSpell をオンにしてください。"
           }
         }
       }
@@ -974,19 +974,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch never records what you type."
+            "value": "MouseSpell never records what you type."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch 不会记录你输入的任何内容"
+            "value": "MouseSpell 不会记录你输入的任何内容"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch は入力内容を記録しません。"
+            "value": "MouseSpell は入力内容を記録しません。"
           }
         }
       }
@@ -1043,19 +1043,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Already turned on but still waiting? An older copy of Clutch may be the one in the list."
+            "value": "Already turned on but still waiting? An older copy of MouseSpell may be the one in the list."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "已经打开了却还在等待？列表里的可能是旧版本的 Clutch。"
+            "value": "已经打开了却还在等待？列表里的可能是旧版本的 MouseSpell。"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "オンにしても進まない場合、一覧に登録されているのが古い Clutch かもしれません。"
+            "value": "オンにしても進まない場合、一覧に登録されているのが古い MouseSpell かもしれません。"
           }
         }
       }
@@ -1066,19 +1066,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Allow Clutch to use Accessibility"
+            "value": "Allow MouseSpell to use Accessibility"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "允许 Clutch 使用辅助功能"
+            "value": "允许 MouseSpell 使用辅助功能"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch のアクセシビリティを許可"
+            "value": "MouseSpell のアクセシビリティを許可"
           }
         }
       }
@@ -1089,7 +1089,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Waiting for permission… Clutch continues automatically."
+            "value": "Waiting for permission… MouseSpell continues automatically."
           }
         },
         "zh-Hans": {
@@ -1710,19 +1710,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "A free Star helps more people discover Clutch."
+            "value": "A free Star helps more people discover MouseSpell."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "免费点一颗 Star，也能让更多人发现 Clutch。"
+            "value": "免费点一颗 Star，也能让更多人发现 MouseSpell。"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "無料の Star で、もっと多くの人に Clutch を知ってもらえます。"
+            "value": "無料の Star で、もっと多くの人に MouseSpell を知ってもらえます。"
           }
         }
       }
@@ -1733,19 +1733,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Open Clutch's GitHub page. Giving a Star is optional."
+            "value": "Open MouseSpell's GitHub page. Giving a Star is optional."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "打开 Clutch 的 GitHub 项目页，点 Star 完全自愿。"
+            "value": "打开 MouseSpell 的 GitHub 项目页，点 Star 完全自愿。"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch の GitHub ページを開きます。Star は任意です。"
+            "value": "MouseSpell の GitHub ページを開きます。Star は任意です。"
           }
         }
       }
@@ -1756,7 +1756,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "GitHub is open. Give Clutch a Star there if you'd like!"
+            "value": "GitHub is open. Give MouseSpell a Star there if you'd like!"
           }
         },
         "zh-Hans": {
@@ -1768,7 +1768,7 @@
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "GitHub を開きました。よければ Clutch に Star をお願いします！"
+            "value": "GitHub を開きました。よければ MouseSpell に Star をお願いします！"
           }
         }
       }
@@ -1963,19 +1963,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch is free and open source. A small tip helps it go further."
+            "value": "MouseSpell is free and open source. A small tip helps it go further."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch 免费开源，一点小小的打赏，就能让它走得更远。"
+            "value": "MouseSpell 免费开源，一点小小的打赏，就能让它走得更远。"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch は無料でオープンソースです。少しの支援が、これからの開発を支えます。"
+            "value": "MouseSpell は無料でオープンソースです。少しの支援が、これからの開発を支えます。"
           }
         }
       }
@@ -1986,19 +1986,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Thank you! You can still visit GitHub and give Clutch a Star."
+            "value": "Thank you! You can still visit GitHub and give MouseSpell a Star."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "感谢支持！仍可打开 GitHub 为 Clutch 点 Star。"
+            "value": "感谢支持！仍可打开 GitHub 为 MouseSpell 点 Star。"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "応援ありがとうございます！GitHub で Clutch に Star を付けることもできます。"
+            "value": "応援ありがとうございます！GitHub で MouseSpell に Star を付けることもできます。"
           }
         }
       }
@@ -2009,19 +2009,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your support keeps Clutch going. You made a dragon maid very happy."
+            "value": "Your support keeps MouseSpell going. You made a dragon maid very happy."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "你的支持让 Clutch 走得更远，龙女仆也开心得跳起来了。"
+            "value": "你的支持让 MouseSpell 走得更远，龙女仆也开心得跳起来了。"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "応援が Clutch の開発を支えます。ドラゴンメイドも大喜びです。"
+            "value": "応援が MouseSpell の開発を支えます。ドラゴンメイドも大喜びです。"
           }
         }
       }
@@ -2078,19 +2078,19 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "You've used Clutch's shortcuts %lld times."
+            "value": "You've used MouseSpell's shortcuts %lld times."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "你已经使用 Clutch 的快捷键 %lld 次。"
+            "value": "你已经使用 MouseSpell 的快捷键 %lld 次。"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clutch のショートカットを %lld 回使いました。"
+            "value": "MouseSpell のショートカットを %lld 回使いました。"
           }
         }
       }

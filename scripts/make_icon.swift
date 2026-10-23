@@ -1,4 +1,4 @@
-// Renders the Clutch app icon and menu bar icons (a keycap + a mouse) into Clutch/Assets.xcassets.
+// Renders the MouseSpell app icon and menu bar icons (a keycap + a mouse) into MouseSpell/Assets.xcassets.
 // Usage: swift scripts/make_icon.swift [output-dir]
 import AppKit
 
@@ -144,7 +144,7 @@ func render(pixels: Int) -> Data {
 
 let output = URL(fileURLWithPath: CommandLine.arguments.count > 1
                  ? CommandLine.arguments[1]
-                 : "Clutch/Assets.xcassets/AppIcon.appiconset")
+                 : "MouseSpell/Assets.xcassets/AppIcon.appiconset")
 try FileManager.default.createDirectory(at: output, withIntermediateDirectories: true)
 
 var images: [[String: String]] = []
@@ -168,7 +168,7 @@ print("wrote icon to \(output.path)")
 // MARK: - Menu bar icon
 
 /// Monochrome template image for the status item, 26×18 pt: a keycap and a mouse side by side.
-/// `filled` is the enabled state; the outline variant is shown while Clutch is paused.
+/// `filled` is the enabled state; the outline variant is shown while MouseSpell is paused.
 func drawMenuBarIcon(_ ctx: CGContext, filled: Bool) {
     let black = color(0x000000)
     let lineWidth: CGFloat = 1.5

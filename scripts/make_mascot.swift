@@ -13,7 +13,7 @@ import Vision
 
 let outputHeight = 560 // px; shown at 280 pt on Retina
 let quality = 0.72
-let outputDir = URL(fileURLWithPath: "Clutch/Mascot")
+let outputDir = URL(fileURLWithPath: "MouseSpell/Mascot")
 
 let args = CommandLine.arguments
 guard args.count == 3 else {

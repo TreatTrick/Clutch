@@ -19,17 +19,17 @@
     en: {
       name: 'Dragon maid position',
       drag: 'Drag left or right, or use the left and right arrow keys.',
-      thanks: 'Thank you for downloading Clutch!'
+      thanks: 'Thank you for downloading MouseSpell!'
     },
     zh: {
       name: '龙女仆的位置',
       drag: '可以左右拖动，也可以用左右方向键移动。',
-      thanks: '谢谢你下载 Clutch！'
+      thanks: '谢谢你下载 MouseSpell！'
     },
     ja: {
       name: 'ドラゴンメイドの位置',
       drag: '左右にドラッグ、または左右の矢印キーで移動できます。',
-      thanks: 'Clutch をダウンロードしてくれてありがとう！'
+      thanks: 'MouseSpell をダウンロードしてくれてありがとう！'
     }
   };
   const text = $derived(words[locale]);

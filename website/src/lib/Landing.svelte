@@ -15,9 +15,9 @@
   const localeHref = (code: string) => code === 'zh' ? resolve('/zh') : code === 'ja' ? resolve('/ja') : resolve('/');
 
   const schema = $derived(JSON.stringify({
-    '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'Clutch',
+    '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'MouseSpell',
     operatingSystem: 'macOS 15 or later', applicationCategory: 'UtilitiesApplication',
-    softwareVersion: '1.0.0', description: copy.description, url: canonical,
+    softwareVersion: '1.0.1', description: copy.description, url: canonical,
     image: `${SITE_URL}/media/icon.png`, downloadUrl: DOWNLOAD_URL,
     license: `${REPOSITORY_URL}/blob/main/LICENSE`, inLanguage: language.html,
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
@@ -56,7 +56,7 @@
   {/each}
   <link rel="alternate" hreflang="x-default" href={`${SITE_URL}/`} />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Clutch" />
+  <meta property="og:site_name" content="MouseSpell" />
   <meta property="og:title" content={copy.title} />
   <meta property="og:description" content={copy.description} />
   <meta property="og:url" content={canonical} />
@@ -72,9 +72,9 @@
 
 <a class="skip-link" href="#main">{copy.skip}</a>
 <header class="site-header wrap">
-  <a class="brand" href={localeHref(locale)} aria-label="Clutch">
+  <a class="brand" href={localeHref(locale)} aria-label="MouseSpell">
     <img src={asset('media/icon.png')} width="32" height="32" alt="" />
-    <span>Clutch</span>
+    <span>MouseSpell</span>
   </a>
   <nav class="section-nav" aria-label={copy.features}>
     <a href="#features">{copy.features}</a>
@@ -156,12 +156,10 @@
     <details class="installation-details">
       <summary>{copy.installDetails}<span aria-hidden="true">+</span></summary>
       <ol>{#each copy.installSteps as step}<li><h3>{step[0]}</h3><p>{step[1]}</p></li>{/each}</ol>
-      <img src={asset('media/macos-open-anyway.png')} alt={copy.permissionsAlt} width="1180" height="482" loading="lazy" />
-      <a class="text-link" href={`https://support.apple.com/${locale === 'zh' ? 'zh-cn' : locale === 'ja' ? 'ja-jp' : 'en-us'}/102445`}>{copy.appleGuide}<span aria-hidden="true">↗</span></a>
     </details>
   </section>
 </main>
 
-<footer class="site-footer wrap"><div><a class="brand" href={localeHref(locale)}>Clutch</a><p>{copy.footer}</p></div><nav aria-label="Clutch"><a href={REPOSITORY_URL}>GitHub ↗</a><a href={`${REPOSITORY_URL}/releases`}>{copy.releases}</a><a href={`${REPOSITORY_URL}/blob/main/LICENSE`}>MIT</a></nav></footer>
+<footer class="site-footer wrap"><div><a class="brand" href={localeHref(locale)}>MouseSpell</a><p>{copy.footer}</p></div><nav aria-label="MouseSpell"><a href={REPOSITORY_URL}>GitHub ↗</a><a href={`${REPOSITORY_URL}/releases`}>{copy.releases}</a><a href={`${REPOSITORY_URL}/blob/main/LICENSE`}>MIT</a></nav></footer>
 
 <Mascot {locale} celebration={downloadCount} />

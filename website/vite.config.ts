@@ -13,7 +13,7 @@ export default defineConfig({
 
 			// 三个语言版本在构建时生成 HTML，GitHub Pages 无需运行服务端。
 			adapter: adapter(),
-			paths: { base: '/Clutch', relative: false }
+			paths: { base: '/MouseSpell', relative: false }
 		})
 	]
 });

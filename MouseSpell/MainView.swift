@@ -41,7 +41,7 @@ private struct HeaderView: View {
                 .frame(width: 44, height: 44)
                 .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: 2) {
-                Text(verbatim: "Clutch").font(.title3.weight(.semibold))
+                Text(verbatim: "MouseSpell").font(.title3.weight(.semibold))
                 Text(L("app.tagline"))
                     .font(.caption)
                     .foregroundStyle(.secondary)

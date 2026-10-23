@@ -13,7 +13,7 @@ import pillow_heif
 pillow_heif.register_heif_opener()
 
 WEBSITE = Path(__file__).resolve().parents[1]
-SOURCE = WEBSITE.parent / 'Clutch' / 'Mascot'
+SOURCE = WEBSITE.parent / 'MouseSpell' / 'Mascot'
 OUTPUT = WEBSITE / 'static' / 'mascot'
 FRAME_HEIGHT = 320
 COLUMNS = 16

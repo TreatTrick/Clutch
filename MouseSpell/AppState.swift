@@ -165,13 +165,13 @@ final class AppState {
                 try SMAppService.mainApp.unregister()
             }
         } catch {
-            NSLog("Clutch: failed to update login item: \(error)")
+            NSLog("MouseSpell: failed to update login item: \(error)")
         }
         launchAtLogin = SMAppService.mainApp.status == .enabled
     }
 
     func requestAccessibility() {
-        // Show the system prompt and add Clutch to the Accessibility list
+        // Show the system prompt and add MouseSpell to the Accessibility list
         let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
         AXIsProcessTrustedWithOptions(options)
         NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility")!)

@@ -1,8 +1,8 @@
-# Clutch Website Implementation Plan
+# MouseSpell Website Implementation Plan
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Build and deploy the approved minimal Clutch website with three locales and system/light/dark themes.
+**Goal:** Build and deploy the approved minimal MouseSpell website with three locales and system/light/dark themes.
 
 **Architecture:** SvelteKit prerenders three independent HTML routes; Vite builds and pnpm locks dependencies. The website lives in website/ and reuses assets from docs/assets through a preparation script. A GitHub Pages workflow publishes website/build.
 

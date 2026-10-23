@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Package a built Universal Clutch.app with a drag-to-install window and offline guide.
+"""Package a built Universal MouseSpell.app with a drag-to-install window and offline guide.
 
 Install the packaging dependency with: python3 -m pip install dmgbuild==1.6.5
-Usage: python3 scripts/package_dmg.py /path/to/Clutch.app /path/to/Clutch.dmg
+Usage: python3 scripts/package_dmg.py /path/to/MouseSpell.app /path/to/MouseSpell.dmg
 """
 
 import argparse
@@ -24,17 +24,33 @@ def main():
     output = args.output.resolve()
     root = Path(__file__).resolve().parent.parent
 
-    if app.name != "Clutch.app" or not app.is_dir():
-        parser.error("app must point to a built Clutch.app")
+    if app.name != "MouseSpell.app" or not app.is_dir():
+        parser.error("app must point to a built MouseSpell.app")
     if output.suffix != ".dmg" or output.exists():
         parser.error("output must be a new .dmg file")
     architectures = subprocess.check_output(
-        ["/usr/bin/lipo", "-archs", str(app / "Contents/MacOS/Clutch")], text=True
+        ["/usr/bin/lipo", "-archs", str(app / "Contents/MacOS/MouseSpell")], text=True
     ).split()
     if set(architectures) != {"arm64", "x86_64"}:
-        parser.error("Clutch.app must contain arm64 and x86_64")
+        parser.error("MouseSpell.app must contain arm64 and x86_64")
     subprocess.run(
         ["/usr/bin/codesign", "--verify", "--deep", "--strict", str(app)], check=True
+    )
+    signature = subprocess.run(
+        ["/usr/bin/codesign", "--display", "--verbose=4", str(app)],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stderr
+    if "Authority=Developer ID Application:" not in signature or (
+        "TeamIdentifier=6JG2G82DRK" not in signature
+    ):
+        parser.error("app must be signed with this team's Developer ID Application certificate")
+    subprocess.run(
+        ["/usr/bin/xcrun", "stapler", "validate", str(app)], check=True
+    )
+    subprocess.run(
+        ["/usr/sbin/spctl", "--assess", "--type", "execute", str(app)], check=True
     )
     output.parent.mkdir(parents=True, exist_ok=True)
 
@@ -46,12 +62,12 @@ def main():
         return 'src="data:image/png;base64,' + base64.b64encode(data).decode("ascii") + '"'
 
     html = re.sub(r'src="(assets/[^\"]+\.png)"', embed_image, guide.read_text())
-    with tempfile.TemporaryDirectory(prefix="clutch-dmg-") as staging:
+    with tempfile.TemporaryDirectory(prefix="mousespell-dmg-") as staging:
         install = Path(staging) / "INSTALL.html"
         install.write_text(html)
         dmgbuild.build_dmg(
             str(output),
-            "Clutch",
+            "MouseSpell",
             settings={
                 "format": "UDZO",
                 "compression_level": 9,
@@ -66,7 +82,7 @@ def main():
                 "icon_size": 96,
                 "text_size": 14,
                 "icon_locations": {
-                    "Clutch.app": (170, 115),
+                    "MouseSpell.app": (170, 115),
                     "Applications": (470, 115),
                     "INSTALL.html": (170, 315),
                     "LICENSE": (470, 315),

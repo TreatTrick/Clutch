@@ -7,9 +7,9 @@ const destination = new URL('../static/media/', import.meta.url);
 await mkdir(destination, { recursive: true });
 const files = [
   'icon.png', 'desktop-switching-demo.gif', 'settings.png',
-  'settings-dark.png', 'macos-not-opened.png', 'macos-open-anyway.png'
+  'settings-dark.png'
 ];
 for (const file of files) {
   await copyFile(new URL(file, source), new URL(file, destination));
 }
-console.log(`Prepared ${files.length} Clutch assets in ${fileURLToPath(destination)}`);
+console.log(`Prepared ${files.length} MouseSpell assets in ${fileURLToPath(destination)}`);

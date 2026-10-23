@@ -1,9 +1,9 @@
 <div align="center">
 
 <!-- TODO: keep docs/assets/icon.png in sync with AppIcon (256×256 PNG displayed at 128 px) -->
-<img src="docs/assets/icon.png" width="128" alt="Clutch app icon">
+<img src="docs/assets/icon.png" width="128" alt="MouseSpell app icon">
 
-# Clutch
+# MouseSpell
 
 ### All the Trackpad Gestures. None of the Trackpad.
 
@@ -11,16 +11,16 @@ Hold a key. Click the mouse. Trigger a gesture.
 
 **English** · [简体中文](README.zh-CN.md)
 
-[Website](https://treattrick.github.io/Clutch/) · [中文官网](https://treattrick.github.io/Clutch/zh/) · [日本語](https://treattrick.github.io/Clutch/ja/)
+[Website](https://treattrick.github.io/MouseSpell/) · [中文官网](https://treattrick.github.io/MouseSpell/zh/) · [日本語](https://treattrick.github.io/MouseSpell/ja/)
 
 [![macOS 15+](https://img.shields.io/badge/macOS-15%2B-000000?logo=apple&logoColor=white)](#-install)
 [![Swift](https://img.shields.io/badge/Swift-5-F05138?logo=swift&logoColor=white)](https://swift.org)
 [![SwiftUI](https://img.shields.io/badge/UI-SwiftUI-0A84FF?logo=swift&logoColor=white)](https://developer.apple.com/xcode/swiftui/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-34C759)](#-license)
 [![Languages](https://img.shields.io/badge/i18n-English%20%7C%20%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%20%7C%20%E6%97%A5%E6%9C%AC%E8%AA%9E-FF9F0A)](#-localization)
-[![GitHub stars](https://img.shields.io/github/stars/TreatTrick/Clutch?style=social)](https://github.com/TreatTrick/Clutch)
+[![GitHub stars](https://img.shields.io/github/stars/TreatTrick/MouseSpell?style=social)](https://github.com/TreatTrick/MouseSpell)
 
-[Download v1.0.0](https://github.com/TreatTrick/Clutch/releases/download/v1.0.0/Clutch-v1.0.0-universal.dmg) · [Install](#-install) · [How it works](#-three-steps-to-your-first-shortcut) · [Meet the maid](#-meet-the-maid) · [Under the hood](#-under-the-hood)
+[Download v1.0.1](https://github.com/TreatTrick/MouseSpell/releases/download/v1.0.1/MouseSpell-v1.0.1-universal.dmg) · [Install](#-install) · [How it works](#-three-steps-to-your-first-shortcut) · [Meet the maid](#-meet-the-maid) · [Under the hood](#-under-the-hood)
 
 <br>
 
@@ -30,29 +30,29 @@ Hold a key. Click the mouse. Trigger a gesture.
      ⌥ + middle click → Mission Control opens, ⌥ + scroll down → Show Desktop.
      A keystroke overlay (e.g. KeyCastr) in the corner helps viewers follow along.
      The current desktop-switching-demo.gif is converted from a recording; the editable illustration remains in desktop-switching-demo.svg. -->
-<img src="docs/assets/desktop-switching-demo.gif" width="860" alt="Clutch demo: Control + the forward mouse button slides the desktop left; Control + the back mouse button slides it right">
+<img src="docs/assets/desktop-switching-demo.gif" width="860" alt="MouseSpell demo: Control + the forward mouse button slides the desktop left; Control + the back mouse button slides it right">
 
 </div>
 
 <br>
 
-## 🖱️ Why Clutch?
+## 🖱️ Why MouseSpell?
 
 macOS hides some of its best features behind trackpad gestures: swipe between desktops, swipe up for Mission Control, spread your fingers to see the desktop. On a mouse, you're left with keyboard shortcuts, which means taking your hand off the mouse right in the middle of what you're doing.
 
-Clutch adds a second option. Rest one hand on the keyboard and keep the other on the mouse. Hold a modifier key, press a mouse button or turn the wheel, and the gesture fires. Your mouse hand stays where it is.
+MouseSpell adds a second option. Rest one hand on the keyboard and keep the other on the mouse. Hold a modifier key, press a mouse button or turn the wheel, and the gesture fires. Your mouse hand stays where it is.
 
 <table>
 <tr>
 <td width="50%" valign="top">
 
-#### ✋ Without Clutch
+#### ✋ Without MouseSpell
 Reach over for <kbd>⌃</kbd> <kbd>→</kbd>, find your place, go back to the mouse, aim the cursor again.
 
 </td>
 <td width="50%" valign="top">
 
-#### ⚡ With Clutch
+#### ⚡ With MouseSpell
 Hold <kbd>⌥</kbd>, click the forward side button. You're on the next desktop and your hand hasn't moved.
 
 </td>
@@ -78,7 +78,7 @@ Bind any of six system features to any combination of a modifier and a mouse tri
 
 ## 🎯 Three steps to your first shortcut
 
-No preference panes or dropdowns. Clutch asks for one thing at a time and records what you actually press.
+No preference panes or dropdowns. MouseSpell asks for one thing at a time and records what you actually press.
 
 <!-- TODO: step1.png, the recorder on step 1 showing the five large keycaps -->
 <!-- TODO: step2.png, step 2 with the chosen keycap, "+" and the bouncing dashed mouse -->
@@ -86,15 +86,15 @@ No preference panes or dropdowns. Clutch asks for one thing at a time and record
 <!-- TODO: refresh shortcut-setup-steps.gif when the recorder flow changes, from step 1 to the green ✓ "Shortcut added" screen -->
 <p align="center"><img src="docs/assets/shortcut-setup-steps.gif" width="600" alt="Three steps to add a shortcut, with synchronized STEP 1, STEP 2, and STEP 3 captions: press a key, press a mouse button, then pick an action"></p>
 
-1. **Press a key.** Hold ⌥, ⌃, ⌘, ⇧ or fn. Clutch picks it up straight away.
-2. **Press a mouse button.** Click, side-click or scroll. If that combo is already taken, Clutch warns you before you continue.
+1. **Press a key.** Hold ⌥, ⌃, ⌘, ⇧ or fn. MouseSpell picks it up straight away.
+2. **Press a mouse button.** Click, side-click or scroll. If that combo is already taken, MouseSpell warns you before you continue.
 3. **Pick an action.** Each tile shows the trackpad gesture it replaces.
 
 Changed your mind? Use **Back**, press <kbd>Esc</kbd>, or click any completed step to redo it. Saved shortcuts appear in a plain list, and you remove one with the trash button.
 
 ## 🐉 Meet the maid
 
-Clutch is free and open source. After you've used it for a while, a small dragon maid drops by to ask for a coffee. She **follows your cursor**:
+MouseSpell is free and open source. After you've used it for a while, a small dragon maid drops by to ask for a coffee. She **follows your cursor**:
 
 - 😢 move toward the close button and she gets sadder, frame by frame
 - 🥰 move anywhere else and she perks up
@@ -126,7 +126,7 @@ She also lives in the settings window footer, next to the coffee button, and wat
 <tr>
 <td width="50%" valign="top">
 
-🔐 **Permission first.** The first screen does one thing: grant Accessibility. Clutch notices the change on its own, and if macOS gets stuck there's a one-click reset.
+🔐 **Permission first.** The first screen does one thing: grant Accessibility. MouseSpell notices the change on its own, and if macOS gets stuck there's a one-click reset.
 
 🌗 **Light, dark or system.** Pick an appearance from Preferences. It applies instantly and is remembered.
 
@@ -135,9 +135,9 @@ She also lives in the settings window footer, next to the coffee button, and wat
 </td>
 <td width="50%" valign="top">
 
-📍 **Lives in the menu bar.** Toggle Clutch on or off, check your shortcuts, or open settings from there. The icon dims when Clutch is paused.
+📍 **Lives in the menu bar.** Toggle MouseSpell on or off, check your shortcuts, or open settings from there. The icon dims when MouseSpell is paused.
 
-🚀 **Launch at login.** One checkbox. Clutch starts quietly without opening its window.
+🚀 **Launch at login.** One checkbox. MouseSpell starts quietly without opening its window.
 
 ⚠️ **Honest warnings.** If a desktop-switch shortcut is disabled in System Settings, the list tells you so you aren't left guessing.
 
@@ -154,7 +154,7 @@ She also lives in the settings window footer, next to the coffee button, and wat
 
 ## 🔒 Privacy
 
-Clutch needs **Accessibility** permission so it can see mouse events in every app. That's all it uses the permission for.
+MouseSpell needs **Accessibility** permission so it can see mouse events in every app. That's all it uses the permission for.
 
 - It only reacts when a modifier you bound is held together with a mouse trigger you bound. Everything else passes through untouched.
 - It makes no network requests and has no analytics. Usage counts stay in local `UserDefaults` and only decide when the maid appears.
@@ -164,33 +164,25 @@ Clutch needs **Accessibility** permission so it can see mouse events in every ap
 
 <!-- TODO: keep the versioned download links in sync with future GitHub Releases -->
 
-**[Download Clutch v1.0.0 — Universal DMG](https://github.com/TreatTrick/Clutch/releases/download/v1.0.0/Clutch-v1.0.0-universal.dmg)** · [All releases](https://github.com/TreatTrick/Clutch/releases)
+**[Download MouseSpell v1.0.1 — Universal DMG](https://github.com/TreatTrick/MouseSpell/releases/download/v1.0.1/MouseSpell-v1.0.1-universal.dmg)** · [All releases](https://github.com/TreatTrick/MouseSpell/releases)
 
 Requirements: macOS 15 Sequoia or later, on **Apple Silicon or Intel**.
 
 > [!NOTE]
-> This release uses an ad hoc signature and is not notarized by Apple. The steps below follow [Apple's instructions](https://support.apple.com/en-us/102445) for opening an app you trust.
+> This release is signed with an Apple Developer ID certificate and notarized by Apple. macOS verifies the app when you open it.
 
-1. Open the downloaded **DMG**, then drag **Clutch** onto the **Applications** shortcut in the installer window. You can also double-click **INSTALL.html** in that window to read this guide and its screenshots offline, with buttons to switch between English and Simplified Chinese.
-2. Open Clutch from **Applications**. If macOS shows **“Clutch” Not Opened**, click **Done** to dismiss the alert and keep the app.
+1. Open the downloaded **DMG**, then drag **MouseSpell** onto the **Applications** shortcut in the installer window. You can also double-click **INSTALL.html** in that window to read this guide offline, with buttons to switch between English and Simplified Chinese.
+2. Open MouseSpell from **Applications**. If macOS asks whether to open it, verify the app name and choose **Open**.
+3. In MouseSpell, click **Open System Settings** and enable MouseSpell under **Privacy & Security › Accessibility**. MouseSpell picks up the change by itself.
 
-   <img src="docs/assets/macos-not-opened.png" width="360" alt="macOS blocks Clutch on first launch; click Done to dismiss the alert">
-
-3. Open **System Settings › Privacy & Security**, scroll to **Security**, and click **Open Anyway** beside the message about Clutch.
-
-   <img src="docs/assets/macos-open-anyway.png" width="700" alt="Privacy & Security settings showing the Open Anyway button for Clutch">
-
-4. Confirm that you want to open Clutch; enter your Mac password or use Touch ID if prompted.
-5. In Clutch, click **Open System Settings** and enable Clutch under **Privacy & Security › Accessibility**. Clutch picks up the change by itself.
-
-To add your first shortcut, hold a modifier key in the recorder, press a mouse button or scroll, then choose an action. See [the three-step guide](#-three-steps-to-your-first-shortcut). Clutch keeps running in the menu bar when you close its window. After copying the app, you can eject the installer disk.
+To add your first shortcut, hold a modifier key in the recorder, press a mouse button or scroll, then choose an action. See [the three-step guide](#-three-steps-to-your-first-shortcut). MouseSpell keeps running in the menu bar when you close its window. After copying the app, you can eject the installer disk.
 
 > [!TIP]
 > Desktop switching uses the system shortcuts in *System Settings › Keyboard › Keyboard Shortcuts › Mission Control* ("Move left/right a space"). Keep them enabled; their key combination doesn't matter.
 
 ## 🌐 Localization
 
-Clutch ships in **English**, **简体中文** and **日本語**, and you can switch languages from *Preferences* at any time, or follow your system language. To add a language, add a column to `scripts/gen_strings.py`, regenerate, add an option to `AppLanguage` in `Clutch/Localization.swift`, and add the region to the Xcode project. Pull requests are welcome.
+MouseSpell ships in **English**, **简体中文** and **日本語**, and you can switch languages from *Preferences* at any time, or follow your system language. To add a language, add a column to `scripts/gen_strings.py`, regenerate, add an option to `AppLanguage` in `MouseSpell/Localization.swift`, and add the region to the Xcode project. Pull requests are welcome.
 
 ## 🤝 Contributing
 
@@ -204,10 +196,10 @@ Please keep code comments in English, and run the app through the recorder flow 
 
 ## ☕ Support
 
-If Clutch saves your mouse hand a trip to the keyboard:
+If MouseSpell saves your mouse hand a trip to the keyboard:
 
-- ⭐ **Star this repo.** It helps other people find Clutch, and the maid gets very happy.
-- ☕ **Tip with PayPal, WeChat, or Alipay.** Open the coffee button in Clutch to choose a payment method. After tipping, choose **I've Supported** to turn off automatic reminders.
+- ⭐ **Star this repo.** It helps other people find MouseSpell, and the maid gets very happy.
+- ☕ **Tip with PayPal, WeChat, or Alipay.** Open the coffee button in MouseSpell to choose a payment method. After tipping, choose **I've Supported** to turn off automatic reminders.
 
 <!-- TODO: keep the PayPal link in sync when replacing the bundled payment QR images -->
 The app includes payment QR codes for PayPal, WeChat, and Alipay. You can also open PayPal directly in your browser.
@@ -223,4 +215,4 @@ The app includes payment QR codes for PayPal, WeChat, and Alipay. You can also o
 
 ## 📄 License
 
-[MIT](LICENSE) © Clutch contributors
+[MIT](LICENSE) © MouseSpell contributors

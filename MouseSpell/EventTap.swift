@@ -34,7 +34,7 @@ final class EventTap {
             callback: callback,
             userInfo: Unmanaged.passUnretained(self).toOpaque()
         ) else {
-            NSLog("Clutch: failed to create event tap")
+            NSLog("MouseSpell: failed to create event tap")
             return
         }
         self.tap = tap

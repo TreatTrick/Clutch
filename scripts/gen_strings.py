@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generates Clutch/Localizable.xcstrings. To add text, add an entry to STRINGS and rerun this script."""
+"""Generates MouseSpell/Localizable.xcstrings. To add text, add an entry to STRINGS and rerun this script."""
 import json
 import pathlib
 
@@ -11,26 +11,26 @@ STRINGS = {
     "common.enable": ("Enable", "启用", "有効にする"),
     "common.on": ("On", "已开启", "オン"),
     "common.off": ("Off", "已暂停", "一時停止中"),
-    "common.enabled.help": ("Clutch is on. Turn off to pause all shortcuts.", "Clutch 已开启，关闭后所有快捷键暂停",
-                            "Clutch は有効です。オフにするとすべてのショートカットを一時停止します。"),
-    "common.disabled.help": ("Clutch is paused. Turn on to use your shortcuts.", "Clutch 已暂停，开启后快捷键恢复生效",
-                             "Clutch は一時停止中です。オンにするとショートカットを使えます。"),
+    "common.enabled.help": ("MouseSpell is on. Turn off to pause all shortcuts.", "MouseSpell 已开启，关闭后所有快捷键暂停",
+                            "MouseSpell は有効です。オフにするとすべてのショートカットを一時停止します。"),
+    "common.disabled.help": ("MouseSpell is paused. Turn on to use your shortcuts.", "MouseSpell 已暂停，开启后快捷键恢复生效",
+                             "MouseSpell は一時停止中です。オンにするとショートカットを使えます。"),
 
-    "permission.title": ("Allow Clutch to use Accessibility", "允许 Clutch 使用辅助功能", "Clutch のアクセシビリティを許可"),
+    "permission.title": ("Allow MouseSpell to use Accessibility", "允许 MouseSpell 使用辅助功能", "MouseSpell のアクセシビリティを許可"),
     "permission.detail": (
-        "Clutch needs this to notice when you hold a key and press a mouse button in any app. Turn on Clutch in the list that opens.",
-        "Clutch 需要它来识别你在任意应用中按住键盘并按下鼠标按键的操作。请在打开的列表中开启 Clutch。",
-        "どのアプリでもキーとマウスボタンの同時操作を検出するために必要です。表示される一覧で Clutch をオンにしてください。"),
+        "MouseSpell needs this to notice when you hold a key and press a mouse button in any app. Turn on MouseSpell in the list that opens.",
+        "MouseSpell 需要它来识别你在任意应用中按住键盘并按下鼠标按键的操作。请在打开的列表中开启 MouseSpell。",
+        "どのアプリでもキーとマウスボタンの同時操作を検出するために必要です。表示される一覧で MouseSpell をオンにしてください。"),
     "permission.grant": ("Open System Settings", "打开系统设置", "システム設定を開く"),
     "permission.reopen": ("Open System Settings Again", "再次打开系统设置", "システム設定をもう一度開く"),
-    "permission.waiting": ("Waiting for permission… Clutch continues automatically.",
+    "permission.waiting": ("Waiting for permission… MouseSpell continues automatically.",
                            "等待授权中… 授权后会自动继续",
                            "許可を待っています… 許可後に自動で続行します。"),
-    "permission.stuck": ("Already turned on but still waiting? An older copy of Clutch may be the one in the list.",
-                         "已经打开了却还在等待？列表里的可能是旧版本的 Clutch。",
-                         "オンにしても進まない場合、一覧に登録されているのが古い Clutch かもしれません。"),
+    "permission.stuck": ("Already turned on but still waiting? An older copy of MouseSpell may be the one in the list.",
+                         "已经打开了却还在等待？列表里的可能是旧版本的 MouseSpell。",
+                         "オンにしても進まない場合、一覧に登録されているのが古い MouseSpell かもしれません。"),
     "permission.reset": ("Remove the old entry and try again", "清除旧的授权记录并重新授权", "古い登録を削除して再試行"),
-    "permission.privacy": ("Clutch never records what you type.", "Clutch 不会记录你输入的任何内容", "Clutch は入力内容を記録しません。"),
+    "permission.privacy": ("MouseSpell never records what you type.", "MouseSpell 不会记录你输入的任何内容", "MouseSpell は入力内容を記録しません。"),
 
     "modifier.option": ("Option", "Option", "Option"),
     "modifier.control": ("Control", "Control", "Control"),
@@ -99,16 +99,16 @@ STRINGS = {
     "appearance.dark": ("Dark", "深色", "ダーク"),
 
     "menu.settings": ("Settings…", "设置…", "設定…"),
-    "menu.support": ("Support Clutch", "支持 Clutch", "Clutch を応援"),
+    "menu.support": ("Support MouseSpell", "支持 MouseSpell", "MouseSpell を応援"),
     "support.button": ("Buy me a coffee", "请我喝杯咖啡", "コーヒーで応援"),
 
     "support.title": ("Buy me a coffee?", "请我喝杯咖啡吧？", "コーヒーで応援しませんか？"),
-    "support.subtitle": ("Clutch is free and open source. A small tip helps it go further.",
-                         "Clutch 免费开源，一点小小的打赏，就能让它走得更远。",
-                         "Clutch は無料でオープンソースです。少しの支援が、これからの開発を支えます。"),
-    "support.usage %lld": ("You've used Clutch's shortcuts %lld times.",
-                           "你已经使用 Clutch 的快捷键 %lld 次。",
-                           "Clutch のショートカットを %lld 回使いました。"),
+    "support.subtitle": ("MouseSpell is free and open source. A small tip helps it go further.",
+                         "MouseSpell 免费开源，一点小小的打赏，就能让它走得更远。",
+                         "MouseSpell は無料でオープンソースです。少しの支援が、これからの開発を支えます。"),
+    "support.usage %lld": ("You've used MouseSpell's shortcuts %lld times.",
+                           "你已经使用 MouseSpell 的快捷键 %lld 次。",
+                           "MouseSpell のショートカットを %lld 回使いました。"),
     "support.method": ("Payment method", "支付方式", "支払い方法"),
     "payment.wechat": ("WeChat", "微信", "WeChat"),
     "payment.alipay": ("Alipay", "支付宝", "Alipay"),
@@ -131,9 +131,9 @@ STRINGS = {
                              "记住我的支持，不再自动提醒打赏。", "応援済みとして記録し、自動の支援案内を停止します。"),
     "support.confirmed.detail": ("Your support is remembered. No more automatic reminders.",
                                  "已记下你的支持，不再自动提醒打赏。", "応援を記録しました。自動の支援案内はもう表示しません。"),
-    "support.supported.help": ("Thank you! You can still visit GitHub and give Clutch a Star.",
-                               "感谢支持！仍可打开 GitHub 为 Clutch 点 Star。",
-                               "応援ありがとうございます！GitHub で Clutch に Star を付けることもできます。"),
+    "support.supported.help": ("Thank you! You can still visit GitHub and give MouseSpell a Star.",
+                               "感谢支持！仍可打开 GitHub 为 MouseSpell 点 Star。",
+                               "応援ありがとうございます！GitHub で MouseSpell に Star を付けることもできます。"),
     "support.debug.reset.help": ("Debug: Option-click to reset local support and reminder records.",
                                  "调试：按住 Option 点击，重置本地支持状态和提醒记录。",
                                  "デバッグ：Option キーを押しながらクリックすると、ローカルの応援状態と案内履歴をリセットします。"),
@@ -141,22 +141,22 @@ STRINGS = {
     "support.link.failed": ("Couldn't open the link. Please try again.", "暂时无法打开链接，请重试。",
                             "リンクを開けませんでした。もう一度お試しください。"),
     "support.star": ("Star on GitHub", "去 GitHub 点 Star", "GitHub で Star を付ける"),
-    "support.github.help": ("Open Clutch's GitHub page. Giving a Star is optional.",
-                            "打开 Clutch 的 GitHub 项目页，点 Star 完全自愿。",
-                            "Clutch の GitHub ページを開きます。Star は任意です。"),
-    "support.github.detail": ("A free Star helps more people discover Clutch.",
-                              "免费点一颗 Star，也能让更多人发现 Clutch。",
-                              "無料の Star で、もっと多くの人に Clutch を知ってもらえます。"),
-    "support.github.opened": ("GitHub is open. Give Clutch a Star there if you'd like!",
+    "support.github.help": ("Open MouseSpell's GitHub page. Giving a Star is optional.",
+                            "打开 MouseSpell 的 GitHub 项目页，点 Star 完全自愿。",
+                            "MouseSpell の GitHub ページを開きます。Star は任意です。"),
+    "support.github.detail": ("A free Star helps more people discover MouseSpell.",
+                              "免费点一颗 Star，也能让更多人发现 MouseSpell。",
+                              "無料の Star で、もっと多くの人に MouseSpell を知ってもらえます。"),
+    "support.github.opened": ("GitHub is open. Give MouseSpell a Star there if you'd like!",
                               "已打开 GitHub，喜欢的话可以在那里点一颗 Star！",
-                              "GitHub を開きました。よければ Clutch に Star をお願いします！"),
+                              "GitHub を開きました。よければ MouseSpell に Star をお願いします！"),
     "support.thanks.title": ("Thanks for the coffee!", "谢谢你的咖啡！", "コーヒーをありがとう！"),
-    "support.thanks.detail": ("Your support keeps Clutch going. You made a dragon maid very happy.",
-                             "你的支持让 Clutch 走得更远，龙女仆也开心得跳起来了。",
-                             "応援が Clutch の開発を支えます。ドラゴンメイドも大喜びです。"),
+    "support.thanks.detail": ("Your support keeps MouseSpell going. You made a dragon maid very happy.",
+                             "你的支持让 MouseSpell 走得更远，龙女仆也开心得跳起来了。",
+                             "応援が MouseSpell の開発を支えます。ドラゴンメイドも大喜びです。"),
     "support.close": ("Close", "关闭", "閉じる"),
     "menu.addFirst": ("Add your first shortcut…", "添加第一个快捷键…", "最初のショートカットを追加…"),
-    "menu.quit": ("Quit Clutch", "退出 Clutch", "Clutch を終了"),
+    "menu.quit": ("Quit MouseSpell", "退出 MouseSpell", "MouseSpell を終了"),
 }
 
 
@@ -176,6 +176,6 @@ catalog = {
     },
 }
 
-out = pathlib.Path(__file__).resolve().parent.parent / "Clutch" / "Localizable.xcstrings"
+out = pathlib.Path(__file__).resolve().parent.parent / "MouseSpell" / "Localizable.xcstrings"
 out.write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 print(f"wrote {len(STRINGS)} strings to {out}")

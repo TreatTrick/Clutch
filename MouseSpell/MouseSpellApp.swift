@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Notification.Name {
-    static let openSettings = Notification.Name("io.github.clutch.openSettings")
+    static let openSettings = Notification.Name("io.github.mousespell.openSettings")
 }
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
@@ -29,12 +29,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 }
 
 @main
-struct ClutchApp: App {
+struct MouseSpellApp: App {
     @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
     @State private var state = AppState()
 
     var body: some Scene {
-        Window(Text(verbatim: "Clutch"), id: "main") {
+        Window(Text(verbatim: "MouseSpell"), id: "main") {
             MainView()
                 .environment(state)
                 // L() reads from a static bundle, so rebuild the view tree to refresh text when the language changes

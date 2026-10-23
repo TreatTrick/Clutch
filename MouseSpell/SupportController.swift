@@ -53,7 +53,7 @@ struct SupportStats: Codable, Equatable {
 
 /// Links shown in the support popup. Keep the payment link in sync with the bundled PayPal QR code.
 enum SupportLinks {
-    static let gitHub = URL(string: "https://github.com/TreatTrick/Clutch")!
+    static let gitHub = URL(string: "https://github.com/TreatTrick/MouseSpell")!
     static let payPal = URL(string: "https://www.paypal.com/ncp/payment/GVHHQGRMT9YYJ")!
 }
 
@@ -170,7 +170,7 @@ final class SupportController {
         panel.isMovableByWindowBackground = true
         panel.hidesOnDeactivate = false
         panel.isReleasedWhenClosed = false
-        // Stay visible while the user switches desktops with Clutch itself
+        // Stay visible while the user switches desktops with MouseSpell itself
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
         self.panel = panel
         model.window = panel
@@ -222,7 +222,7 @@ final class SupportController {
     }
 }
 
-/// Borderless panel that can still take clicks without activating Clutch
+/// Borderless panel that can still take clicks without activating MouseSpell
 private final class SupportPanel: NSPanel {
     override var canBecomeKey: Bool { true }
 }

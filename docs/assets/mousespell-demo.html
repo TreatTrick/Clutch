@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Clutch · 桌面切换演示</title>
+  <title>MouseSpell · 桌面切换演示</title>
   <style>
     :root { color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #263247; background: #f5f7fb; }
     * { box-sizing: border-box; }
@@ -22,83 +22,83 @@
   </style>
 </head>
 <body>
-  <main aria-label="Clutch 桌面切换动画预览">
+  <main aria-label="MouseSpell 桌面切换动画预览">
     <!-- Keep this inline illustration synchronized with desktop-switching-demo.svg. No external assets are needed. -->
     <div class="illustration">
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="clutch-title clutch-description">
-  <title id="clutch-title">Clutch — Control your desktops with your mouse</title>
-  <desc id="clutch-description">A repeating illustrated demonstration. Hold Control and press the forward side button to slide the desktop left. Hold Control and press the back side button to slide it right. The keyboard and mouse highlight the buttons as they are pressed.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="mousespell-title mousespell-description">
+  <title id="mousespell-title">MouseSpell — Control your desktops with your mouse</title>
+  <desc id="mousespell-description">A repeating illustrated demonstration. Hold Control and press the forward side button to slide the desktop left. Hold Control and press the back side button to slide it right. The keyboard and mouse highlight the buttons as they are pressed.</desc>
   <style>
-    #clutch-demo { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    #clutch-demo .line { fill: none; stroke: #344055; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    #clutch-demo .muted-line { fill: none; stroke: #b9c3d2; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    #clutch-demo .ink { fill: #263247; }
-    #clutch-demo .muted { fill: #56657b; }
-    #clutch-demo .key-letter { fill: #56657b; font-size: 14px; text-anchor: middle; }
-    #clutch-demo .motion { animation-duration: 8s; animation-iteration-count: infinite; }
-    #clutch-demo .desktop-strip { animation-name: clutch-desktops; animation-timing-function: cubic-bezier(.22, 1, .36, 1); }
-    #clutch-demo .control-pressed { opacity: 0; animation-name: clutch-control; animation-timing-function: steps(1, end); }
-    #clutch-demo .forward-pressed { opacity: 0; animation-name: clutch-forward; animation-timing-function: steps(1, end); }
-    #clutch-demo .back-pressed { opacity: 0; animation-name: clutch-back; animation-timing-function: steps(1, end); }
-    #clutch-demo .caption-idle { animation-name: clutch-idle-caption; animation-timing-function: steps(1, end); }
-    #clutch-demo .caption-forward { opacity: 0; animation-name: clutch-forward-caption; animation-timing-function: steps(1, end); }
-    #clutch-demo .caption-back { opacity: 0; animation-name: clutch-back-caption; animation-timing-function: steps(1, end); }
-    @keyframes clutch-desktops {
+    #mousespell-demo { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    #mousespell-demo .line { fill: none; stroke: #344055; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    #mousespell-demo .muted-line { fill: none; stroke: #b9c3d2; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    #mousespell-demo .ink { fill: #263247; }
+    #mousespell-demo .muted { fill: #56657b; }
+    #mousespell-demo .key-letter { fill: #56657b; font-size: 14px; text-anchor: middle; }
+    #mousespell-demo .motion { animation-duration: 8s; animation-iteration-count: infinite; }
+    #mousespell-demo .desktop-strip { animation-name: mousespell-desktops; animation-timing-function: cubic-bezier(.22, 1, .36, 1); }
+    #mousespell-demo .control-pressed { opacity: 0; animation-name: mousespell-control; animation-timing-function: steps(1, end); }
+    #mousespell-demo .forward-pressed { opacity: 0; animation-name: mousespell-forward; animation-timing-function: steps(1, end); }
+    #mousespell-demo .back-pressed { opacity: 0; animation-name: mousespell-back; animation-timing-function: steps(1, end); }
+    #mousespell-demo .caption-idle { animation-name: mousespell-idle-caption; animation-timing-function: steps(1, end); }
+    #mousespell-demo .caption-forward { opacity: 0; animation-name: mousespell-forward-caption; animation-timing-function: steps(1, end); }
+    #mousespell-demo .caption-back { opacity: 0; animation-name: mousespell-back-caption; animation-timing-function: steps(1, end); }
+    @keyframes mousespell-desktops {
       0%, 20% { transform: translateX(0); }
       31%, 70% { transform: translateX(-984px); }
       81%, 100% { transform: translateX(0); }
     }
-    @keyframes clutch-control {
+    @keyframes mousespell-control {
       0%, 12% { opacity: 0; }
       13%, 32% { opacity: 1; }
       33%, 62% { opacity: 0; }
       63%, 82% { opacity: 1; }
       83%, 100% { opacity: 0; }
     }
-    @keyframes clutch-forward {
+    @keyframes mousespell-forward {
       0%, 18% { opacity: 0; }
       19%, 31% { opacity: 1; }
       32%, 100% { opacity: 0; }
     }
-    @keyframes clutch-back {
+    @keyframes mousespell-back {
       0%, 68% { opacity: 0; }
       69%, 81% { opacity: 1; }
       82%, 100% { opacity: 0; }
     }
-    @keyframes clutch-idle-caption {
+    @keyframes mousespell-idle-caption {
       0%, 12% { opacity: 1; }
       13%, 99% { opacity: 0; }
       100% { opacity: 1; }
     }
-    @keyframes clutch-forward-caption {
+    @keyframes mousespell-forward-caption {
       0%, 12% { opacity: 0; }
       13%, 62% { opacity: 1; }
       63%, 100% { opacity: 0; }
     }
-    @keyframes clutch-back-caption {
+    @keyframes mousespell-back-caption {
       0%, 62% { opacity: 0; }
       63%, 99% { opacity: 1; }
       100% { opacity: 0; }
     }
     @media (prefers-reduced-motion: reduce) {
-      #clutch-demo .motion { animation: none; }
+      #mousespell-demo .motion { animation: none; }
     }
   </style>
   <defs>
-    <clipPath id="clutch-screen-clip"><rect width="984" height="342"/></clipPath>
-    <g id="clutch-key"><rect width="40" height="28" rx="5" fill="#fff" stroke="#c1cbd9" stroke-width="1.5"/></g>
-    <g id="clutch-folder" stroke="#344055" stroke-width="2" stroke-linejoin="round">
+    <clipPath id="mousespell-screen-clip"><rect width="984" height="342"/></clipPath>
+    <g id="mousespell-key"><rect width="40" height="28" rx="5" fill="#fff" stroke="#c1cbd9" stroke-width="1.5"/></g>
+    <g id="mousespell-folder" stroke="#344055" stroke-width="2" stroke-linejoin="round">
       <path d="M0 9V2a2 2 0 0 1 2-2h17l6 7h25a3 3 0 0 1 3 3v30a3 3 0 0 1-3 3H3a3 3 0 0 1-3-3Z" fill="#e7edf8"/>
       <path d="M0 14h53v26a3 3 0 0 1-3 3H3a3 3 0 0 1-3-3Z" fill="#fff"/>
     </g>
-    <g id="clutch-window-dots">
+    <g id="mousespell-window-dots">
       <circle r="4" fill="#f17a76"/><circle cx="15" r="4" fill="#e8bc5b"/><circle cx="30" r="4" fill="#7abca2"/>
     </g>
   </defs>
 
-  <g id="clutch-demo">
+  <g id="mousespell-demo">
     <rect width="1200" height="800" rx="16" fill="#f5f7fb"/>
-    <text x="100" y="43" class="ink" font-size="26" font-weight="600">Clutch</text>
+    <text x="100" y="43" class="ink" font-size="26" font-weight="600">MouseSpell</text>
     <text x="1100" y="41" class="muted" font-size="17" text-anchor="end">Control + mouse. Switch desktops.</text>
 
     <!-- The monitor stays still; only the clipped desktop strip moves. -->
@@ -114,17 +114,17 @@
     <text x="1078" y="109" class="ink" font-size="13" text-anchor="end">9:41</text>
 
     <g transform="translate(108 126)">
-      <g clip-path="url(#clutch-screen-clip)">
+      <g clip-path="url(#mousespell-screen-clip)">
         <g class="motion desktop-strip">
           <!-- Desktop 1: a simple Finder window and a folder on the desktop. -->
           <g>
             <rect width="984" height="342" fill="#eef2f8"/>
             <text x="26" y="33" class="muted" font-size="15">Desktop 1</text>
-            <use href="#clutch-folder" x="867" y="52"/>
+            <use href="#mousespell-folder" x="867" y="52"/>
             <text x="894" y="116" class="muted" font-size="13" text-anchor="middle">Projects</text>
             <rect x="172" y="47" width="600" height="237" rx="10" fill="#fff" stroke="#344055" stroke-width="2"/>
             <path d="M182 48h580a9 9 0 0 1 9 9v28H173V57a9 9 0 0 1 9-9Z" fill="#f8f9fc"/>
-            <use href="#clutch-window-dots" x="193" y="66"/>
+            <use href="#mousespell-window-dots" x="193" y="66"/>
             <text x="472" y="72" class="ink" font-size="14" font-weight="600" text-anchor="middle">Projects</text>
             <path d="M173 85h598" class="muted-line"/>
             <path d="M173 86h137v197H183a10 10 0 0 1-10-10Z" fill="#f0f3f8"/>
@@ -132,10 +132,10 @@
             <text x="197" y="128" fill="#2055a1" font-size="13">Projects</text>
             <text x="197" y="165" class="muted" font-size="13">Documents</text>
             <text x="197" y="202" class="muted" font-size="13">Downloads</text>
-            <use href="#clutch-folder" x="354" y="129"/>
-            <use href="#clutch-folder" x="494" y="129"/>
-            <use href="#clutch-folder" x="634" y="129"/>
-            <text x="380" y="196" class="ink" font-size="13" text-anchor="middle">Clutch</text>
+            <use href="#mousespell-folder" x="354" y="129"/>
+            <use href="#mousespell-folder" x="494" y="129"/>
+            <use href="#mousespell-folder" x="634" y="129"/>
+            <text x="380" y="196" class="ink" font-size="13" text-anchor="middle">MouseSpell</text>
             <text x="520" y="196" class="ink" font-size="13" text-anchor="middle">Design</text>
             <text x="660" y="196" class="ink" font-size="13" text-anchor="middle">Notes</text>
             <path d="M353 236h335" class="muted-line"/>
@@ -147,7 +147,7 @@
             <text x="26" y="33" class="muted" font-size="15">Desktop 2</text>
             <rect x="236" y="42" width="534" height="251" rx="10" fill="#fff" stroke="#344055" stroke-width="2"/>
             <path d="M246 43h514a9 9 0 0 1 9 9v28H237V52a9 9 0 0 1 9-9Z" fill="#f8f9fc"/>
-            <use href="#clutch-window-dots" x="257" y="61"/>
+            <use href="#mousespell-window-dots" x="257" y="61"/>
             <text x="503" y="67" class="ink" font-size="14" font-weight="600" text-anchor="middle">Notes</text>
             <path d="M237 80h532" class="muted-line"/>
             <text x="274" y="121" class="ink" font-size="22" font-weight="600">A little more room.</text>
@@ -192,16 +192,16 @@
     <rect x="141" y="600" width="605" height="163" rx="12" fill="#e9edf4" stroke="#344055" stroke-width="2"/>
     <g transform="translate(157 613)">
       <g>
-        <use href="#clutch-key"/><use href="#clutch-key" x="48"/><use href="#clutch-key" x="96"/><use href="#clutch-key" x="144"/><use href="#clutch-key" x="192"/><use href="#clutch-key" x="240"/><use href="#clutch-key" x="288"/><use href="#clutch-key" x="336"/><use href="#clutch-key" x="384"/><use href="#clutch-key" x="432"/><use href="#clutch-key" x="480"/><use href="#clutch-key" x="528"/>
+        <use href="#mousespell-key"/><use href="#mousespell-key" x="48"/><use href="#mousespell-key" x="96"/><use href="#mousespell-key" x="144"/><use href="#mousespell-key" x="192"/><use href="#mousespell-key" x="240"/><use href="#mousespell-key" x="288"/><use href="#mousespell-key" x="336"/><use href="#mousespell-key" x="384"/><use href="#mousespell-key" x="432"/><use href="#mousespell-key" x="480"/><use href="#mousespell-key" x="528"/>
         <g class="key-letter" transform="translate(20 19)"><text>Q</text><text x="48">W</text><text x="96">E</text><text x="144">R</text><text x="192">T</text><text x="240">Y</text><text x="288">U</text><text x="336">I</text><text x="384">O</text><text x="432">P</text><text x="480">[</text><text x="528">]</text></g>
       </g>
       <g transform="translate(12 36)">
-        <use href="#clutch-key"/><use href="#clutch-key" x="48"/><use href="#clutch-key" x="96"/><use href="#clutch-key" x="144"/><use href="#clutch-key" x="192"/><use href="#clutch-key" x="240"/><use href="#clutch-key" x="288"/><use href="#clutch-key" x="336"/><use href="#clutch-key" x="384"/><use href="#clutch-key" x="432"/>
+        <use href="#mousespell-key"/><use href="#mousespell-key" x="48"/><use href="#mousespell-key" x="96"/><use href="#mousespell-key" x="144"/><use href="#mousespell-key" x="192"/><use href="#mousespell-key" x="240"/><use href="#mousespell-key" x="288"/><use href="#mousespell-key" x="336"/><use href="#mousespell-key" x="384"/><use href="#mousespell-key" x="432"/>
         <rect x="480" width="76" height="28" rx="5" fill="#fff" stroke="#c1cbd9" stroke-width="1.5"/>
         <g class="key-letter" transform="translate(20 19)"><text>A</text><text x="48">S</text><text x="96">D</text><text x="144">F</text><text x="192">G</text><text x="240">H</text><text x="288">J</text><text x="336">K</text><text x="384">L</text><text x="432">;</text><text x="498">return</text></g>
       </g>
       <g transform="translate(24 72)">
-        <use href="#clutch-key"/><use href="#clutch-key" x="48"/><use href="#clutch-key" x="96"/><use href="#clutch-key" x="144"/><use href="#clutch-key" x="192"/><use href="#clutch-key" x="240"/><use href="#clutch-key" x="288"/><use href="#clutch-key" x="336"/><use href="#clutch-key" x="384"/>
+        <use href="#mousespell-key"/><use href="#mousespell-key" x="48"/><use href="#mousespell-key" x="96"/><use href="#mousespell-key" x="144"/><use href="#mousespell-key" x="192"/><use href="#mousespell-key" x="240"/><use href="#mousespell-key" x="288"/><use href="#mousespell-key" x="336"/><use href="#mousespell-key" x="384"/>
         <rect x="432" width="112" height="28" rx="5" fill="#fff" stroke="#c1cbd9" stroke-width="1.5"/>
         <g class="key-letter" transform="translate(20 19)"><text>Z</text><text x="48">X</text><text x="96">C</text><text x="144">V</text><text x="192">B</text><text x="240">N</text><text x="288">M</text><text x="336">,</text><text x="384">.</text><text x="468">shift</text></g>
       </g>

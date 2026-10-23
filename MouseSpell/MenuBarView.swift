@@ -9,7 +9,7 @@ struct MenuBarView: View {
         @Bindable var state = state
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text(verbatim: "Clutch").font(.headline)
+                Text(verbatim: "MouseSpell").font(.headline)
                 Spacer()
                 if state.hasAccessibility {
                     Toggle(L("common.enable"), isOn: $state.settings.isEnabled)

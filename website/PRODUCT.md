@@ -1,4 +1,4 @@
-# Clutch website
+# MouseSpell website
 
 ## Register
 
@@ -14,7 +14,7 @@ A minimal product website for Mac users who want to switch desktops or trigger s
 
 ## Approved scope
 
-The user requested a minimal, focused website, English/Chinese/Japanese, dark/light appearance, and implementation inside D:/project/Clutch using Svelte, Vite, and pnpm, followed by deployment. Use SvelteKit static generation to deliver crawlable HTML on GitHub Pages. Preserve the existing blue app icon and actual screenshots/demo.
+The user requested a minimal, focused website, English/Chinese/Japanese, dark/light appearance, and implementation inside D:/project/MouseSpell using Svelte, Vite, and pnpm, followed by deployment. Use SvelteKit static generation to deliver crawlable HTML on GitHub Pages. Preserve the existing blue app icon and actual screenshots/demo.
 
 ## Design
 

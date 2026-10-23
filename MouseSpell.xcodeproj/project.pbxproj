@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		C1000000000000000000A001 /* Clutch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clutch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1000000000000000000A001 /* MouseSpell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MouseSpell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1000000000000000000A010 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C1000000000000000000A011 /* README.zh-CN.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "README.zh-CN.md"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		C1000000000000000000A002 /* Clutch */ = {
+		C1000000000000000000A002 /* MouseSpell */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Clutch;
+			path = MouseSpell;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -36,7 +36,7 @@
 			children = (
 				C1000000000000000000A010 /* README.md */,
 				C1000000000000000000A011 /* README.zh-CN.md */,
-				C1000000000000000000A002 /* Clutch */,
+				C1000000000000000000A002 /* MouseSpell */,
 				C1000000000000000000A005 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -44,7 +44,7 @@
 		C1000000000000000000A005 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C1000000000000000000A001 /* Clutch.app */,
+				C1000000000000000000A001 /* MouseSpell.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -52,9 +52,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C1000000000000000000A006 /* Clutch */ = {
+		C1000000000000000000A006 /* MouseSpell */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C1000000000000000000A00A /* Build configuration list for PBXNativeTarget "Clutch" */;
+			buildConfigurationList = C1000000000000000000A00A /* Build configuration list for PBXNativeTarget "MouseSpell" */;
 			buildPhases = (
 				C1000000000000000000A007 /* Sources */,
 				C1000000000000000000A003 /* Frameworks */,
@@ -65,11 +65,11 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				C1000000000000000000A002 /* Clutch */,
+				C1000000000000000000A002 /* MouseSpell */,
 			);
-			name = Clutch;
-			productName = Clutch;
-			productReference = C1000000000000000000A001 /* Clutch.app */;
+			name = MouseSpell;
+			productName = MouseSpell;
+			productReference = C1000000000000000000A001 /* MouseSpell.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -82,7 +82,7 @@
 				LastSwiftUpdateCheck = 2700;
 				LastUpgradeCheck = 2710;
 			};
-			buildConfigurationList = C1000000000000000000A00D /* Build configuration list for PBXProject "Clutch" */;
+			buildConfigurationList = C1000000000000000000A00D /* Build configuration list for PBXProject "MouseSpell" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -98,7 +98,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C1000000000000000000A006 /* Clutch */,
+				C1000000000000000000A006 /* MouseSpell */,
 			);
 		};
 /* End PBXProject section */
@@ -223,15 +223,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 6JG2G82DRK;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Clutch;
+				INFOPLIST_KEY_CFBundleDisplayName = MouseSpell;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "MIT License";
@@ -239,7 +240,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_CODE_SIGN_FLAGS = "--requirements $(SRCROOT)/Signing/Debug.req";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.clutch.Clutch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -252,15 +253,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 6JG2G82DRK;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Clutch;
+				INFOPLIST_KEY_CFBundleDisplayName = MouseSpell;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "MIT License";
@@ -268,7 +270,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.clutch.Clutch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -279,7 +281,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C1000000000000000000A00A /* Build configuration list for PBXNativeTarget "Clutch" */ = {
+		C1000000000000000000A00A /* Build configuration list for PBXNativeTarget "MouseSpell" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C1000000000000000000A00E /* Debug */,
@@ -288,7 +290,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C1000000000000000000A00D /* Build configuration list for PBXProject "Clutch" */ = {
+		C1000000000000000000A00D /* Build configuration list for PBXProject "MouseSpell" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C1000000000000000000A00B /* Debug */,
